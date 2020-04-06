@@ -107,4 +107,4 @@ setStorage({
 ```
 ---
 
-**Mostly a proof of concept.... for now <3**
+**Mostly a (working) proof of concept... not ready for prod... yet ❤️ **
