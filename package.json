@@ -1,0 +1,30 @@
+{
+  "name": "slack",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/express": "^4.17.4",
+    "@types/node": "^13.11.0",
+    "@types/react": "^16.9.32",
+    "tslint": "^6.1.1",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "@slack/events-api": "^2.3.2",
+    "@slack/interactive-messages": "^1.5.0",
+    "@slack/web-api": "^5.8.0",
+    "@types/react-dom": "^16.9.6",
+    "@types/react-reconciler": "^0.18.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-reconciler": "^0.25.1"
+  },
+  "scripts": {
+    "build": "tsc",
+    "prestart": "yarn build",
+    "start": "node dist/example/server.js"
+  }
+}
