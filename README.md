@@ -36,7 +36,7 @@ A reactive Slack messaging framework.
 2. Create your message with React:
 
    ```tsx
-   // counter.tsx
+   // greeter.tsx
    import React from "react";
 
    import {
@@ -96,12 +96,12 @@ const client = redis.createClient();
 setStorage({
   set: (key, value) =>
     new Promise((resolve, reject) =>
-      redisClient.set(key, value, (err) => (err ? reject(err) : resolve()))
+      client.set(key, value, (err) => (err ? reject(err) : resolve()))
     ),
 
   get: (key) =>
     new Promise((resolve, reject) =>
-      redisClient.get(key, (err, reply) => (err ? reject(err) : resolve(reply)))
+      client.get(key, (err, reply) => (err ? reject(err) : resolve(reply)))
     ),
 });
 ```
