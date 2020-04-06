@@ -95,8 +95,8 @@ const client = redis.createClient();
 
 setStorage({
   set: (key, value) =>
-    new Promise((_, reject) =>
-      redisClient.set(key, value, (err) => err && reject(err))
+    new Promise((resolve, reject) =>
+      redisClient.set(key, value, (err) => (err ? reject(err) : resolve()))
     ),
 
   get: (key) =>
