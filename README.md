@@ -8,7 +8,7 @@ A reactive Slack messaging framework.
 
 # QuickStart
 
-With an [express](https://expressjs.com) server.
+With an [express](https://expressjs.com) server:
 
 ```ts
 import express from "express";
@@ -33,6 +33,8 @@ client.postMessage(Greeter, null, "@max", "hello there!");
 
 app.listen(3000);
 ```
+
+Create your message in class react:
 
 ```tsx
 // counter.tsx
@@ -64,6 +66,8 @@ export default function Greeter({ useState }: PheliaMessageProps) {
 }
 ```
 
-<p align="center">
-  <img src="/screenshots/screencap2.gif">
+Interact with your message:
+
+<p align="left">
+  <img width="250px" src="/screenshots/screencap2.gif">
 </p>
