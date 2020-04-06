@@ -34,7 +34,7 @@ client.postMessage(Greeter, null, "@max", "hello there!");
 app.listen(3000);
 ```
 
-Create your message in class react:
+Create your message with React:
 
 ```tsx
 // counter.tsx

@@ -1,6 +1,6 @@
 {
-  "name": "slack",
-  "version": "1.0.0",
+  "name": "phelia",
+  "version": "0.0.0-alpha.0",
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
