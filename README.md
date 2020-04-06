@@ -5,7 +5,7 @@
 A reactive Slack messaging framework.
 </p>
 
-# QuickStart
+# Quick start
 
 1. Create an [express](https://expressjs.com) server:
 
@@ -65,7 +65,43 @@ A reactive Slack messaging framework.
    }
    ```
 
-3)  Interact with your message:
-    <p align="left">
-      <img width="250px" src="/screenshots/screencap2.gif">
-    </p>
+3. Interact with your message:
+   <p align="left">
+     <img width="250px" src="/screenshots/screencap2.gif">
+   </p>
+
+# How this works
+
+Phelia transforms React components into Slack messages by use of a custom [React renderer](https://github.com/maxchehab/phelia/blob/master/src/core/renderer.ts). Components, with their internal state and props, are serialized into a [persistance layer](#persistance-layer). When a user interacts with a posted message Phelia retrieves the Component, re-hydrates it's state and props, and performs any actions which may result in a new state.
+
+# Persistance layer
+
+Phelia uses a persistance layer to store posted messages and their properties such as **state**, **props**, and Component type. The persistance method can be customized by use of the static `Phelia.SetStorage(storage)` method.
+
+A storage object must implement the following methods:
+
+- `set(key: string, value: string): void`
+- `get(key: string): string`
+
+_Storage methods may be asynchronous._
+
+By default the storage object is an in-memory map. Here is an example using Redis for storage:
+
+```ts
+import redis from "redis";
+import { PheliaClient } from "phelia/core";
+
+const client = redis.createClient();
+
+PheliaClient.SetStorage({
+  set: (key, value) =>
+    new Promise((_, reject) =>
+      redisClient.set(key, value, (err) => err && reject(err))
+    ),
+
+  get: (key) =>
+    new Promise((resolve, reject) =>
+      redisClient.get(key, (err, reply) => (err ? reject(err) : resolve(reply)))
+    ),
+});
+```
