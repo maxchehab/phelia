@@ -1,5 +1,6 @@
 import Reconciler, { OpaqueHandle } from "react-reconciler";
 import ReactReconciler from "react-reconciler";
+import { SlackUser } from "./phelia-client";
 
 type Type =
   | "root"
@@ -129,8 +130,12 @@ class HostConfig
     rootContainerInstance: Container,
     hostContext: HostContext
   ): boolean {
-    if (props.value === rootContainerInstance.value && props.onClick) {
-      props.onClick();
+    if (
+      rootContainerInstance.action &&
+      props.value === rootContainerInstance.action.value &&
+      props.onClick
+    ) {
+      props.onClick(rootContainerInstance.action.user);
 
       return true;
     }
@@ -274,9 +279,9 @@ class HostConfig
   }
 }
 
-function doRender(element: any, value?: string) {
+function doRender(element: any, action?: Action) {
   const reconcilerInstance = Reconciler(new HostConfig());
-  const root = { value, blocks: new Array() };
+  const root = { action, blocks: new Array() };
   const container = reconcilerInstance.createContainer(root, false, false);
 
   reconcilerInstance.updateContainer(element, container, null, null);
@@ -284,12 +289,17 @@ function doRender(element: any, value?: string) {
   return root.blocks;
 }
 
+interface Action {
+  value: string;
+  user: SlackUser;
+}
+
 export function render(
   element: React.FunctionComponentElement<any>,
-  value?: string
+  action?: Action
 ) {
-  if (value) {
-    doRender(element, value);
+  if (action) {
+    doRender(element, action);
   }
 
   return doRender(element);

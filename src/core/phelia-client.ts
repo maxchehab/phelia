@@ -3,9 +3,16 @@ import { WebClient, WebClientOptions } from "@slack/web-api";
 
 import { render } from "./renderer";
 
-export interface PheliaMessageProps<p> {
+export interface PheliaMessageProps<p = never> {
   props?: p;
-  useState: (key: string, initialValue: any) => any;
+  useState: (key: string, initialValue?: any) => any;
+}
+
+export interface SlackUser {
+  id: string;
+  username: string;
+  name: string;
+  team_id: string;
 }
 
 export type PheliaStorage = AsyncStorage | Storage;
@@ -46,7 +53,7 @@ export class PheliaClient {
 
     function useState<t>(
       key: string,
-      initialValue: t
+      initialValue?: t
     ): [t, (value: t) => void] {
       initializedState[key] = initialValue;
       return [initialValue, (_: t): void => null];

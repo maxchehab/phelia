@@ -1,4 +1,5 @@
 import React from "react";
+import { SlackUser } from "./phelia-client";
 
 export const Section = ({
   children,
@@ -22,7 +23,7 @@ export const Button = ({
   onClick,
 }: {
   children: string;
-  onClick?: () => void;
+  onClick?: (user: SlackUser) => void;
   value?: string;
 }) => (
   <slackButton value={value} onClick={onClick}>

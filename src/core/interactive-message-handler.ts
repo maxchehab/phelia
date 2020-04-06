@@ -60,7 +60,7 @@ export function interactiveMessageHandler(
 
     function useState<t>(
       key: string,
-      initialValue: t
+      initialValue?: t
     ): [t, (value: t) => void] {
       const [_, setState] = reactUseState(initialValue);
 
@@ -74,10 +74,10 @@ export function interactiveMessageHandler(
     }
 
     for (const { value } of payload.actions) {
-      render(
-        React.createElement(messageCache.get(name), { useState, props }),
-        value
-      );
+      render(React.createElement(messageCache.get(name), { useState, props }), {
+        value,
+        user: payload.user,
+      });
     }
 
     const blocks = render(
