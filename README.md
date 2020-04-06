@@ -76,7 +76,7 @@ Phelia transforms React components into Slack messages by use of a custom [React
 
 # Persistance layer
 
-Phelia uses a persistance layer to store posted messages and their properties such as **state**, **props**, and Component type. The persistance method can be customized by use of the static `Phelia.SetStorage(storage)` method.
+Phelia uses a persistance layer to store posted messages and their properties such as **state**, **props**, and Component type. The persistance method can be customized by use of the `setStorage(storage)` method.
 
 A storage object must implement the following methods:
 
@@ -89,11 +89,11 @@ By default the storage object is an in-memory map. Here is an example using Redi
 
 ```ts
 import redis from "redis";
-import { PheliaClient } from "phelia/core";
+import { setStorage } from "phelia/core";
 
 const client = redis.createClient();
 
-PheliaClient.SetStorage({
+setStorage({
   set: (key, value) =>
     new Promise((_, reject) =>
       redisClient.set(key, value, (err) => err && reject(err))
