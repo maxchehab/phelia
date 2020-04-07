@@ -34,7 +34,7 @@ Button.defaultProps = {
 type SectionProps =
   | {
       accessory?: ReactElement;
-      text: ReactElement | ReactElement[];
+      text: ReactElement | ReactElement[] | string;
     }
   | {
       accessory?: ReactElement;

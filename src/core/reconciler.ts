@@ -94,11 +94,17 @@ class HostConfig
     }
 
     if (componentType === "section") {
-      return {
+      const instance: any = {
         type: "section",
-        text: reconcile(props.text, rootContainerInstance.action)[0],
         accessory: reconcile(props.accessory, rootContainerInstance.action)[0],
+        text: reconcile(props.text, rootContainerInstance.action)[0],
       };
+
+      if (instance.text) {
+        instance.text.type = "plain_text";
+      }
+
+      return instance;
     }
 
     if (componentType === "image") {

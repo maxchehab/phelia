@@ -269,6 +269,19 @@ Array [
 ]
 `;
 
+exports[`Section Section with string Text property renders Section with child Text component in the fields property 1`] = `
+Array [
+  Object {
+    "accessory": undefined,
+    "text": Object {
+      "text": "some text",
+      "type": "plain_text",
+    },
+    "type": "section",
+  },
+]
+`;
+
 exports[`Section Section with two Text components renders Section with child Text components in the fields property 1`] = `
 Array [
   Object {
