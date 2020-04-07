@@ -71,7 +71,6 @@ describe("Section", () => {
 
     it("renders Section with child Text component in the fields property", () => {
       const blocks = reconcile(React.createElement(component));
-      console.log(JSON.stringify(blocks));
       expect(blocks).toMatchSnapshot();
     });
   });
