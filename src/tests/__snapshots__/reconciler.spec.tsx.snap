@@ -1,0 +1,314 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Actions Actions with one Button renders Actions with one Button 1`] = `
+Array [
+  Object {
+    "elements": Array [
+      Object {
+        "style": undefined,
+        "text": Object {
+          "emoji": undefined,
+          "text": "Click me",
+          "type": "plain_text",
+        },
+        "type": "button",
+        "url": undefined,
+        "value": undefined,
+      },
+    ],
+    "type": "actions",
+  },
+]
+`;
+
+exports[`Actions Actions with two Buttons renders Actions with two Buttons 1`] = `
+Array [
+  Object {
+    "elements": Array [
+      Object {
+        "style": undefined,
+        "text": Object {
+          "emoji": undefined,
+          "text": "Click me",
+          "type": "plain_text",
+        },
+        "type": "button",
+        "url": undefined,
+        "value": undefined,
+      },
+      Object {
+        "style": undefined,
+        "text": Object {
+          "emoji": undefined,
+          "text": "No, click me",
+          "type": "plain_text",
+        },
+        "type": "button",
+        "url": undefined,
+        "value": undefined,
+      },
+    ],
+    "type": "actions",
+  },
+]
+`;
+
+exports[`Button Button with danger style renders Button with danger style 1`] = `
+Array [
+  Object {
+    "style": "danger",
+    "text": Object {
+      "emoji": undefined,
+      "text": "Click me",
+      "type": "plain_text",
+    },
+    "type": "button",
+    "url": undefined,
+    "value": undefined,
+  },
+]
+`;
+
+exports[`Button Button with emoji property renders Button with emoji text property 1`] = `
+Array [
+  Object {
+    "style": undefined,
+    "text": Object {
+      "emoji": true,
+      "text": "Click me",
+      "type": "plain_text",
+    },
+    "type": "button",
+    "url": undefined,
+    "value": undefined,
+  },
+]
+`;
+
+exports[`Button Button with url renders Button with url 1`] = `
+Array [
+  Object {
+    "style": undefined,
+    "text": Object {
+      "emoji": undefined,
+      "text": "Click me",
+      "type": "plain_text",
+    },
+    "type": "button",
+    "url": "https://google.com",
+    "value": undefined,
+  },
+]
+`;
+
+exports[`Button Button with value property renders Button with value property 1`] = `
+Array [
+  Object {
+    "style": undefined,
+    "text": Object {
+      "emoji": undefined,
+      "text": "Click me",
+      "type": "plain_text",
+    },
+    "type": "button",
+    "url": undefined,
+    "value": "click",
+  },
+]
+`;
+
+exports[`Button Default button renders Button with default properties 1`] = `
+Array [
+  Object {
+    "style": undefined,
+    "text": Object {
+      "emoji": undefined,
+      "text": "Click me",
+      "type": "plain_text",
+    },
+    "type": "button",
+    "url": undefined,
+    "value": undefined,
+  },
+]
+`;
+
+exports[`Section Section with Button accessory renders Section with a Button accessory 1`] = `
+Array [
+  Object {
+    "accessory": Object {
+      "style": undefined,
+      "text": Object {
+        "emoji": undefined,
+        "text": "Click me",
+        "type": "plain_text",
+      },
+      "type": "button",
+      "url": undefined,
+      "value": "click",
+    },
+    "text": Object {
+      "emoji": undefined,
+      "text": "Hello world",
+      "type": "plain_text",
+    },
+    "type": "section",
+  },
+]
+`;
+
+exports[`Section Section with Button accessory, Text, and Fields renders Section with a Button accessory, Text, and fields 1`] = `
+Array [
+  Object {
+    "accessory": Object {
+      "style": undefined,
+      "text": Object {
+        "emoji": undefined,
+        "text": "Click me",
+        "type": "plain_text",
+      },
+      "type": "button",
+      "url": undefined,
+      "value": undefined,
+    },
+    "fields": Array [
+      Object {
+        "emoji": undefined,
+        "text": "Field #1",
+        "type": "plain_text",
+      },
+      Object {
+        "emoji": undefined,
+        "text": "Field #2",
+        "type": "plain_text",
+      },
+    ],
+    "text": Object {
+      "emoji": undefined,
+      "text": "The text",
+      "type": "plain_text",
+    },
+    "type": "section",
+  },
+]
+`;
+
+exports[`Section Section with a multi-child Text component renders Section with a multi-child Text component 1`] = `
+Array [
+  Object {
+    "accessory": undefined,
+    "fields": Array [
+      Object {
+        "emoji": undefined,
+        "text": "First text",
+        "type": "plain_text",
+      },
+    ],
+    "text": undefined,
+    "type": "section",
+  },
+]
+`;
+
+exports[`Section Section with a text property and no children renders Section with a text property and empty fields 1`] = `
+Array [
+  Object {
+    "accessory": undefined,
+    "text": Object {
+      "emoji": undefined,
+      "text": "Hello world",
+      "type": "plain_text",
+    },
+    "type": "section",
+  },
+]
+`;
+
+exports[`Section Section with one Text component renders Section with child Text component in the fields property 1`] = `
+Array [
+  Object {
+    "accessory": undefined,
+    "fields": Array [
+      Object {
+        "emoji": undefined,
+        "text": "First text",
+        "type": "plain_text",
+      },
+    ],
+    "text": undefined,
+    "type": "section",
+  },
+]
+`;
+
+exports[`Section Section with two Text components renders Section with child Text components in the fields property 1`] = `
+Array [
+  Object {
+    "accessory": undefined,
+    "fields": Array [
+      Object {
+        "emoji": undefined,
+        "text": "First text",
+        "type": "plain_text",
+      },
+      Object {
+        "emoji": undefined,
+        "text": "First text",
+        "type": "plain_text",
+      },
+    ],
+    "text": undefined,
+    "type": "section",
+  },
+]
+`;
+
+exports[`Text Default Text renders plain_text Text without emoji 1`] = `
+Array [
+  Object {
+    "emoji": undefined,
+    "text": "hello world",
+    "type": "plain_text",
+  },
+]
+`;
+
+exports[`Text Text with emoji renders plain_text Text with emoji 1`] = `
+Array [
+  Object {
+    "emoji": true,
+    "text": "hello world",
+    "type": "plain_text",
+  },
+]
+`;
+
+exports[`Text Text with mrkdwn and verbatim property renders mrkdwn Text with verbatim 1`] = `
+Array [
+  Object {
+    "text": "hello world",
+    "type": "mrkdwn",
+    "verbatim": true,
+  },
+]
+`;
+
+exports[`Text Text with mrkdwn property renders mrkdwn Text without verbatim 1`] = `
+Array [
+  Object {
+    "text": "hello world",
+    "type": "mrkdwn",
+    "verbatim": undefined,
+  },
+]
+`;
+
+exports[`Text Text with two children renders Text with children concatenated 1`] = `
+Array [
+  Object {
+    "emoji": undefined,
+    "text": "hello world",
+    "type": "plain_text",
+  },
+]
+`;

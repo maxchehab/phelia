@@ -1,7 +1,7 @@
 import React from "react";
 import { WebClient, WebClientOptions } from "@slack/web-api";
 
-import { render } from "./renderer";
+import { reconcile } from "./reconciler";
 
 export interface PheliaMessageProps<p = never> {
   props?: p;
@@ -59,7 +59,7 @@ export class PheliaClient {
       return [initialValue, (_: t): void => null];
     }
 
-    const blocks = render(React.createElement(message, { useState, props }));
+    const blocks = reconcile(React.createElement(message, { useState, props }));
 
     const { channel: channelID, ts } = await this.client.chat.postMessage({
       channel,

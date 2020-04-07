@@ -72,7 +72,7 @@ A reactive Slack messaging framework.
 
 # How this works
 
-Phelia transforms React components into Slack messages by use of a custom [React renderer](https://github.com/maxchehab/phelia/blob/master/src/core/renderer.ts). Components, with their internal state and props, are serialized into a [persistance layer](#persistance-layer). When a user interacts with a posted message Phelia retrieves the Component, re-hydrates it's state and props, and performs any actions which may result in a new state.
+Phelia transforms React components into Slack messages by use of a custom [React reconciler](https://github.com/maxchehab/phelia/blob/master/src/core/reconciler.ts). Components, with their internal state and props, are serialized into a [persistance layer](#persistance-layer). When a user interacts with a posted message Phelia retrieves the Component, re-hydrates it's state and props, and performs any actions which may result in a new state.
 
 # Persistance layer
 
@@ -105,6 +105,7 @@ setStorage({
     ),
 });
 ```
+
 ---
 
 **Mostly a (working) proof of concept... not ready for prod... yet ❤️**

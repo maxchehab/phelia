@@ -7,12 +7,20 @@ export default function Greeter({ useState }: PheliaMessageProps) {
 
   return (
     <>
-      <Section>
-        <Text>{name ? `Hello ${name}` : "Click the button"}</Text>
+      <Section
+        accessory={
+          <Button value={"click"} onClick={(user) => setName(user.username)}>
+            Click me
+          </Button>
+        }
+        text={<Text>Click the button</Text>}
+      >
+        <Text type="mrkdwn">*Name:*</Text>
+        <Text>{name ? name : "<unknown>"}</Text>
       </Section>
       <Actions>
-        <Button value="greet" onClick={(user) => setName(user.username)}>
-          Click me
+        <Button style="danger" value="reste" onClick={() => setName(undefined)}>
+          Reset
         </Button>
       </Actions>
     </>

@@ -1,17 +1,7 @@
 declare namespace JSX {
+  type ComponentType = "text" | "button" | "actions" | "section";
+
   interface IntrinsicElements {
-    slackActions: { children: JSX.Element[] | JSX.Element };
-    slackButton: {
-      children: string;
-      onClick?: (user: {
-        id: string;
-        username: string;
-        name: string;
-        team_id: string;
-      }) => void;
-      value?: string;
-    };
-    slackSection: { children: JSX.Element[] | JSX.Element };
-    slackText: { children: any };
+    component: { children?: React.ReactNode; componentType: ComponentType };
   }
 }

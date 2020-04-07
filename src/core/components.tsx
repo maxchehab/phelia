@@ -1,32 +1,57 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { SlackUser } from "./phelia-client";
 
-export const Section = ({
-  children,
-}: {
-  children: JSX.Element | JSX.Element[];
-}) => <slackSection>{children}</slackSection>;
+interface TextProps {
+  children: React.ReactText | React.ReactText[];
+  emoji?: boolean;
+  type: "plain_text" | "mrkdwn";
+  verbatim?: boolean;
+}
 
-export const Text = ({ children }: { children: any }) => (
-  <slackText>{children}</slackText>
+const Text = (props: TextProps) => (
+  <component componentType="text" {...props} />
 );
+Text.defaultProps = {
+  type: "plain_text",
+};
 
-export const Actions = ({
-  children,
-}: {
-  children: JSX.Element | JSX.Element[];
-}) => <slackActions>{children}</slackActions>;
-
-export const Button = ({
-  children,
-  value,
-  onClick,
-}: {
+interface ButtonProps {
   children: string;
+  emoji?: boolean;
   onClick?: (user: SlackUser) => void;
+  style?: undefined | "danger" | "primary";
+  url?: string;
   value?: string;
-}) => (
-  <slackButton value={value} onClick={onClick}>
-    {children}
-  </slackButton>
+}
+
+const Button = (props: ButtonProps) => (
+  <component componentType={"button"} {...props} />
 );
+Button.defaultProps = {
+  style: undefined,
+};
+
+type SectionProps =
+  | {
+      accessory?: ReactElement;
+      text: ReactElement | ReactElement[];
+    }
+  | {
+      accessory?: ReactElement;
+      children: ReactElement | ReactElement[];
+    };
+const Section = (props: SectionProps) => (
+  <component componentType="section" {...props} />
+);
+
+Section.defaultProps = {};
+
+interface ActionsProps {
+  children: ReactElement | ReactElement[];
+}
+
+const Actions = (props: ActionsProps) => (
+  <component componentType="actions" {...props} />
+);
+
+export { Text, Section, Button, Actions };

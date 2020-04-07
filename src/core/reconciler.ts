@@ -2,19 +2,16 @@ import Reconciler, { OpaqueHandle } from "react-reconciler";
 import ReactReconciler from "react-reconciler";
 import { SlackUser } from "./phelia-client";
 
-type Type =
-  | "root"
-  | "slackButton"
-  | "slackActions"
-  | "slackSection"
-  | "slackText";
-type Props = any;
+type Type = any;
+type Props = { componentType: JSX.ComponentType } & {
+  [key: string]: any;
+};
 type Container = any;
 type Instance = any;
 type TextInstance = any;
 type HydratableInstance = any;
 type PublicInstance = any;
-type HostContext = { type: Type };
+type HostContext = any;
 type UpdatePayload = any;
 type ChildSet = any;
 type TimeoutHandle = any;
@@ -66,23 +63,42 @@ class HostConfig
     hostContext: HostContext,
     internalInstanceHandle: OpaqueHandle
   ): Instance {
-    if (type === "slackButton") {
+    const { componentType } = props;
+
+    // https://api.slack.com/reference/block-kit/block-elements#button
+    if (componentType === "button") {
       return {
         type: "button",
         value: props.value,
+        style: props.style,
+        url: props.url,
+        text: { type: "plain_text", text: "", emoji: props.emoji },
       };
     }
 
-    if (type === "slackText") {
-      return { type: "text" };
+    // https://api.slack.com/reference/block-kit/composition-objects#text
+    if (componentType === "text") {
+      const instance: any = { type: props.type, text: "" };
+
+      if (props.type === "mrkdwn") {
+        instance.verbatim = props.verbatim;
+      } else if (props.type === "plain_text") {
+        instance.emoji = props.emoji;
+      }
+
+      return instance;
     }
 
-    if (type === "slackActions") {
+    if (componentType === "actions") {
       return { type: "actions", elements: [] };
     }
 
-    if (type === "slackSection") {
-      return { type: "section", fields: [] };
+    if (componentType === "section") {
+      return {
+        type: "section",
+        text: reconcile(props.text, rootContainerInstance.action)[0],
+        accessory: reconcile(props.accessory, rootContainerInstance.action)[0],
+      };
     }
 
     throw Error("createInstance::" + JSON.stringify({ type }));
@@ -98,19 +114,25 @@ class HostConfig
     }
 
     if (parentInstance.type === "button") {
-      parentInstance.text = child;
+      parentInstance.text.text += child.text;
       return;
     }
 
     if (parentInstance.type === "section") {
+      if (!parentInstance.fields) {
+        parentInstance.fields = [];
+      }
+
       parentInstance.fields.push(child);
       return;
     }
 
-    // todo, if parent has markdown props, propagate to the parent instance after replace
-    if (parentInstance.type === "text") {
-      parentInstance.type = child.type;
-      parentInstance.text = child.text;
+    if (
+      parentInstance.type === "mrkdwn" ||
+      parentInstance.type === "plain_text"
+    ) {
+      parentInstance.text += child.text;
+
       return;
     }
 
@@ -136,7 +158,6 @@ class HostConfig
       props.onClick
     ) {
       props.onClick(rootContainerInstance.action.user);
-
       return true;
     }
 
@@ -168,7 +189,7 @@ class HostConfig
   ) {
     debug("createTextInstance");
     return {
-      type: "plain_text",
+      type: "text",
       text,
     };
   }
@@ -279,7 +300,15 @@ class HostConfig
   }
 }
 
-function doRender(element: any, action?: Action) {
+interface Action {
+  value: string;
+  user: SlackUser;
+}
+
+export function reconcile(
+  element: React.FunctionComponentElement<any>,
+  action?: Action
+) {
   const reconcilerInstance = Reconciler(new HostConfig());
   const root = { action, blocks: new Array() };
   const container = reconcilerInstance.createContainer(root, false, false);
@@ -287,20 +316,4 @@ function doRender(element: any, action?: Action) {
   reconcilerInstance.updateContainer(element, container, null, null);
 
   return root.blocks;
-}
-
-interface Action {
-  value: string;
-  user: SlackUser;
-}
-
-export function render(
-  element: React.FunctionComponentElement<any>,
-  action?: Action
-) {
-  if (action) {
-    doRender(element, action);
-  }
-
-  return doRender(element);
 }
