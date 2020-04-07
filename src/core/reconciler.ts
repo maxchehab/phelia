@@ -115,6 +115,24 @@ class HostConfig
       };
     }
 
+    if (componentType === "image-block") {
+      const instance: any = {
+        type: "image",
+        image_url: props.image_url,
+        alt_text: props.alt_text,
+      };
+
+      if (props.title) {
+        instance.title = {
+          type: "plain_text",
+          text: props.title,
+          emoji: props.emoji,
+        };
+      }
+
+      return instance;
+    }
+
     throw Error(
       "Unknown Component type " + JSON.stringify({ componentType, type })
     );

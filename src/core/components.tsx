@@ -34,7 +34,7 @@ Button.defaultProps = {
 type SectionProps =
   | {
       accessory?: ReactElement;
-      text: ReactElement | ReactElement[] | string;
+      text: ReactElement | string;
     }
   | {
       accessory?: ReactElement;
@@ -57,11 +57,21 @@ const Actions = (props: ActionsProps) => (
 interface ImageProps {
   image_url: string;
   alt_text: string;
-  emoji?: boolean;
 }
 
 const Image = (props: ImageProps) => (
   <component componentType="image" {...props} />
 );
 
-export { Text, Section, Button, Actions, Image };
+interface ImageBlock {
+  image_url: string;
+  alt_text: string;
+  emoji?: boolean;
+  title?: string;
+}
+
+const ImageBlock = (props: ImageBlock) => (
+  <component componentType="image-block" {...props} />
+);
+
+export { Text, Section, Button, Actions, Image, ImageBlock };

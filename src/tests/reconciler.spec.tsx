@@ -1,5 +1,13 @@
 import React from "react";
-import { Section, Text, Button, reconcile, Actions, Image } from "../core";
+import {
+  Actions,
+  Button,
+  Image,
+  ImageBlock,
+  reconcile,
+  Section,
+  Text,
+} from "../core";
 
 describe("Text", () => {
   describe("Default Text", () => {
@@ -290,12 +298,59 @@ describe("Actions", () => {
 });
 
 describe("Image", () => {
-  describe("Default image", () => {
+  describe("Default Image", () => {
     const component = () => (
       <Image image_url="https://google.com/image.png" alt_text="an image" />
     );
 
     it("renders Image with image_url and alt_text properties", () => {
+      const blocks = reconcile(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+});
+
+describe("Image Block", () => {
+  describe("Default Image Block", () => {
+    const component = () => (
+      <ImageBlock
+        image_url="https://google.com/image.png"
+        alt_text="an image"
+      />
+    );
+
+    it("renders Image Block with image_url and alt_text properties", () => {
+      const blocks = reconcile(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("Image Block with string title", () => {
+    const component = () => (
+      <ImageBlock
+        image_url="https://google.com/image.png"
+        alt_text="an image"
+        title="a string"
+      />
+    );
+
+    it("renders Image Block with title", () => {
+      const blocks = reconcile(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("Image Block with emoji property", () => {
+    const component = () => (
+      <ImageBlock
+        image_url="https://google.com/image.png"
+        alt_text="an image"
+        title="a string"
+        emoji
+      />
+    );
+
+    it("renders Image Block with title", () => {
       const blocks = reconcile(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });

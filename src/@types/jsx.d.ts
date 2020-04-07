@@ -1,5 +1,11 @@
 declare namespace JSX {
-  type ComponentType = "text" | "button" | "actions" | "section" | "image";
+  type ComponentType =
+    | "actions"
+    | "button"
+    | "image-block"
+    | "image"
+    | "section"
+    | "text";
 
   interface IntrinsicElements {
     component: { children?: React.ReactNode; componentType: ComponentType };
