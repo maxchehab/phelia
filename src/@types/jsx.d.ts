@@ -2,6 +2,7 @@ declare namespace JSX {
   type ComponentType =
     | "actions"
     | "button"
+    | "divider"
     | "image-block"
     | "image"
     | "section"

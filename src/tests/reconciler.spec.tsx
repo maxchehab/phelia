@@ -7,6 +7,7 @@ import {
   reconcile,
   Section,
   Text,
+  Divider,
 } from "../core";
 
 describe("Text", () => {
@@ -351,6 +352,17 @@ describe("Image Block", () => {
     );
 
     it("renders Image Block with title", () => {
+      const blocks = reconcile(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+});
+
+describe("Divider", () => {
+  describe("Default Divider", () => {
+    const component = () => <Divider />;
+
+    it("renders Divider", () => {
       const blocks = reconcile(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });

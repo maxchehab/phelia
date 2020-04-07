@@ -74,4 +74,6 @@ const ImageBlock = (props: ImageBlock) => (
   <component componentType="image-block" {...props} />
 );
 
-export { Text, Section, Button, Actions, Image, ImageBlock };
+const Divider = () => <component componentType="divider" />;
+
+export { Text, Section, Button, Actions, Image, ImageBlock, Divider };

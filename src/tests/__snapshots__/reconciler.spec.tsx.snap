@@ -133,6 +133,14 @@ Array [
 ]
 `;
 
+exports[`Divider Default Divider renders Divider 1`] = `
+Array [
+  Object {
+    "type": "divider",
+  },
+]
+`;
+
 exports[`Image Block Default Image Block renders Image Block with image_url and alt_text properties 1`] = `
 Array [
   Object {

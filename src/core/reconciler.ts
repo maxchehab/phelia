@@ -133,6 +133,12 @@ class HostConfig
       return instance;
     }
 
+    if (componentType === "divider") {
+      return {
+        type: "divider",
+      };
+    }
+
     throw Error(
       "Unknown Component type " + JSON.stringify({ componentType, type })
     );

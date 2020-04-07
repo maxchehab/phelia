@@ -1,6 +1,12 @@
 import React from "react";
 
-import { Actions, Button, PheliaMessageProps, ImageBlock } from "../core";
+import {
+  Actions,
+  Button,
+  Divider,
+  ImageBlock,
+  PheliaMessageProps,
+} from "../core";
 
 const imageUrls = [
   "https://cdn.pixabay.com/photo/2015/06/08/15/02/pug-801826__480.jpg",
@@ -25,6 +31,7 @@ export default function RandomImage({ useState }: PheliaMessageProps) {
         alt_text={"a very adorably doggy dog"}
         image_url={imageUrl}
       />
+      <Divider />
       <Actions>
         <Button
           style="primary"
