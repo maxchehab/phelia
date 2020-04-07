@@ -8,6 +8,7 @@ import {
   Section,
   Text,
   Divider,
+  Context,
 } from "../core";
 
 describe("Text", () => {
@@ -363,6 +364,42 @@ describe("Divider", () => {
     const component = () => <Divider />;
 
     it("renders Divider", () => {
+      const blocks = reconcile(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+});
+
+describe("Context", () => {
+  describe("Context with one element", () => {
+    const component = () => (
+      <Context>
+        <ImageBlock
+          image_url="https://google.com/image.png"
+          alt_text="an image"
+        />
+      </Context>
+    );
+
+    it("renders Context with one element", () => {
+      const blocks = reconcile(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("Context with Image and Text component", () => {
+    const component = () => (
+      <Context>
+        <ImageBlock
+          image_url="https://google.com/image.png"
+          alt_text="an image"
+        />
+
+        <Text type="mrkdwn">*Hello world*</Text>
+      </Context>
+    );
+
+    it("renders Context with one element", () => {
       const blocks = reconcile(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });

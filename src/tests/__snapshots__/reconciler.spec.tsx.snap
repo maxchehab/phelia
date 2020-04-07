@@ -133,6 +133,41 @@ Array [
 ]
 `;
 
+exports[`Context Context with Image and Text component renders Context with one element 1`] = `
+Array [
+  Object {
+    "elements": Array [
+      Object {
+        "alt_text": "an image",
+        "image_url": "https://google.com/image.png",
+        "type": "image",
+      },
+      Object {
+        "text": "*Hello world*",
+        "type": "mrkdwn",
+        "verbatim": undefined,
+      },
+    ],
+    "type": "context",
+  },
+]
+`;
+
+exports[`Context Context with one element renders Context with one element 1`] = `
+Array [
+  Object {
+    "elements": Array [
+      Object {
+        "alt_text": "an image",
+        "image_url": "https://google.com/image.png",
+        "type": "image",
+      },
+    ],
+    "type": "context",
+  },
+]
+`;
+
 exports[`Divider Default Divider renders Divider 1`] = `
 Array [
   Object {

@@ -111,7 +111,7 @@ setStorage({
 | Component                                                                                                           |     | Example                                                                                      |
 | ------------------------------------------------------------------------------------------------------------------- | --- | -------------------------------------------------------------------------------------------- |
 | [Actions](https://api.slack.com/reference/block-kit/blocks#actions)                                                 | ✅  | [Counter](https://github.com/maxchehab/phelia/blob/master/src/example/counter.tsx)           |
-| [Context](https://api.slack.com/reference/block-kit/blocks#context)                                                 | ❌  |
+| [Context](https://api.slack.com/reference/block-kit/blocks#context)                                                 | ✅  |
 | [Divider](https://api.slack.com/reference/block-kit/blocks#divider)                                                 | ✅  | [Random Image](https://github.com/maxchehab/phelia/blob/master/src/example/random-image.tsx) |
 | [File](https://api.slack.com/reference/block-kit/blocks#file)                                                       | ❌  |
 | [Image Block](https://api.slack.com/reference/block-kit/blocks#image)                                               | ✅  | [Random Image](https://github.com/maxchehab/phelia/blob/master/src/example/random-image.tsx) |

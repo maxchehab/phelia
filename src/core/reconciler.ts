@@ -139,6 +139,10 @@ class HostConfig
       };
     }
 
+    if (componentType === "context") {
+      return { type: "context", elements: [] };
+    }
+
     throw Error(
       "Unknown Component type " + JSON.stringify({ componentType, type })
     );
@@ -149,6 +153,11 @@ class HostConfig
   ): void {
     debug("appendInitialChild");
     if (parentInstance.type === "actions") {
+      parentInstance.elements.push(child);
+      return;
+    }
+
+    if (parentInstance.type === "context") {
       parentInstance.elements.push(child);
       return;
     }

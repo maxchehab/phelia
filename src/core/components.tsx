@@ -76,4 +76,12 @@ const ImageBlock = (props: ImageBlock) => (
 
 const Divider = () => <component componentType="divider" />;
 
-export { Text, Section, Button, Actions, Image, ImageBlock, Divider };
+interface ContextProps {
+  children: ReactElement | ReactElement[];
+}
+
+const Context = (props: ContextProps) => (
+  <component componentType="context" {...props} />
+);
+
+export { Text, Section, Button, Actions, Image, ImageBlock, Divider, Context };
