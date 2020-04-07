@@ -106,6 +106,31 @@ setStorage({
 });
 ```
 
----
+# Support
 
-**Mostly a (working) proof of concept... not ready for prod... yet ❤️**
+| Component                                                                                                           | Supported |
+| ------------------------------------------------------------------------------------------------------------------- | --------- |
+| [Actions](https://api.slack.com/reference/block-kit/blocks#actions)                                                 | ✅        |
+| [Context](https://api.slack.com/reference/block-kit/blocks#context)                                                 | ❌        |
+| [Divider](https://api.slack.com/reference/block-kit/blocks#divider)                                                 | ❌        |
+| [File](https://api.slack.com/reference/block-kit/blocks#file)                                                       | ❌        |
+| [Image](https://api.slack.com/reference/block-kit/blocks#image)                                                     | ❌        |
+| [Input](https://api.slack.com/reference/block-kit/blocks#input)                                                     | ❌        |
+| [Section](https://api.slack.com/reference/block-kit/blocks#section)                                                 | ✅        |
+| [Button](https://api.slack.com/reference/block-kit/block-elements#button)                                           | ✅        |
+| [Checkboxes](https://api.slack.com/reference/block-kit/block-elements#checkboxes)                                   | ❌        |
+| [Date Picker](https://api.slack.com/reference/block-kit/block-elements#datepicker)                                  | ❌        |
+| [Image](https://api.slack.com/reference/block-kit/block-elements#image)                                             | ❌        |
+| [Multi-select Menu](https://api.slack.com/reference/block-kit/block-elements#multi_select)                          | ❌        |
+| [Overflow Menu](https://api.slack.com/reference/block-kit/block-elements#overflow)                                  | ❌        |
+| [Plain-text input](https://api.slack.com/reference/block-kit/block-elements#input)                                  | ❌        |
+| [Radio button group](https://api.slack.com/reference/block-kit/block-elements#radio)                                | ❌        |
+| [Select Menus](https://api.slack.com/reference/block-kit/block-elements#select)                                     | ❌        |
+| [Text](https://api.slack.com/reference/block-kit/composition-objects#text)                                          | ✅        |
+| [Confirmation dialog](https://api.slack.com/reference/block-kit/composition-objects#confirm)                        | ❌        |
+| [Option](https://api.slack.com/reference/block-kit/composition-objects#option)                                      | ❌        |
+| [Option group](https://api.slack.com/reference/block-kit/composition-objects#option_group)                          | ❌        |
+| [Filter for conversation lists](https://api.slack.com/reference/block-kit/composition-objects#filter_conversations) | ❌        |
+| [Messages](https://api.slack.com/surfaces/messages)                                                                 | ✅        |
+| [Modals](https://api.slack.com/surfaces/modals)                                                                     | ❌        |
+| [Home Tab](https://api.slack.com/surfaces/tabs)                                                                     | ❌        |
