@@ -5,6 +5,7 @@ Array [
   Object {
     "elements": Array [
       Object {
+        "confirm": undefined,
         "style": undefined,
         "text": Object {
           "emoji": undefined,
@@ -26,6 +27,7 @@ Array [
   Object {
     "elements": Array [
       Object {
+        "confirm": undefined,
         "style": undefined,
         "text": Object {
           "emoji": undefined,
@@ -37,6 +39,7 @@ Array [
         "value": undefined,
       },
       Object {
+        "confirm": undefined,
         "style": undefined,
         "text": Object {
           "emoji": undefined,
@@ -53,9 +56,46 @@ Array [
 ]
 `;
 
+exports[`Button Button with Confirm component renders Button with emoji text property 1`] = `
+Array [
+  Object {
+    "confirm": Object {
+      "confirm": Object {
+        "text": "Yes, I confirm!",
+        "type": "plain_text",
+      },
+      "deny": Object {
+        "text": "No, go away!",
+        "type": "plain_text",
+      },
+      "isConfirm": [Function],
+      "style": undefined,
+      "text": Object {
+        "text": "Do you confirm me?",
+        "type": "plain_text",
+      },
+      "title": Object {
+        "text": "Confirm me?",
+        "type": "plain_text",
+      },
+    },
+    "style": undefined,
+    "text": Object {
+      "emoji": true,
+      "text": "Click me",
+      "type": "plain_text",
+    },
+    "type": "button",
+    "url": undefined,
+    "value": undefined,
+  },
+]
+`;
+
 exports[`Button Button with danger style renders Button with danger style 1`] = `
 Array [
   Object {
+    "confirm": undefined,
     "style": "danger",
     "text": Object {
       "emoji": undefined,
@@ -72,6 +112,7 @@ Array [
 exports[`Button Button with emoji property renders Button with emoji text property 1`] = `
 Array [
   Object {
+    "confirm": undefined,
     "style": undefined,
     "text": Object {
       "emoji": true,
@@ -88,6 +129,7 @@ Array [
 exports[`Button Button with url renders Button with url 1`] = `
 Array [
   Object {
+    "confirm": undefined,
     "style": undefined,
     "text": Object {
       "emoji": undefined,
@@ -104,6 +146,7 @@ Array [
 exports[`Button Button with value property renders Button with value property 1`] = `
 Array [
   Object {
+    "confirm": undefined,
     "style": undefined,
     "text": Object {
       "emoji": undefined,
@@ -120,6 +163,7 @@ Array [
 exports[`Button Default button renders Button with default properties 1`] = `
 Array [
   Object {
+    "confirm": undefined,
     "style": undefined,
     "text": Object {
       "emoji": undefined,
@@ -129,6 +173,60 @@ Array [
     "type": "button",
     "url": undefined,
     "value": undefined,
+  },
+]
+`;
+
+exports[`Confirm Confirm with Text Component properties renders Confirm component with Text Component properties 1`] = `
+Array [
+  Object {
+    "confirm": Object {
+      "emoji": true,
+      "text": "Yes, I confirm!",
+      "type": "plain_text",
+    },
+    "deny": Object {
+      "emoji": true,
+      "text": "No go away",
+      "type": "plain_text",
+    },
+    "isConfirm": [Function],
+    "style": undefined,
+    "text": Object {
+      "text": "*No go away*",
+      "type": "mrkdwn",
+      "verbatim": undefined,
+    },
+    "title": Object {
+      "emoji": true,
+      "text": "Confirm me?",
+      "type": "plain_text",
+    },
+  },
+]
+`;
+
+exports[`Confirm Confirm with string properties renders with string properties 1`] = `
+Array [
+  Object {
+    "confirm": Object {
+      "text": "Yes, I confirm!",
+      "type": "plain_text",
+    },
+    "deny": Object {
+      "text": "No, go away!",
+      "type": "plain_text",
+    },
+    "isConfirm": [Function],
+    "style": undefined,
+    "text": Object {
+      "text": "Do you confirm me?",
+      "type": "plain_text",
+    },
+    "title": Object {
+      "text": "Confirm me?",
+      "type": "plain_text",
+    },
   },
 ]
 `;
@@ -230,6 +328,7 @@ exports[`Section Section with Button accessory renders Section with a Button acc
 Array [
   Object {
     "accessory": Object {
+      "confirm": undefined,
       "style": undefined,
       "text": Object {
         "emoji": undefined,
@@ -254,6 +353,7 @@ exports[`Section Section with Button accessory, Text, and Fields renders Section
 Array [
   Object {
     "accessory": Object {
+      "confirm": undefined,
       "style": undefined,
       "text": Object {
         "emoji": undefined,

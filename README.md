@@ -128,7 +128,7 @@ setStorage({
 | [Radio button group](https://api.slack.com/reference/block-kit/block-elements#radio)                                | ❌  |
 | [Select Menus](https://api.slack.com/reference/block-kit/block-elements#select)                                     | ❌  |
 | [Text](https://api.slack.com/reference/block-kit/composition-objects#text)                                          | ✅  | [Counter](https://github.com/maxchehab/phelia/blob/master/src/example/counter.tsx)           |
-| [Confirmation dialog](https://api.slack.com/reference/block-kit/composition-objects#confirm)                        | ❌  |
+| [Confirmation dialog](https://api.slack.com/reference/block-kit/composition-objects#confirm)                        | ✅  | [Random Image](https://github.com/maxchehab/phelia/blob/master/src/example/random-image.tsx) |
 | [Option](https://api.slack.com/reference/block-kit/composition-objects#option)                                      | ❌  |
 | [Option group](https://api.slack.com/reference/block-kit/composition-objects#option_group)                          | ❌  |
 | [Filter for conversation lists](https://api.slack.com/reference/block-kit/composition-objects#filter_conversations) | ❌  |

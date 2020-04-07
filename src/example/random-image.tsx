@@ -3,9 +3,11 @@ import React from "react";
 import {
   Actions,
   Button,
+  Confirm,
   Divider,
   ImageBlock,
   PheliaMessageProps,
+  Text,
 } from "../core";
 
 const imageUrls = [
@@ -28,7 +30,7 @@ export default function RandomImage({ useState }: PheliaMessageProps) {
       <ImageBlock
         emoji
         title={"an adorable :dog:"}
-        alt_text={"a very adorably doggy dog"}
+        alt_text={"a very adorable doggy dog"}
         image_url={imageUrl}
       />
       <Divider />
@@ -37,6 +39,17 @@ export default function RandomImage({ useState }: PheliaMessageProps) {
           style="primary"
           value="randomImage"
           onClick={() => setImageUrl(randomImage())}
+          confirm={
+            <Confirm
+              title={"Are you sure?"}
+              confirm={"Yes, gimmey that doggy!"}
+              deny={"No, I hate doggies"}
+            >
+              <Text type="mrkdwn">
+                Are you certain you want to see the _cutest_ doggy ever?
+              </Text>
+            </Confirm>
+          }
         >
           New doggy
         </Button>

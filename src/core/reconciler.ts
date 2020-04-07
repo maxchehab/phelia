@@ -72,6 +72,7 @@ class HostConfig
         value: props.value,
         style: props.style,
         url: props.url,
+        confirm: reconcile(props.confirm, rootContainerInstance.action)[0],
         text: { type: "plain_text", text: "", emoji: props.emoji },
       };
     }
@@ -143,6 +144,23 @@ class HostConfig
       return { type: "context", elements: [] };
     }
 
+    if (componentType === "confirm") {
+      const instance: any = {
+        // using a function so the appendInitialChild can determine the type of the component whereas slack forbids a confirm object to have a 'type' property
+        isConfirm: () => true,
+        title: reconcile(props.title, rootContainerInstance.action)[0],
+        confirm: reconcile(props.confirm, rootContainerInstance.action)[0],
+        deny: reconcile(props.deny, rootContainerInstance.action)[0],
+        style: props.style,
+      };
+
+      instance.title.type = "plain_text";
+      instance.confirm.type = "plain_text";
+      instance.deny.type = "plain_text";
+
+      return instance;
+    }
+
     throw Error(
       "Unknown Component type " + JSON.stringify({ componentType, type })
     );
@@ -159,6 +177,15 @@ class HostConfig
 
     if (parentInstance.type === "context") {
       parentInstance.elements.push(child);
+      return;
+    }
+
+    if (parentInstance.isConfirm) {
+      parentInstance.text = child;
+
+      if (parentInstance.text.type === "text") {
+        parentInstance.text.type = "plain_text";
+      }
       return;
     }
 

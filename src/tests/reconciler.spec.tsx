@@ -9,6 +9,7 @@ import {
   Text,
   Divider,
   Context,
+  Confirm,
 } from "../core";
 
 describe("Text", () => {
@@ -235,6 +236,31 @@ describe("Button", () => {
     });
   });
 
+  describe("Button with Confirm component", () => {
+    const component = () => (
+      <Button
+        emoji
+        confirm={
+          <Confirm
+            title="Confirm me?"
+            confirm="Yes, I confirm!"
+            deny="No, go away!"
+          >
+            Do you confirm me?
+          </Confirm>
+        }
+      >
+        Click me
+      </Button>
+    );
+
+    it("renders Button with emoji text property", () => {
+      const blocks = reconcile(React.createElement(component));
+      console.log(JSON.stringify(blocks));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
   describe("Button with value property", () => {
     const onClick = jest.fn();
 
@@ -400,6 +426,42 @@ describe("Context", () => {
     );
 
     it("renders Context with one element", () => {
+      const blocks = reconcile(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+});
+
+describe("Confirm", () => {
+  describe("Confirm with string properties", () => {
+    const component = () => (
+      <Confirm
+        title="Confirm me?"
+        confirm="Yes, I confirm!"
+        deny="No, go away!"
+      >
+        Do you confirm me?
+      </Confirm>
+    );
+
+    it("renders with string properties", () => {
+      const blocks = reconcile(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("Confirm with Text Component properties", () => {
+    const component = () => (
+      <Confirm
+        title={<Text emoji>Confirm me?</Text>}
+        confirm={<Text emoji>Yes, I confirm!</Text>}
+        deny={<Text emoji>No go away</Text>}
+      >
+        <Text type="mrkdwn">*No go away*</Text>
+      </Confirm>
+    );
+
+    it("renders Confirm component with Text Component properties", () => {
       const blocks = reconcile(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });

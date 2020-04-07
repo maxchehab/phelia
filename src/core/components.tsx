@@ -17,6 +17,7 @@ Text.defaultProps = {
 
 interface ButtonProps {
   children: string;
+  confirm?: ReactElement;
   emoji?: boolean;
   onClick?: (user: SlackUser) => void;
   style?: undefined | "danger" | "primary";
@@ -84,4 +85,26 @@ const Context = (props: ContextProps) => (
   <component componentType="context" {...props} />
 );
 
-export { Text, Section, Button, Actions, Image, ImageBlock, Divider, Context };
+interface ConfirmProps {
+  children: ReactElement | string;
+  confirm: ReactElement | string;
+  deny: ReactElement | string;
+  style?: undefined | "danger" | "primary";
+  title: ReactElement | string;
+}
+
+const Confirm = (props: ConfirmProps) => (
+  <component componentType="confirm" {...props} />
+);
+
+export {
+  Actions,
+  Button,
+  Confirm,
+  Context,
+  Divider,
+  Image,
+  ImageBlock,
+  Section,
+  Text,
+};
