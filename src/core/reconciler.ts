@@ -101,7 +101,17 @@ class HostConfig
       };
     }
 
-    throw Error("createInstance::" + JSON.stringify({ type }));
+    if (componentType === "image") {
+      return {
+        type: "image",
+        image_url: props.image_url,
+        alt_text: props.alt_text,
+      };
+    }
+
+    throw Error(
+      "Unknown Component type " + JSON.stringify({ componentType, type })
+    );
   }
   appendInitialChild(
     parentInstance: Instance,

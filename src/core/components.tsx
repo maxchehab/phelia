@@ -54,4 +54,14 @@ const Actions = (props: ActionsProps) => (
   <component componentType="actions" {...props} />
 );
 
-export { Text, Section, Button, Actions };
+interface ImageProps {
+  image_url: string;
+  alt_text: string;
+  emoji?: boolean;
+}
+
+const Image = (props: ImageProps) => (
+  <component componentType="image" {...props} />
+);
+
+export { Text, Section, Button, Actions, Image };

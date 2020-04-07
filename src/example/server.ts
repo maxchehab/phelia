@@ -4,6 +4,7 @@ import express from "express";
 import { PheliaClient, interactiveMessageHandler } from "../core";
 import Counter from "./counter";
 import Greeter from "./greeter";
+import RandomImage from "./random-image";
 
 dotenv.config();
 
@@ -15,12 +16,13 @@ app.post(
   interactiveMessageHandler(process.env.SLACK_SIGNING_SECRET, [
     Counter,
     Greeter,
+    RandomImage,
   ])
 );
 
 // This is how you post a message....
 const client = new PheliaClient(process.env.SLACK_TOKEN);
-client.postMessage(Greeter, null, "@max", "hello there!");
+client.postMessage(RandomImage, null, "@max", "Here is a doggy!");
 
 app.listen(port, () =>
   console.log(`Example app listening at http://localhost:${port}`)

@@ -133,6 +133,16 @@ Array [
 ]
 `;
 
+exports[`Image Default image renders Image with image_url and alt_text properties 1`] = `
+Array [
+  Object {
+    "alt_text": "an image",
+    "image_url": "https://google.com/image.png",
+    "type": "image",
+  },
+]
+`;
+
 exports[`Section Section with Button accessory renders Section with a Button accessory 1`] = `
 Array [
   Object {
@@ -186,6 +196,24 @@ Array [
     "text": Object {
       "emoji": undefined,
       "text": "The text",
+      "type": "plain_text",
+    },
+    "type": "section",
+  },
+]
+`;
+
+exports[`Section Section with Image accessory renders Section with a Image accessory 1`] = `
+Array [
+  Object {
+    "accessory": Object {
+      "alt_text": "an image",
+      "image_url": "https://google.com/image.png",
+      "type": "image",
+    },
+    "text": Object {
+      "emoji": undefined,
+      "text": "Hello world",
       "type": "plain_text",
     },
     "type": "section",

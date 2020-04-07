@@ -108,29 +108,30 @@ setStorage({
 
 # Support
 
-| Component                                                                                                           |     |
-| ------------------------------------------------------------------------------------------------------------------- | --- |
-| [Actions](https://api.slack.com/reference/block-kit/blocks#actions)                                                 | ✅  |
+| Component                                                                                                           |     | Example                                                                                                                        |
+| ------------------------------------------------------------------------------------------------------------------- | --- | ------------------------------------------------------------------------------------------------------------------------------ |
+| [Actions](https://api.slack.com/reference/block-kit/blocks#actions)                                                 | ✅  | [Counter](https://github.com/maxchehab/phelia/blob/70ee3d7da2d836136b5422f69fe8895885e8ab0e/src/example/counter.tsx)           |
 | [Context](https://api.slack.com/reference/block-kit/blocks#context)                                                 | ❌  |
 | [Divider](https://api.slack.com/reference/block-kit/blocks#divider)                                                 | ❌  |
 | [File](https://api.slack.com/reference/block-kit/blocks#file)                                                       | ❌  |
 | [Image](https://api.slack.com/reference/block-kit/blocks#image)                                                     | ❌  |
 | [Input](https://api.slack.com/reference/block-kit/blocks#input)                                                     | ❌  |
-| [Section](https://api.slack.com/reference/block-kit/blocks#section)                                                 | ✅  |
-| [Button](https://api.slack.com/reference/block-kit/block-elements#button)                                           | ✅  |
+| [Section](https://api.slack.com/reference/block-kit/blocks#section)                                                 | ✅  | [Counter](https://github.com/maxchehab/phelia/blob/70ee3d7da2d836136b5422f69fe8895885e8ab0e/src/example/counter.tsx)           |
+| [Button](https://api.slack.com/reference/block-kit/block-elements#button)                                           | ✅  | [Counter](https://github.com/maxchehab/phelia/blob/70ee3d7da2d836136b5422f69fe8895885e8ab0e/src/example/counter.tsx)           |
 | [Checkboxes](https://api.slack.com/reference/block-kit/block-elements#checkboxes)                                   | ❌  |
 | [Date Picker](https://api.slack.com/reference/block-kit/block-elements#datepicker)                                  | ❌  |
-| [Image](https://api.slack.com/reference/block-kit/block-elements#image)                                             | ❌  |
+| [Text](https://api.slack.com/reference/block-kit/composition-objects#text)                                          | ✅  | [Random Image](https://github.com/maxchehab/phelia/blob/70ee3d7da2d836136b5422f69fe8895885e8ab0e/src/example/random-image.tsx) |
+| [Image](https://api.slack.com/reference/block-kit/block-elements#image)                                             | ✅  | [Random Image](https://github.com/maxchehab/phelia/blob/70ee3d7da2d836136b5422f69fe8895885e8ab0e/src/example/random-image.tsx) |
 | [Multi-select Menu](https://api.slack.com/reference/block-kit/block-elements#multi_select)                          | ❌  |
 | [Overflow Menu](https://api.slack.com/reference/block-kit/block-elements#overflow)                                  | ❌  |
 | [Plain-text input](https://api.slack.com/reference/block-kit/block-elements#input)                                  | ❌  |
 | [Radio button group](https://api.slack.com/reference/block-kit/block-elements#radio)                                | ❌  |
 | [Select Menus](https://api.slack.com/reference/block-kit/block-elements#select)                                     | ❌  |
-| [Text](https://api.slack.com/reference/block-kit/composition-objects#text)                                          | ✅  |
+| [Text](https://api.slack.com/reference/block-kit/composition-objects#text)                                          | ✅  | [Counter](https://github.com/maxchehab/phelia/blob/70ee3d7da2d836136b5422f69fe8895885e8ab0e/src/example/counter.tsx)           |
 | [Confirmation dialog](https://api.slack.com/reference/block-kit/composition-objects#confirm)                        | ❌  |
 | [Option](https://api.slack.com/reference/block-kit/composition-objects#option)                                      | ❌  |
 | [Option group](https://api.slack.com/reference/block-kit/composition-objects#option_group)                          | ❌  |
 | [Filter for conversation lists](https://api.slack.com/reference/block-kit/composition-objects#filter_conversations) | ❌  |
-| [Messages](https://api.slack.com/surfaces/messages)                                                                 | ✅  |
+| [Messages](https://api.slack.com/surfaces/messages)                                                                 | ✅  | [Server](https://github.com/maxchehab/phelia/blob/70ee3d7da2d836136b5422f69fe8895885e8ab0e/src/example/server.ts)              |
 | [Modals](https://api.slack.com/surfaces/modals)                                                                     | ❌  |
 | [Home Tab](https://api.slack.com/surfaces/tabs)                                                                     | ❌  |

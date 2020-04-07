@@ -1,5 +1,5 @@
 import React from "react";
-import { Section, Text, Button, reconcile, Actions } from "../core";
+import { Section, Text, Button, reconcile, Actions, Image } from "../core";
 
 describe("Text", () => {
   describe("Default Text", () => {
@@ -98,6 +98,26 @@ describe("Section", () => {
 
     it("renders Section with a text property and empty fields", () => {
       const blocks = reconcile(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("Section with Image accessory", () => {
+    const component = () => (
+      <Section
+        accessory={
+          <Image
+            image_url="https://google.com/image.png"
+            alt_text={"an image"}
+          />
+        }
+        text={<Text>Hello world</Text>}
+      />
+    );
+
+    it("renders Section with a Image accessory", () => {
+      const blocks = reconcile(React.createElement(component));
+      console.log(JSON.stringify(blocks));
       expect(blocks).toMatchSnapshot();
     });
   });
@@ -255,6 +275,19 @@ describe("Actions", () => {
     );
 
     it("renders Actions with two Buttons", () => {
+      const blocks = reconcile(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+});
+
+describe("Image", () => {
+  describe("Default image", () => {
+    const component = () => (
+      <Image image_url="https://google.com/image.png" alt_text="an image" />
+    );
+
+    it("renders Image with image_url and alt_text properties", () => {
       const blocks = reconcile(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });
