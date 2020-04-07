@@ -256,7 +256,6 @@ describe("Button", () => {
 
     it("renders Button with emoji text property", () => {
       const blocks = reconcile(React.createElement(component));
-      console.log(JSON.stringify(blocks));
       expect(blocks).toMatchSnapshot();
     });
   });

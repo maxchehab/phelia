@@ -10,7 +10,17 @@ declare namespace JSX {
     | "section"
     | "text";
 
+  type ToSlackElement = (
+    props: any,
+    reconcile: (element: React.FunctionComponentElement<any>) => any
+  ) => any | ((props: any) => any);
+
+  interface ComponentProps {
+    componentType: ComponentType;
+    toSlackElement: ToSlackElement;
+  }
+
   interface IntrinsicElements {
-    component: { children?: React.ReactNode; componentType: ComponentType };
+    component: ComponentProps;
   }
 }

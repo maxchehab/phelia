@@ -1,9 +1,10 @@
 import Reconciler, { OpaqueHandle } from "react-reconciler";
 import ReactReconciler from "react-reconciler";
 import { SlackUser } from "./phelia-client";
+import { ifError } from "assert";
 
 type Type = any;
-type Props = { componentType: JSX.ComponentType } & {
+type Props = JSX.ComponentProps & {
   [key: string]: any;
 };
 type Container = any;
@@ -63,107 +64,13 @@ class HostConfig
     hostContext: HostContext,
     internalInstanceHandle: OpaqueHandle
   ): Instance {
-    const { componentType } = props;
-
-    // https://api.slack.com/reference/block-kit/block-elements#button
-    if (componentType === "button") {
-      return {
-        type: "button",
-        value: props.value,
-        style: props.style,
-        url: props.url,
-        confirm: reconcile(props.confirm, rootContainerInstance.action)[0],
-        text: { type: "plain_text", text: "", emoji: props.emoji },
-      };
+    if (props.toSlackElement) {
+      return props.toSlackElement(props, (e) =>
+        reconcile(e, rootContainerInstance.action)
+      );
     }
 
-    // https://api.slack.com/reference/block-kit/composition-objects#text
-    if (componentType === "text") {
-      const instance: any = { type: props.type, text: "" };
-
-      if (props.type === "mrkdwn") {
-        instance.verbatim = props.verbatim;
-      } else if (props.type === "plain_text") {
-        instance.emoji = props.emoji;
-      }
-
-      return instance;
-    }
-
-    if (componentType === "actions") {
-      return { type: "actions", elements: [] };
-    }
-
-    if (componentType === "section") {
-      const instance: any = {
-        type: "section",
-        accessory: reconcile(props.accessory, rootContainerInstance.action)[0],
-        text: reconcile(props.text, rootContainerInstance.action)[0],
-      };
-
-      if (instance.text) {
-        instance.text.type = "plain_text";
-      }
-
-      return instance;
-    }
-
-    if (componentType === "image") {
-      return {
-        type: "image",
-        image_url: props.image_url,
-        alt_text: props.alt_text,
-      };
-    }
-
-    if (componentType === "image-block") {
-      const instance: any = {
-        type: "image",
-        image_url: props.image_url,
-        alt_text: props.alt_text,
-      };
-
-      if (props.title) {
-        instance.title = {
-          type: "plain_text",
-          text: props.title,
-          emoji: props.emoji,
-        };
-      }
-
-      return instance;
-    }
-
-    if (componentType === "divider") {
-      return {
-        type: "divider",
-      };
-    }
-
-    if (componentType === "context") {
-      return { type: "context", elements: [] };
-    }
-
-    if (componentType === "confirm") {
-      const instance: any = {
-        // using a function so the appendInitialChild can determine the type of the component whereas slack forbids a confirm object to have a 'type' property
-        isConfirm: () => true,
-        title: reconcile(props.title, rootContainerInstance.action)[0],
-        confirm: reconcile(props.confirm, rootContainerInstance.action)[0],
-        deny: reconcile(props.deny, rootContainerInstance.action)[0],
-        style: props.style,
-      };
-
-      instance.title.type = "plain_text";
-      instance.confirm.type = "plain_text";
-      instance.deny.type = "plain_text";
-
-      return instance;
-    }
-
-    throw Error(
-      "Unknown Component type " + JSON.stringify({ componentType, type })
-    );
+    throw Error("Unknown Component type " + JSON.stringify({ props, type }));
   }
   appendInitialChild(
     parentInstance: Instance,

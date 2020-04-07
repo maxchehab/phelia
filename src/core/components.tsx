@@ -1,5 +1,14 @@
 import React, { ReactElement } from "react";
 import { SlackUser } from "./phelia-client";
+import {
+  ActionsBlock,
+  Button as SlackButton,
+  ContextBlock,
+  DividerBlock,
+  ImageBlock as SlackImageBlock,
+  ImageElement,
+  SectionBlock,
+} from "@slack/web-api";
 
 interface TextProps {
   children: React.ReactText | React.ReactText[];
@@ -8,9 +17,24 @@ interface TextProps {
   verbatim?: boolean;
 }
 
-const Text = (props: TextProps) => (
-  <component componentType="text" {...props} />
+export const Text = (props: TextProps) => (
+  <component
+    {...props}
+    componentType="text"
+    toSlackElement={(props: TextProps) => {
+      const instance: any = { type: props.type, text: "" };
+
+      if (props.type === "mrkdwn") {
+        instance.verbatim = props.verbatim;
+      } else if (props.type === "plain_text") {
+        instance.emoji = props.emoji;
+      }
+
+      return instance;
+    }}
+  />
 );
+
 Text.defaultProps = {
   type: "plain_text",
 };
@@ -25,12 +49,20 @@ interface ButtonProps {
   value?: string;
 }
 
-const Button = (props: ButtonProps) => (
-  <component componentType={"button"} {...props} />
+export const Button = (props: ButtonProps) => (
+  <component
+    {...props}
+    componentType={"button"}
+    toSlackElement={(props, reconcile): SlackButton => ({
+      type: "button",
+      value: props.value,
+      style: props.style,
+      url: props.url,
+      confirm: reconcile(props.confirm)[0],
+      text: { type: "plain_text", text: "", emoji: props.emoji },
+    })}
+  />
 );
-Button.defaultProps = {
-  style: undefined,
-};
 
 type SectionProps =
   | {
@@ -41,18 +73,40 @@ type SectionProps =
       accessory?: ReactElement;
       children: ReactElement | ReactElement[];
     };
-const Section = (props: SectionProps) => (
-  <component componentType="section" {...props} />
-);
 
-Section.defaultProps = {};
+export const Section = (props: SectionProps) => (
+  <component
+    {...props}
+    componentType="section"
+    toSlackElement={(props, reconcile): SectionBlock => {
+      const instance: SectionBlock = {
+        type: "section",
+        accessory: reconcile(props.accessory)[0],
+        text: reconcile(props.text)[0],
+      };
+
+      if (instance.text) {
+        instance.text.type = "plain_text";
+      }
+
+      return instance;
+    }}
+  />
+);
 
 interface ActionsProps {
   children: ReactElement | ReactElement[];
 }
 
-const Actions = (props: ActionsProps) => (
-  <component componentType="actions" {...props} />
+export const Actions = (props: ActionsProps) => (
+  <component
+    {...props}
+    componentType="actions"
+    toSlackElement={(): ActionsBlock => ({
+      type: "actions",
+      elements: [],
+    })}
+  />
 );
 
 interface ImageProps {
@@ -60,29 +114,66 @@ interface ImageProps {
   alt_text: string;
 }
 
-const Image = (props: ImageProps) => (
-  <component componentType="image" {...props} />
+export const Image = (props: ImageProps) => (
+  <component
+    {...props}
+    componentType="image"
+    toSlackElement={(props): ImageElement => ({
+      type: "image",
+      image_url: props.image_url,
+      alt_text: props.alt_text,
+    })}
+  />
 );
 
-interface ImageBlock {
+interface ImageBlockProps {
   image_url: string;
   alt_text: string;
   emoji?: boolean;
   title?: string;
 }
 
-const ImageBlock = (props: ImageBlock) => (
-  <component componentType="image-block" {...props} />
+export const ImageBlock = (props: ImageBlockProps) => (
+  <component
+    {...props}
+    componentType="image-block"
+    toSlackElement={(props): SlackImageBlock => {
+      const instance: any = {
+        type: "image",
+        image_url: props.image_url,
+        alt_text: props.alt_text,
+      };
+
+      if (props.title) {
+        instance.title = {
+          type: "plain_text",
+          text: props.title,
+          emoji: props.emoji,
+        };
+      }
+
+      return instance;
+    }}
+  />
 );
 
-const Divider = () => <component componentType="divider" />;
+export const Divider = () => (
+  <component
+    componentType="divider"
+    toSlackElement={(): DividerBlock => ({ type: "divider" })}
+  />
+);
 
 interface ContextProps {
   children: ReactElement | ReactElement[];
 }
 
-const Context = (props: ContextProps) => (
-  <component componentType="context" {...props} />
+export const Context = (props: ContextProps) => (
+  <component
+    {...props}
+    componentType="context"
+    toSlackElement={(): ContextBlock => ({ type: "context", elements: [] })}
+  />
 );
 
 interface ConfirmProps {
@@ -93,18 +184,26 @@ interface ConfirmProps {
   title: ReactElement | string;
 }
 
-const Confirm = (props: ConfirmProps) => (
-  <component componentType="confirm" {...props} />
-);
+export const Confirm = (props: ConfirmProps) => (
+  <component
+    {...props}
+    componentType="confirm"
+    toSlackElement={(props, reconcile) => {
+      const instance: any = {
+        // using a function so the appendInitialChild can determine the type of the component
+        // whereas slack forbids a confirm object to have a 'type' property
+        isConfirm: () => true,
+        title: reconcile(props.title)[0],
+        confirm: reconcile(props.confirm)[0],
+        deny: reconcile(props.deny)[0],
+        style: props.style,
+      };
 
-export {
-  Actions,
-  Button,
-  Confirm,
-  Context,
-  Divider,
-  Image,
-  ImageBlock,
-  Section,
-  Text,
-};
+      instance.title.type = "plain_text";
+      instance.confirm.type = "plain_text";
+      instance.deny.type = "plain_text";
+
+      return instance;
+    }}
+  />
+);
