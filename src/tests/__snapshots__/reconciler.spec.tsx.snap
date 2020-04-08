@@ -324,6 +324,92 @@ Array [
 ]
 `;
 
+exports[`Option Option with Text child renders Option with Text child 1`] = `
+Array [
+  Object {
+    "description": undefined,
+    "isOption": [Function],
+    "text": Object {
+      "emoji": true,
+      "text": "Another option",
+      "type": "plain_text",
+    },
+    "url": undefined,
+    "value": "an option",
+  },
+]
+`;
+
+exports[`Option Option with description Text property renders Option with description Text property 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "emoji": true,
+      "text": "hello i am a description",
+      "type": "plain_text",
+    },
+    "isOption": [Function],
+    "text": Object {
+      "emoji": true,
+      "text": "Another option",
+      "type": "plain_text",
+    },
+    "url": "https://google.com",
+    "value": "an option",
+  },
+]
+`;
+
+exports[`Option Option with description string property renders Option with description string property 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "text": "hello i am a description",
+      "type": "plain_text",
+    },
+    "isOption": [Function],
+    "text": Object {
+      "emoji": true,
+      "text": "Another option",
+      "type": "plain_text",
+    },
+    "url": "https://google.com",
+    "value": "an option",
+  },
+]
+`;
+
+exports[`Option Option with string child renders Option with string child 1`] = `
+Array [
+  Object {
+    "description": undefined,
+    "isOption": [Function],
+    "text": Object {
+      "text": "I am an option",
+      "type": "plain_text",
+    },
+    "url": undefined,
+    "value": "an option",
+  },
+]
+`;
+
+exports[`Option Option with url property renders Option with url property 1`] = `
+Array [
+  Object {
+    "description": undefined,
+    "isOption": [Function],
+    "text": Object {
+      "emoji": true,
+      "text": "Another option",
+      "type": "plain_text",
+    },
+    "url": "https://google.com",
+    "value": "an option",
+  },
+]
+`;
+
 exports[`Section Section with Button accessory renders Section with a Button accessory 1`] = `
 Array [
   Object {

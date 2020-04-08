@@ -87,7 +87,7 @@ class HostConfig
       return;
     }
 
-    if (parentInstance.isConfirm) {
+    if (parentInstance.isConfirm || parentInstance.isOption) {
       parentInstance.text = child;
 
       if (parentInstance.text.type === "text") {

@@ -8,6 +8,7 @@ import {
   ImageBlock as SlackImageBlock,
   ImageElement,
   SectionBlock,
+  Option as SlackOption,
 } from "@slack/web-api";
 import { XOR } from "ts-xor";
 
@@ -209,6 +210,34 @@ export const Confirm = (props: ConfirmProps) => (
       instance.title.type = "plain_text";
       instance.confirm.type = "plain_text";
       instance.deny.type = "plain_text";
+
+      return instance;
+    }}
+  />
+);
+
+interface OptionProps {
+  children: ReactElement | string;
+  value: string;
+  description?: ReactElement | string;
+  url?: string;
+}
+
+export const Option = (props: OptionProps) => (
+  <component
+    {...props}
+    componentType="confirm"
+    toSlackElement={(props, reconcile): SlackOption => {
+      const instance: any = {
+        isOption: () => true,
+        value: props.value,
+        description: reconcile(props.description)[0],
+        url: props.url,
+      };
+
+      if (instance.description) {
+        instance.description.type = "plain_text";
+      }
 
       return instance;
     }}

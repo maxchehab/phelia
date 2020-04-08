@@ -10,6 +10,7 @@ import {
   Divider,
   Context,
   Confirm,
+  Option,
 } from "../core";
 
 describe("Text", () => {
@@ -461,6 +462,77 @@ describe("Confirm", () => {
     );
 
     it("renders Confirm component with Text Component properties", () => {
+      const blocks = reconcile(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+});
+
+describe("Option", () => {
+  describe("Option with string child", () => {
+    const component = () => <Option value="an option">I am an option</Option>;
+
+    it("renders Option with string child", () => {
+      const blocks = reconcile(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("Option with Text child", () => {
+    const component = () => (
+      <Option value="an option">
+        <Text emoji>Another option</Text>
+      </Option>
+    );
+
+    it("renders Option with Text child", () => {
+      const blocks = reconcile(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("Option with url property", () => {
+    const component = () => (
+      <Option url="https://google.com" value="an option">
+        <Text emoji>Another option</Text>
+      </Option>
+    );
+
+    it("renders Option with url property", () => {
+      const blocks = reconcile(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("Option with description string property", () => {
+    const component = () => (
+      <Option
+        url="https://google.com"
+        description={"hello i am a description"}
+        value="an option"
+      >
+        <Text emoji>Another option</Text>
+      </Option>
+    );
+
+    it("renders Option with description string property", () => {
+      const blocks = reconcile(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("Option with description Text property", () => {
+    const component = () => (
+      <Option
+        url="https://google.com"
+        description={<Text emoji>hello i am a description</Text>}
+        value="an option"
+      >
+        <Text emoji>Another option</Text>
+      </Option>
+    );
+
+    it("renders Option with description Text property", () => {
       const blocks = reconcile(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });
