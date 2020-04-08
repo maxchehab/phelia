@@ -11,6 +11,7 @@ import {
   Context,
   Confirm,
   Option,
+  DatePicker,
 } from "../core";
 
 describe("Text", () => {
@@ -533,6 +534,110 @@ describe("Option", () => {
     );
 
     it("renders Option with description Text property", () => {
+      const blocks = reconcile(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+});
+
+describe("DatePicker", () => {
+  describe("Default DatePicker", () => {
+    const onSubmit = jest.fn();
+    const component = () => <DatePicker onSubmit={onSubmit} action="date" />;
+
+    it("renders default DatePicker", () => {
+      const blocks = reconcile(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+
+    describe("with reconcile action", () => {
+      it("calls the onSubmit function", () => {
+        const user = {
+          username: "johnsmith",
+          name: "john smith",
+          id: "u123",
+          team_id: "t123",
+        };
+
+        reconcile(React.createElement(component), {
+          value: "date",
+          user,
+          data: { date: "2020-04-16" },
+        });
+
+        expect(onSubmit).toBeCalledWith(user, { date: "2020-04-16" });
+        expect(onSubmit).toBeCalledTimes(1);
+      });
+    });
+  });
+
+  describe("DatePicker with initial date property", () => {
+    const component = () => (
+      <DatePicker
+        onSubmit={() => null}
+        action="date"
+        initialDate="2020-11-11"
+      />
+    );
+
+    it("renders DatePicker with initial date property", () => {
+      const blocks = reconcile(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("DatePicker with string placeholder property", () => {
+    const component = () => (
+      <DatePicker
+        onSubmit={() => null}
+        action="date"
+        initialDate="2020-11-11"
+        placeholder="just a placeholder"
+      />
+    );
+
+    it("renders DatePicker with string placeholder property", () => {
+      const blocks = reconcile(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("DatePicker with Text component placeholder property", () => {
+    const component = () => (
+      <DatePicker
+        onSubmit={() => null}
+        action="date"
+        initialDate="2020-11-11"
+        placeholder={<Text emoji>just a placeholder</Text>}
+      />
+    );
+
+    it("renders DatePicker with Text component placeholder property", () => {
+      const blocks = reconcile(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("DatePicker with confirm property", () => {
+    const component = () => (
+      <DatePicker
+        onSubmit={() => null}
+        action="date"
+        initialDate="2020-11-11"
+        placeholder={<Text emoji>just a placeholder</Text>}
+        confirm={
+          <Confirm
+            title="Confirm me?"
+            confirm="Yes, I confirm!"
+            deny="No, go away!"
+          >
+            Do you confirm me?
+          </Confirm>
+        }
+      />
+    );
+
+    it("renders DatePicker with confirm property", () => {
       const blocks = reconcile(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });

@@ -5,6 +5,7 @@ import { PheliaClient, interactiveMessageHandler } from "../core";
 import Counter from "./counter";
 import Greeter from "./greeter";
 import RandomImage from "./random-image";
+import BirthdayPicker from "./birthday-picker";
 
 dotenv.config();
 
@@ -17,12 +18,13 @@ app.post(
     Counter,
     Greeter,
     RandomImage,
+    BirthdayPicker,
   ])
 );
 
 // This is how you post a message....
 const client = new PheliaClient(process.env.SLACK_TOKEN);
-client.postMessage(RandomImage, null, "@max", "Here is a doggy!");
+client.postMessage(BirthdayPicker, null, "@max", "Here is a doggy!");
 
 app.listen(port, () =>
   console.log(`Example app listening at http://localhost:${port}`)

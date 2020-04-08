@@ -9,6 +9,8 @@ import {
   ImageElement,
   SectionBlock,
   Option as SlackOption,
+  Checkboxes,
+  Datepicker,
 } from "@slack/web-api";
 import { XOR } from "ts-xor";
 
@@ -237,6 +239,36 @@ export const Option = (props: OptionProps) => (
 
       if (instance.description) {
         instance.description.type = "plain_text";
+      }
+
+      return instance;
+    }}
+  />
+);
+
+interface DatePickerProps {
+  action: string;
+  onSubmit: (user: SlackUser, data: { date: string }) => void;
+  initialDate?: string;
+  placeholder?: ReactElement | string;
+  confirm?: ReactElement;
+}
+
+export const DatePicker = (props: DatePickerProps) => (
+  <component
+    {...props}
+    componentType="confirm"
+    toSlackElement={(props, reconcile): Datepicker => {
+      const instance: Datepicker = {
+        type: "datepicker",
+        initial_date: props.initialDate,
+        action_id: props.action,
+        placeholder: reconcile(props.placeholder)[0],
+        confirm: reconcile(props.confirm)[0],
+      };
+
+      if (instance.placeholder) {
+        instance.placeholder.type = "plain_text";
       }
 
       return instance;

@@ -108,30 +108,30 @@ setStorage({
 
 # Support
 
-| Component                                                                                                           |     | Example                                                                                      |
-| ------------------------------------------------------------------------------------------------------------------- | --- | -------------------------------------------------------------------------------------------- |
-| [Actions](https://api.slack.com/reference/block-kit/blocks#actions)                                                 | ✅  | [Counter](https://github.com/maxchehab/phelia/blob/master/src/example/counter.tsx)           |
+| Component                                                                                                           |     | Example                                                                                         |
+| ------------------------------------------------------------------------------------------------------------------- | --- | ----------------------------------------------------------------------------------------------- |
+| [Actions](https://api.slack.com/reference/block-kit/blocks#actions)                                                 | ✅  | [Counter](https://github.com/maxchehab/phelia/blob/master/src/example/counter.tsx)              |
 | [Context](https://api.slack.com/reference/block-kit/blocks#context)                                                 | ✅  |
-| [Divider](https://api.slack.com/reference/block-kit/blocks#divider)                                                 | ✅  | [Random Image](https://github.com/maxchehab/phelia/blob/master/src/example/random-image.tsx) |
+| [Divider](https://api.slack.com/reference/block-kit/blocks#divider)                                                 | ✅  | [Random Image](https://github.com/maxchehab/phelia/blob/master/src/example/random-image.tsx)    |
 | [File](https://api.slack.com/reference/block-kit/blocks#file)                                                       | ❌  |
-| [Image Block](https://api.slack.com/reference/block-kit/blocks#image)                                               | ✅  | [Random Image](https://github.com/maxchehab/phelia/blob/master/src/example/random-image.tsx) |
+| [Image Block](https://api.slack.com/reference/block-kit/blocks#image)                                               | ✅  | [Random Image](https://github.com/maxchehab/phelia/blob/master/src/example/random-image.tsx)    |
 | [Input](https://api.slack.com/reference/block-kit/blocks#input)                                                     | ❌  |
-| [Section](https://api.slack.com/reference/block-kit/blocks#section)                                                 | ✅  | [Counter](https://github.com/maxchehab/phelia/blob/master/src/example/counter.tsx)           |
-| [Button](https://api.slack.com/reference/block-kit/block-elements#button)                                           | ✅  | [Counter](https://github.com/maxchehab/phelia/blob/master/src/example/counter.tsx)           |
+| [Section](https://api.slack.com/reference/block-kit/blocks#section)                                                 | ✅  | [Counter](https://github.com/maxchehab/phelia/blob/master/src/example/counter.tsx)              |
+| [Button](https://api.slack.com/reference/block-kit/block-elements#button)                                           | ✅  | [Counter](https://github.com/maxchehab/phelia/blob/master/src/example/counter.tsx)              |
 | [Checkboxes](https://api.slack.com/reference/block-kit/block-elements#checkboxes)                                   | ❌  |
-| [Date Picker](https://api.slack.com/reference/block-kit/block-elements#datepicker)                                  | ❌  |
-| [Text](https://api.slack.com/reference/block-kit/composition-objects#text)                                          | ✅  | [Random Image](https://github.com/maxchehab/phelia/blob/master/src/example/random-image.tsx) |
-| [Image](https://api.slack.com/reference/block-kit/block-elements#image)                                             | ✅  | [Random Image](https://github.com/maxchehab/phelia/blob/master/src/example/random-image.tsx) |
+| [Date Picker](https://api.slack.com/reference/block-kit/block-elements#datepicker)                                  | ✅  | [Random Image](https://github.com/maxchehab/phelia/blob/master/src/example/birthday-picker.tsx) |
+| [Text](https://api.slack.com/reference/block-kit/composition-objects#text)                                          | ✅  | [Random Image](https://github.com/maxchehab/phelia/blob/master/src/example/random-image.tsx)    |
+| [Image](https://api.slack.com/reference/block-kit/block-elements#image)                                             | ✅  | [Random Image](https://github.com/maxchehab/phelia/blob/master/src/example/random-image.tsx)    |
 | [Multi-select Menu](https://api.slack.com/reference/block-kit/block-elements#multi_select)                          | ❌  |
 | [Overflow Menu](https://api.slack.com/reference/block-kit/block-elements#overflow)                                  | ❌  |
 | [Plain-text input](https://api.slack.com/reference/block-kit/block-elements#input)                                  | ❌  |
 | [Radio button group](https://api.slack.com/reference/block-kit/block-elements#radio)                                | ❌  |
 | [Select Menus](https://api.slack.com/reference/block-kit/block-elements#select)                                     | ❌  |
-| [Text](https://api.slack.com/reference/block-kit/composition-objects#text)                                          | ✅  | [Counter](https://github.com/maxchehab/phelia/blob/master/src/example/counter.tsx)           |
-| [Confirmation dialog](https://api.slack.com/reference/block-kit/composition-objects#confirm)                        | ✅  | [Random Image](https://github.com/maxchehab/phelia/blob/master/src/example/random-image.tsx) |
+| [Text](https://api.slack.com/reference/block-kit/composition-objects#text)                                          | ✅  | [Counter](https://github.com/maxchehab/phelia/blob/master/src/example/counter.tsx)              |
+| [Confirmation dialog](https://api.slack.com/reference/block-kit/composition-objects#confirm)                        | ✅  | [Random Image](https://github.com/maxchehab/phelia/blob/master/src/example/random-image.tsx)    |
 | [Option](https://api.slack.com/reference/block-kit/composition-objects#option)                                      | ✅  |
 | [Option group](https://api.slack.com/reference/block-kit/composition-objects#option_group)                          | ❌  |
 | [Filter for conversation lists](https://api.slack.com/reference/block-kit/composition-objects#filter_conversations) | ❌  |
-| [Messages](https://api.slack.com/surfaces/messages)                                                                 | ✅  | [Server](https://github.com/maxchehab/phelia/blob/master/src/example/server.ts)              |
+| [Messages](https://api.slack.com/surfaces/messages)                                                                 | ✅  | [Server](https://github.com/maxchehab/phelia/blob/master/src/example/server.ts)                 |
 | [Modals](https://api.slack.com/surfaces/modals)                                                                     | ❌  |
 | [Home Tab](https://api.slack.com/surfaces/tabs)                                                                     | ❌  |

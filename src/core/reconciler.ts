@@ -137,10 +137,15 @@ class HostConfig
   ): boolean {
     if (
       rootContainerInstance.action &&
-      props.action === rootContainerInstance.action.value &&
-      props.onClick
+      props.action === rootContainerInstance.action.value
     ) {
-      props.onClick(rootContainerInstance.action.user);
+      props.onClick && props.onClick(rootContainerInstance.action.user);
+
+      props.onSubmit &&
+        props.onSubmit(
+          rootContainerInstance.action.user,
+          rootContainerInstance.action.data
+        );
       return true;
     }
 
@@ -286,6 +291,7 @@ class HostConfig
 interface Action {
   value: string;
   user: SlackUser;
+  data?: any;
 }
 
 export function reconcile(

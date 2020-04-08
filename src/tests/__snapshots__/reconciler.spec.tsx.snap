@@ -266,6 +266,96 @@ Array [
 ]
 `;
 
+exports[`DatePicker DatePicker with Text component placeholder property renders DatePicker with Text component placeholder property 1`] = `
+Array [
+  Object {
+    "action_id": "date",
+    "confirm": undefined,
+    "initial_date": "2020-11-11",
+    "placeholder": Object {
+      "emoji": true,
+      "text": "just a placeholder",
+      "type": "plain_text",
+    },
+    "type": "datepicker",
+  },
+]
+`;
+
+exports[`DatePicker DatePicker with confirm property renders DatePicker with confirm property 1`] = `
+Array [
+  Object {
+    "action_id": "date",
+    "confirm": Object {
+      "confirm": Object {
+        "text": "Yes, I confirm!",
+        "type": "plain_text",
+      },
+      "deny": Object {
+        "text": "No, go away!",
+        "type": "plain_text",
+      },
+      "isConfirm": [Function],
+      "style": undefined,
+      "text": Object {
+        "text": "Do you confirm me?",
+        "type": "plain_text",
+      },
+      "title": Object {
+        "text": "Confirm me?",
+        "type": "plain_text",
+      },
+    },
+    "initial_date": "2020-11-11",
+    "placeholder": Object {
+      "emoji": true,
+      "text": "just a placeholder",
+      "type": "plain_text",
+    },
+    "type": "datepicker",
+  },
+]
+`;
+
+exports[`DatePicker DatePicker with initial date property renders DatePicker with initial date property 1`] = `
+Array [
+  Object {
+    "action_id": "date",
+    "confirm": undefined,
+    "initial_date": "2020-11-11",
+    "placeholder": undefined,
+    "type": "datepicker",
+  },
+]
+`;
+
+exports[`DatePicker DatePicker with string placeholder property renders DatePicker with string placeholder property 1`] = `
+Array [
+  Object {
+    "action_id": "date",
+    "confirm": undefined,
+    "initial_date": "2020-11-11",
+    "placeholder": Object {
+      "text": "just a placeholder",
+      "type": "plain_text",
+    },
+    "type": "datepicker",
+  },
+]
+`;
+
+exports[`DatePicker Default DatePicker renders default DatePicker 1`] = `
+Array [
+  Object {
+    "action_id": "date",
+    "confirm": undefined,
+    "initial_date": undefined,
+    "placeholder": undefined,
+    "type": "datepicker",
+  },
+]
+`;
+
 exports[`Divider Default Divider renders Divider 1`] = `
 Array [
   Object {

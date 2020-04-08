@@ -40,7 +40,8 @@ export function interactiveMessageHandler(
 
   const adapter = createMessageAdapter(signingSecret, slackOptions);
 
-  adapter.action({ type: "button" }, async (payload, respond) => {
+  adapter.action(new RegExp(/.*/), async (payload, respond) => {
+    console.log(JSON.stringify(payload, null, 2));
     const { channel_id, message_ts } = payload.container;
     const messageKey = `${channel_id}:${message_ts}`;
 
@@ -71,12 +72,13 @@ export function interactiveMessageHandler(
       ];
     }
 
-    for (const { value } of payload.actions) {
+    for (const action of payload.actions) {
       reconcile(
         React.createElement(messageCache.get(name), { useState, props }),
         {
-          value,
+          value: action.action_id,
           user: payload.user,
+          data: parseActionData(action),
         }
       );
     }
@@ -98,6 +100,12 @@ export function interactiveMessageHandler(
   });
 
   return adapter.requestListener();
+}
+
+function parseActionData(action: any) {
+  if (action.type === "datepicker") {
+    return { date: action.selected_date };
+  }
 }
 
 function loadMessagesFromArray(
