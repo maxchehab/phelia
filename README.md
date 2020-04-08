@@ -56,7 +56,7 @@ A reactive Slack messaging framework.
            <Text>{name ? `Hello ${name}` : "Click the button"}</Text>
          </Section>
          <Actions>
-           <Button value="greet" onClick={(user) => setName(user.username)}>
+           <Button action="greet" onClick={(user) => setName(user.username)}>
              Click me
            </Button>
          </Actions>

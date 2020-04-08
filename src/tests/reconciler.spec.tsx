@@ -147,7 +147,7 @@ describe("Section", () => {
     const component = () => (
       <Section
         accessory={
-          <Button value="click" onClick={onClick}>
+          <Button action="click" onClick={onClick}>
             Click me
           </Button>
         }
@@ -261,11 +261,11 @@ describe("Button", () => {
     });
   });
 
-  describe("Button with value property", () => {
+  describe("Button with action property", () => {
     const onClick = jest.fn();
 
     const component = () => (
-      <Button value="click" onClick={onClick}>
+      <Button action="click" onClick={onClick}>
         Click me
       </Button>
     );

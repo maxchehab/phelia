@@ -37,7 +37,7 @@ export default function RandomImage({ useState }: PheliaMessageProps) {
       <Actions>
         <Button
           style="primary"
-          value="randomImage"
+          action="randomImage"
           onClick={() => setImageUrl(randomImage())}
           confirm={
             <Confirm

@@ -9,7 +9,7 @@ export default function Greeter({ useState }: PheliaMessageProps) {
     <>
       <Section
         accessory={
-          <Button value={"click"} onClick={(user) => setName(user.username)}>
+          <Button action={"click"} onClick={(user) => setName(user.username)}>
             Click me
           </Button>
         }
@@ -19,7 +19,11 @@ export default function Greeter({ useState }: PheliaMessageProps) {
         <Text>{name ? name : "<unknown>"}</Text>
       </Section>
       <Actions>
-        <Button style="danger" value="reste" onClick={() => setName(undefined)}>
+        <Button
+          style="danger"
+          action="reset"
+          onClick={() => setName(undefined)}
+        >
           Reset
         </Button>
       </Actions>

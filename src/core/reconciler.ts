@@ -137,7 +137,7 @@ class HostConfig
   ): boolean {
     if (
       rootContainerInstance.action &&
-      props.value === rootContainerInstance.action.value &&
+      props.action === rootContainerInstance.action.value &&
       props.onClick
     ) {
       props.onClick(rootContainerInstance.action.user);

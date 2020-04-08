@@ -51,7 +51,7 @@ interface ButtonBase {
 
 interface ButtonWithOnClick extends ButtonBase {
   onClick: (user: SlackUser) => void;
-  value: string;
+  action: string;
   children: string;
 }
 
@@ -63,7 +63,7 @@ export const Button = (props: ButtonProps) => (
     componentType={"button"}
     toSlackElement={(props, reconcile): SlackButton => ({
       type: "button",
-      value: props.value,
+      action_id: props.action,
       style: props.style,
       url: props.url,
       confirm: reconcile(props.confirm)[0],

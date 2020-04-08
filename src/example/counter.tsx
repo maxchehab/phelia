@@ -16,10 +16,10 @@ export default function Counter({
         </Text>
       </Section>
       <Actions>
-        <Button value="inc" onClick={() => setCounter(counter + 1)}>
+        <Button action="inc" onClick={() => setCounter(counter + 1)}>
           Inc
         </Button>
-        <Button value="dec" onClick={() => setCounter(counter - 1)}>
+        <Button action="dec" onClick={() => setCounter(counter - 1)}>
           Dec
         </Button>
       </Actions>

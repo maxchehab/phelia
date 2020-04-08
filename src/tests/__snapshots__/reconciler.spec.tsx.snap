@@ -5,6 +5,7 @@ Array [
   Object {
     "elements": Array [
       Object {
+        "action_id": undefined,
         "confirm": undefined,
         "style": undefined,
         "text": Object {
@@ -14,7 +15,6 @@ Array [
         },
         "type": "button",
         "url": undefined,
-        "value": undefined,
       },
     ],
     "type": "actions",
@@ -27,6 +27,7 @@ Array [
   Object {
     "elements": Array [
       Object {
+        "action_id": undefined,
         "confirm": undefined,
         "style": undefined,
         "text": Object {
@@ -36,9 +37,9 @@ Array [
         },
         "type": "button",
         "url": undefined,
-        "value": undefined,
       },
       Object {
+        "action_id": undefined,
         "confirm": undefined,
         "style": undefined,
         "text": Object {
@@ -48,7 +49,6 @@ Array [
         },
         "type": "button",
         "url": undefined,
-        "value": undefined,
       },
     ],
     "type": "actions",
@@ -59,6 +59,7 @@ Array [
 exports[`Button Button with Confirm component renders Button with emoji text property 1`] = `
 Array [
   Object {
+    "action_id": undefined,
     "confirm": Object {
       "confirm": Object {
         "text": "Yes, I confirm!",
@@ -87,7 +88,23 @@ Array [
     },
     "type": "button",
     "url": undefined,
-    "value": undefined,
+  },
+]
+`;
+
+exports[`Button Button with action property renders Button with value property 1`] = `
+Array [
+  Object {
+    "action_id": "click",
+    "confirm": undefined,
+    "style": undefined,
+    "text": Object {
+      "emoji": undefined,
+      "text": "Click me",
+      "type": "plain_text",
+    },
+    "type": "button",
+    "url": undefined,
   },
 ]
 `;
@@ -95,6 +112,7 @@ Array [
 exports[`Button Button with danger style renders Button with danger style 1`] = `
 Array [
   Object {
+    "action_id": undefined,
     "confirm": undefined,
     "style": "danger",
     "text": Object {
@@ -104,7 +122,6 @@ Array [
     },
     "type": "button",
     "url": undefined,
-    "value": undefined,
   },
 ]
 `;
@@ -112,6 +129,7 @@ Array [
 exports[`Button Button with emoji property renders Button with emoji text property 1`] = `
 Array [
   Object {
+    "action_id": undefined,
     "confirm": undefined,
     "style": undefined,
     "text": Object {
@@ -121,7 +139,6 @@ Array [
     },
     "type": "button",
     "url": undefined,
-    "value": undefined,
   },
 ]
 `;
@@ -129,6 +146,7 @@ Array [
 exports[`Button Button with url renders Button with url 1`] = `
 Array [
   Object {
+    "action_id": undefined,
     "confirm": undefined,
     "style": undefined,
     "text": Object {
@@ -138,24 +156,6 @@ Array [
     },
     "type": "button",
     "url": "https://google.com",
-    "value": undefined,
-  },
-]
-`;
-
-exports[`Button Button with value property renders Button with value property 1`] = `
-Array [
-  Object {
-    "confirm": undefined,
-    "style": undefined,
-    "text": Object {
-      "emoji": undefined,
-      "text": "Click me",
-      "type": "plain_text",
-    },
-    "type": "button",
-    "url": undefined,
-    "value": "click",
   },
 ]
 `;
@@ -163,6 +163,7 @@ Array [
 exports[`Button Default button renders Button with default properties 1`] = `
 Array [
   Object {
+    "action_id": undefined,
     "confirm": undefined,
     "style": undefined,
     "text": Object {
@@ -172,7 +173,6 @@ Array [
     },
     "type": "button",
     "url": undefined,
-    "value": undefined,
   },
 ]
 `;
@@ -414,6 +414,7 @@ exports[`Section Section with Button accessory renders Section with a Button acc
 Array [
   Object {
     "accessory": Object {
+      "action_id": "click",
       "confirm": undefined,
       "style": undefined,
       "text": Object {
@@ -423,7 +424,6 @@ Array [
       },
       "type": "button",
       "url": undefined,
-      "value": "click",
     },
     "text": Object {
       "emoji": undefined,
@@ -439,6 +439,7 @@ exports[`Section Section with Button accessory, Text, and Fields renders Section
 Array [
   Object {
     "accessory": Object {
+      "action_id": undefined,
       "confirm": undefined,
       "style": undefined,
       "text": Object {
@@ -448,7 +449,6 @@ Array [
       },
       "type": "button",
       "url": undefined,
-      "value": undefined,
     },
     "fields": Array [
       Object {
