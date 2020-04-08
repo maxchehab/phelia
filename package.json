@@ -23,7 +23,8 @@
     "express": "^4.17.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-reconciler": "^0.25.1"
+    "react-reconciler": "^0.25.1",
+    "ts-xor": "^1.0.8"
   },
   "scripts": {
     "test": "jest",

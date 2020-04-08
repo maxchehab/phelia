@@ -9,6 +9,7 @@ import {
   ImageElement,
   SectionBlock,
 } from "@slack/web-api";
+import { XOR } from "ts-xor";
 
 interface TextProps {
   children: React.ReactText | React.ReactText[];
@@ -39,15 +40,21 @@ Text.defaultProps = {
   type: "plain_text",
 };
 
-interface ButtonProps {
+interface ButtonBase {
   children: string;
   confirm?: ReactElement;
   emoji?: boolean;
-  onClick?: (user: SlackUser) => void;
   style?: undefined | "danger" | "primary";
   url?: string;
-  value?: string;
 }
+
+interface ButtonWithOnClick extends ButtonBase {
+  onClick: (user: SlackUser) => void;
+  value: string;
+  children: string;
+}
+
+type ButtonProps = XOR<ButtonWithOnClick, ButtonBase>;
 
 export const Button = (props: ButtonProps) => (
   <component
