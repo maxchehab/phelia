@@ -12,7 +12,10 @@ declare namespace JSX {
 
   type ToSlackElement = (
     props: any,
-    reconcile: (element: React.FunctionComponentElement<any>) => any
+    reconcile: (
+      element: React.FunctionComponentElement<any>
+    ) => [any, Promise<any>[]],
+    promises: Promise<any>[]
   ) => any | ((props: any) => any);
 
   interface ComponentProps {

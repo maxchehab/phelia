@@ -2,6 +2,8 @@ import React from "react";
 
 import { PheliaMessageProps, Section, DatePicker } from "../core";
 
+const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
+
 export default function BirthdayPicker({ useState }: PheliaMessageProps) {
   const [birth, setBirth] = useState("birth");
   const [user, setUser] = useState("user");
@@ -21,7 +23,8 @@ export default function BirthdayPicker({ useState }: PheliaMessageProps) {
       accessory={
         <DatePicker
           initialDate={birth}
-          onSubmit={(user, { date }) => {
+          onSubmit={async (user, { date }) => {
+            await delay(2000);
             setBirth(date);
             setUser(user.username);
           }}

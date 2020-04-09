@@ -2,24 +2,24 @@ import React from "react";
 import {
   Actions,
   Button,
+  Confirm,
+  Context,
+  DatePicker,
+  Divider,
   Image,
   ImageBlock,
-  reconcile,
+  Option,
+  render,
   Section,
   Text,
-  Divider,
-  Context,
-  Confirm,
-  Option,
-  DatePicker,
 } from "../core";
 
 describe("Text", () => {
   describe("Default Text", () => {
     const component = () => <Text>hello world</Text>;
 
-    it("renders plain_text Text without emoji", () => {
-      const blocks = reconcile(React.createElement(component));
+    it("renders plain_text Text without emoji", async () => {
+      const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });
   });
@@ -27,8 +27,8 @@ describe("Text", () => {
   describe("Text with emoji", () => {
     const component = () => <Text emoji>hello world</Text>;
 
-    it("renders plain_text Text with emoji", () => {
-      const blocks = reconcile(React.createElement(component));
+    it("renders plain_text Text with emoji", async () => {
+      const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });
   });
@@ -36,8 +36,8 @@ describe("Text", () => {
   describe("Text with mrkdwn property", () => {
     const component = () => <Text type="mrkdwn">hello world</Text>;
 
-    it("renders mrkdwn Text without verbatim", () => {
-      const blocks = reconcile(React.createElement(component));
+    it("renders mrkdwn Text without verbatim", async () => {
+      const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });
   });
@@ -49,8 +49,8 @@ describe("Text", () => {
       </Text>
     );
 
-    it("renders mrkdwn Text with verbatim", () => {
-      const blocks = reconcile(React.createElement(component));
+    it("renders mrkdwn Text with verbatim", async () => {
+      const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });
   });
@@ -58,8 +58,8 @@ describe("Text", () => {
   describe("Text with two children", () => {
     const component = () => <Text>hello {"world"}</Text>;
 
-    it("renders Text with children concatenated", () => {
-      const blocks = reconcile(React.createElement(component));
+    it("renders Text with children concatenated", async () => {
+      const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });
   });
@@ -73,8 +73,8 @@ describe("Section", () => {
       </Section>
     );
 
-    it("renders Section with child Text component in the fields property", () => {
-      const blocks = reconcile(React.createElement(component));
+    it("renders Section with child Text component in the fields property", async () => {
+      const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });
   });
@@ -82,8 +82,8 @@ describe("Section", () => {
   describe("Section with string Text property", () => {
     const component = () => <Section text="some text" />;
 
-    it("renders Section with child Text component in the fields property", () => {
-      const blocks = reconcile(React.createElement(component));
+    it("renders Section with child Text component in the fields property", async () => {
+      const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });
   });
@@ -96,8 +96,8 @@ describe("Section", () => {
       </Section>
     );
 
-    it("renders Section with child Text components in the fields property", () => {
-      const blocks = reconcile(React.createElement(component));
+    it("renders Section with child Text components in the fields property", async () => {
+      const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });
   });
@@ -109,8 +109,8 @@ describe("Section", () => {
       </Section>
     );
 
-    it("renders Section with a multi-child Text component", () => {
-      const blocks = reconcile(React.createElement(component));
+    it("renders Section with a multi-child Text component", async () => {
+      const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });
   });
@@ -118,8 +118,8 @@ describe("Section", () => {
   describe("Section with a text property and no children", () => {
     const component = () => <Section text={<Text>Hello world</Text>} />;
 
-    it("renders Section with a text property and empty fields", () => {
-      const blocks = reconcile(React.createElement(component));
+    it("renders Section with a text property and empty fields", async () => {
+      const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });
   });
@@ -137,8 +137,8 @@ describe("Section", () => {
       />
     );
 
-    it("renders Section with a Image accessory", () => {
-      const blocks = reconcile(React.createElement(component));
+    it("renders Section with a Image accessory", async () => {
+      const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });
   });
@@ -156,13 +156,13 @@ describe("Section", () => {
       />
     );
 
-    it("renders Section with a Button accessory", () => {
-      const blocks = reconcile(React.createElement(component));
+    it("renders Section with a Button accessory", async () => {
+      const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });
 
-    describe("with reconcile action and onClick Button property", () => {
-      it("calls the onClick function", () => {
+    describe("with await render action and onClick Button property", () => {
+      it("calls the onClick function", async () => {
         const user = {
           username: "johnsmith",
           name: "john smith",
@@ -170,7 +170,7 @@ describe("Section", () => {
           team_id: "t123",
         };
 
-        reconcile(React.createElement(component), {
+        await render(React.createElement(component), {
           value: "click",
           user,
         });
@@ -192,8 +192,8 @@ describe("Section", () => {
       </Section>
     );
 
-    it("renders Section with a Button accessory, Text, and fields", () => {
-      const blocks = reconcile(React.createElement(component));
+    it("renders Section with a Button accessory, Text, and fields", async () => {
+      const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });
   });
@@ -203,8 +203,8 @@ describe("Button", () => {
   describe("Default button", () => {
     const component = () => <Button>Click me</Button>;
 
-    it("renders Button with default properties", () => {
-      const blocks = reconcile(React.createElement(component));
+    it("renders Button with default properties", async () => {
+      const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });
   });
@@ -212,8 +212,8 @@ describe("Button", () => {
   describe("Button with danger style", () => {
     const component = () => <Button style={"danger"}>Click me</Button>;
 
-    it("renders Button with danger style", () => {
-      const blocks = reconcile(React.createElement(component));
+    it("renders Button with danger style", async () => {
+      const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });
   });
@@ -223,8 +223,8 @@ describe("Button", () => {
       <Button url={"https://google.com"}>Click me</Button>
     );
 
-    it("renders Button with url", () => {
-      const blocks = reconcile(React.createElement(component));
+    it("renders Button with url", async () => {
+      const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });
   });
@@ -232,8 +232,8 @@ describe("Button", () => {
   describe("Button with emoji property", () => {
     const component = () => <Button emoji>Click me</Button>;
 
-    it("renders Button with emoji text property", () => {
-      const blocks = reconcile(React.createElement(component));
+    it("renders Button with emoji text property", async () => {
+      const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });
   });
@@ -256,8 +256,8 @@ describe("Button", () => {
       </Button>
     );
 
-    it("renders Button with emoji text property", () => {
-      const blocks = reconcile(React.createElement(component));
+    it("renders Button with emoji text property", async () => {
+      const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });
   });
@@ -271,13 +271,13 @@ describe("Button", () => {
       </Button>
     );
 
-    it("renders Button with value property", () => {
-      const blocks = reconcile(React.createElement(component));
+    it("renders Button with value property", async () => {
+      const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });
 
-    describe("with reconcile action and onClick property", () => {
-      it("calls the onClick function", () => {
+    describe("with render action and onClick property", () => {
+      it("calls the onClick function", async () => {
         const user = {
           username: "johnsmith",
           name: "john smith",
@@ -285,7 +285,7 @@ describe("Button", () => {
           team_id: "t123",
         };
 
-        reconcile(React.createElement(component), {
+        await render(React.createElement(component), {
           value: "click",
           user,
         });
@@ -293,6 +293,40 @@ describe("Button", () => {
         expect(onClick).toBeCalledWith(user);
         expect(onClick).toBeCalledTimes(1);
       });
+    });
+  });
+
+  describe("Button with async onClick property", () => {
+    const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
+
+    const onClick = jest.fn();
+
+    const component = () => (
+      <Button
+        action="click"
+        onClick={async () => {
+          await delay(100);
+          onClick();
+        }}
+      >
+        Click me
+      </Button>
+    );
+
+    it("calls the onClick function", async () => {
+      const user = {
+        username: "johnsmith",
+        name: "john smith",
+        id: "u123",
+        team_id: "t123",
+      };
+
+      await render(React.createElement(component), {
+        value: "click",
+        user,
+      });
+
+      expect(onClick).toBeCalledTimes(1);
     });
   });
 });
@@ -305,8 +339,8 @@ describe("Actions", () => {
       </Actions>
     );
 
-    it("renders Actions with one Button", () => {
-      const blocks = reconcile(React.createElement(component));
+    it("renders Actions with one Button", async () => {
+      const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });
   });
@@ -319,8 +353,8 @@ describe("Actions", () => {
       </Actions>
     );
 
-    it("renders Actions with two Buttons", () => {
-      const blocks = reconcile(React.createElement(component));
+    it("renders Actions with two Buttons", async () => {
+      const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });
   });
@@ -332,8 +366,8 @@ describe("Image", () => {
       <Image image_url="https://google.com/image.png" alt_text="an image" />
     );
 
-    it("renders Image with image_url and alt_text properties", () => {
-      const blocks = reconcile(React.createElement(component));
+    it("renders Image with image_url and alt_text properties", async () => {
+      const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });
   });
@@ -348,8 +382,8 @@ describe("Image Block", () => {
       />
     );
 
-    it("renders Image Block with image_url and alt_text properties", () => {
-      const blocks = reconcile(React.createElement(component));
+    it("renders Image Block with image_url and alt_text properties", async () => {
+      const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });
   });
@@ -363,8 +397,8 @@ describe("Image Block", () => {
       />
     );
 
-    it("renders Image Block with title", () => {
-      const blocks = reconcile(React.createElement(component));
+    it("renders Image Block with title", async () => {
+      const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });
   });
@@ -379,8 +413,8 @@ describe("Image Block", () => {
       />
     );
 
-    it("renders Image Block with title", () => {
-      const blocks = reconcile(React.createElement(component));
+    it("renders Image Block with title", async () => {
+      const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });
   });
@@ -390,8 +424,8 @@ describe("Divider", () => {
   describe("Default Divider", () => {
     const component = () => <Divider />;
 
-    it("renders Divider", () => {
-      const blocks = reconcile(React.createElement(component));
+    it("renders Divider", async () => {
+      const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });
   });
@@ -408,8 +442,8 @@ describe("Context", () => {
       </Context>
     );
 
-    it("renders Context with one element", () => {
-      const blocks = reconcile(React.createElement(component));
+    it("renders Context with one element", async () => {
+      const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });
   });
@@ -426,8 +460,8 @@ describe("Context", () => {
       </Context>
     );
 
-    it("renders Context with one element", () => {
-      const blocks = reconcile(React.createElement(component));
+    it("renders Context with one element", async () => {
+      const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });
   });
@@ -445,8 +479,8 @@ describe("Confirm", () => {
       </Confirm>
     );
 
-    it("renders with string properties", () => {
-      const blocks = reconcile(React.createElement(component));
+    it("renders with string properties", async () => {
+      const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });
   });
@@ -462,8 +496,8 @@ describe("Confirm", () => {
       </Confirm>
     );
 
-    it("renders Confirm component with Text Component properties", () => {
-      const blocks = reconcile(React.createElement(component));
+    it("renders Confirm component with Text Component properties", async () => {
+      const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });
   });
@@ -473,8 +507,8 @@ describe("Option", () => {
   describe("Option with string child", () => {
     const component = () => <Option value="an option">I am an option</Option>;
 
-    it("renders Option with string child", () => {
-      const blocks = reconcile(React.createElement(component));
+    it("renders Option with string child", async () => {
+      const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });
   });
@@ -486,8 +520,8 @@ describe("Option", () => {
       </Option>
     );
 
-    it("renders Option with Text child", () => {
-      const blocks = reconcile(React.createElement(component));
+    it("renders Option with Text child", async () => {
+      const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });
   });
@@ -499,8 +533,8 @@ describe("Option", () => {
       </Option>
     );
 
-    it("renders Option with url property", () => {
-      const blocks = reconcile(React.createElement(component));
+    it("renders Option with url property", async () => {
+      const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });
   });
@@ -516,8 +550,8 @@ describe("Option", () => {
       </Option>
     );
 
-    it("renders Option with description string property", () => {
-      const blocks = reconcile(React.createElement(component));
+    it("renders Option with description string property", async () => {
+      const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });
   });
@@ -533,8 +567,8 @@ describe("Option", () => {
       </Option>
     );
 
-    it("renders Option with description Text property", () => {
-      const blocks = reconcile(React.createElement(component));
+    it("renders Option with description Text property", async () => {
+      const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });
   });
@@ -545,13 +579,13 @@ describe("DatePicker", () => {
     const onSubmit = jest.fn();
     const component = () => <DatePicker onSubmit={onSubmit} action="date" />;
 
-    it("renders default DatePicker", () => {
-      const blocks = reconcile(React.createElement(component));
+    it("renders default DatePicker", async () => {
+      const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });
 
-    describe("with reconcile action", () => {
-      it("calls the onSubmit function", () => {
+    describe("with render action", () => {
+      it("calls the onSubmit function", async () => {
         const user = {
           username: "johnsmith",
           name: "john smith",
@@ -559,7 +593,7 @@ describe("DatePicker", () => {
           team_id: "t123",
         };
 
-        reconcile(React.createElement(component), {
+        await render(React.createElement(component), {
           value: "date",
           user,
           data: { date: "2020-04-16" },
@@ -580,8 +614,8 @@ describe("DatePicker", () => {
       />
     );
 
-    it("renders DatePicker with initial date property", () => {
-      const blocks = reconcile(React.createElement(component));
+    it("renders DatePicker with initial date property", async () => {
+      const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });
   });
@@ -596,8 +630,8 @@ describe("DatePicker", () => {
       />
     );
 
-    it("renders DatePicker with string placeholder property", () => {
-      const blocks = reconcile(React.createElement(component));
+    it("renders DatePicker with string placeholder property", async () => {
+      const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });
   });
@@ -612,8 +646,8 @@ describe("DatePicker", () => {
       />
     );
 
-    it("renders DatePicker with Text component placeholder property", () => {
-      const blocks = reconcile(React.createElement(component));
+    it("renders DatePicker with Text component placeholder property", async () => {
+      const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });
   });
@@ -637,8 +671,8 @@ describe("DatePicker", () => {
       />
     );
 
-    it("renders DatePicker with confirm property", () => {
-      const blocks = reconcile(React.createElement(component));
+    it("renders DatePicker with confirm property", async () => {
+      const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });
   });

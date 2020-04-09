@@ -65,8 +65,10 @@ class HostConfig
     internalInstanceHandle: OpaqueHandle
   ): Instance {
     if (props.toSlackElement) {
-      return props.toSlackElement(props, (e) =>
-        reconcile(e, rootContainerInstance.action)
+      return props.toSlackElement(
+        props,
+        (e) => reconcile(e, rootContainerInstance.action),
+        rootContainerInstance.promises
       );
     }
 
@@ -139,13 +141,21 @@ class HostConfig
       rootContainerInstance.action &&
       props.action === rootContainerInstance.action.value
     ) {
-      props.onClick && props.onClick(rootContainerInstance.action.user);
-
-      props.onSubmit &&
-        props.onSubmit(
-          rootContainerInstance.action.user,
-          rootContainerInstance.action.data
+      if (props.onClick) {
+        rootContainerInstance.promises.push(
+          props.onClick(rootContainerInstance.action.user)
         );
+      }
+
+      if (props.onSubmit) {
+        rootContainerInstance.promises.push(
+          props.onSubmit(
+            rootContainerInstance.action.user,
+            rootContainerInstance.action.data
+          )
+        );
+      }
+
       return true;
     }
 
@@ -294,15 +304,30 @@ interface Action {
   data?: any;
 }
 
-export function reconcile(
+function reconcile(
   element: React.FunctionComponentElement<any>,
   action?: Action
-) {
+): [any, Promise<any>[]] {
   const reconcilerInstance = Reconciler(new HostConfig());
-  const root = { action, blocks: new Array() };
+  const root = {
+    action,
+    blocks: new Array(),
+    promises: new Array<Promise<any>>(),
+  };
   const container = reconcilerInstance.createContainer(root, false, false);
 
   reconcilerInstance.updateContainer(element, container, null, null);
 
-  return root.blocks;
+  return [root.blocks, root.promises];
+}
+
+export async function render(
+  element: React.FunctionComponentElement<any>,
+  action?: Action
+) {
+  const [blocks, promises] = reconcile(element, action);
+
+  await Promise.all(promises);
+
+  return blocks;
 }

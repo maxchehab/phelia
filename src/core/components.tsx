@@ -9,7 +9,6 @@ import {
   ImageElement,
   SectionBlock,
   Option as SlackOption,
-  Checkboxes,
   Datepicker,
 } from "@slack/web-api";
 import { XOR } from "ts-xor";
@@ -52,7 +51,7 @@ interface ButtonBase {
 }
 
 interface ButtonWithOnClick extends ButtonBase {
-  onClick: (user: SlackUser) => void;
+  onClick: (user: SlackUser) => void | Promise<void>;
   action: string;
   children: string;
 }
@@ -63,14 +62,22 @@ export const Button = (props: ButtonProps) => (
   <component
     {...props}
     componentType={"button"}
-    toSlackElement={(props, reconcile): SlackButton => ({
-      type: "button",
-      action_id: props.action,
-      style: props.style,
-      url: props.url,
-      confirm: reconcile(props.confirm)[0],
-      text: { type: "plain_text", text: "", emoji: props.emoji },
-    })}
+    toSlackElement={(props, reconcile, promises): SlackButton => {
+      const instance: SlackButton = {
+        type: "button",
+        action_id: props.action,
+        style: props.style,
+        url: props.url,
+        text: { type: "plain_text", text: "", emoji: props.emoji },
+      };
+
+      const [confirm, confirmPromises] = reconcile(props.confirm);
+
+      instance.confirm = confirm[0];
+      promises.push(...confirmPromises);
+
+      return instance;
+    }}
   />
 );
 
@@ -88,16 +95,21 @@ export const Section = (props: SectionProps) => (
   <component
     {...props}
     componentType="section"
-    toSlackElement={(props, reconcile): SectionBlock => {
+    toSlackElement={(props, reconcile, promises): SectionBlock => {
       const instance: SectionBlock = {
         type: "section",
-        accessory: reconcile(props.accessory)[0],
-        text: reconcile(props.text)[0],
       };
+      const [accessory, accessoryPromises] = reconcile(props.accessory);
+      const [text, textPromises] = reconcile(props.text);
+
+      instance.text = text[0];
+      instance.accessory = accessory[0];
 
       if (instance.text) {
         instance.text.type = "plain_text";
       }
+
+      promises.push(...accessoryPromises, ...textPromises);
 
       return instance;
     }}
@@ -190,7 +202,7 @@ interface ConfirmProps {
   children: ReactElement | string;
   confirm: ReactElement | string;
   deny: ReactElement | string;
-  style?: undefined | "danger" | "primary";
+  style?: "danger" | "primary";
   title: ReactElement | string;
 }
 
@@ -198,20 +210,28 @@ export const Confirm = (props: ConfirmProps) => (
   <component
     {...props}
     componentType="confirm"
-    toSlackElement={(props, reconcile) => {
+    toSlackElement={(props, reconcile, promises) => {
       const instance: any = {
         // using a function so the appendInitialChild can determine the type of the component
         // whereas slack forbids a confirm object to have a 'type' property
         isConfirm: () => true,
-        title: reconcile(props.title)[0],
-        confirm: reconcile(props.confirm)[0],
-        deny: reconcile(props.deny)[0],
+
         style: props.style,
       };
+
+      const [title, titlePromises] = reconcile(props.title);
+      const [confirm, confirmPromises] = reconcile(props.confirm);
+      const [deny, denyPromises] = reconcile(props.deny);
+
+      instance.title = title[0];
+      instance.confirm = confirm[0];
+      instance.deny = deny[0];
 
       instance.title.type = "plain_text";
       instance.confirm.type = "plain_text";
       instance.deny.type = "plain_text";
+
+      promises.push(...titlePromises, ...confirmPromises, ...denyPromises);
 
       return instance;
     }}
@@ -229,17 +249,22 @@ export const Option = (props: OptionProps) => (
   <component
     {...props}
     componentType="confirm"
-    toSlackElement={(props, reconcile): SlackOption => {
+    toSlackElement={(props, reconcile, promises): Promise<SlackOption> => {
       const instance: any = {
         isOption: () => true,
         value: props.value,
-        description: reconcile(props.description)[0],
         url: props.url,
       };
+
+      const [description, descriptionPromises] = reconcile(props.description);
+
+      instance.description = description[0];
 
       if (instance.description) {
         instance.description.type = "plain_text";
       }
+
+      promises.push(...descriptionPromises);
 
       return instance;
     }}
@@ -248,7 +273,7 @@ export const Option = (props: OptionProps) => (
 
 interface DatePickerProps {
   action: string;
-  onSubmit: (user: SlackUser, data: { date: string }) => void;
+  onSubmit: (user: SlackUser, data: { date: string }) => void | Promise<void>;
   initialDate?: string;
   placeholder?: ReactElement | string;
   confirm?: ReactElement;
@@ -258,18 +283,24 @@ export const DatePicker = (props: DatePickerProps) => (
   <component
     {...props}
     componentType="confirm"
-    toSlackElement={(props, reconcile): Datepicker => {
+    toSlackElement={(props, reconcile, promises): Datepicker => {
       const instance: Datepicker = {
         type: "datepicker",
         initial_date: props.initialDate,
         action_id: props.action,
-        placeholder: reconcile(props.placeholder)[0],
-        confirm: reconcile(props.confirm)[0],
       };
+
+      const [placeholder, placeholderPromises] = reconcile(props.placeholder);
+      const [confirm, confirmPromises] = reconcile(props.confirm);
+
+      instance.placeholder = placeholder[0];
+      instance.confirm = confirm[0];
 
       if (instance.placeholder) {
         instance.placeholder.type = "plain_text";
       }
+
+      promises.push(...placeholderPromises, ...confirmPromises);
 
       return instance;
     }}

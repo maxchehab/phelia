@@ -5,7 +5,7 @@ import { createMessageAdapter } from "@slack/interactive-messages";
 import { MessageAdapterOptions } from "@slack/interactive-messages/dist/adapter";
 
 import { PheliaMessage, PheliaClient } from "./phelia-client";
-import { reconcile } from "./reconciler";
+import { render } from "./reconciler";
 import React, { useState as reactUseState } from "react";
 
 interface PheliaMessageMetadata {
@@ -38,10 +38,12 @@ export function interactiveMessageHandler(
     new Map<string, PheliaMessage>()
   );
 
-  const adapter = createMessageAdapter(signingSecret, slackOptions);
+  const adapter = createMessageAdapter(signingSecret, {
+    ...slackOptions,
+    syncResponseTimeout: 3000,
+  });
 
   adapter.action(new RegExp(/.*/), async (payload, respond) => {
-    console.log(JSON.stringify(payload, null, 2));
     const { channel_id, message_ts } = payload.container;
     const messageKey = `${channel_id}:${message_ts}`;
 
@@ -73,7 +75,7 @@ export function interactiveMessageHandler(
     }
 
     for (const action of payload.actions) {
-      reconcile(
+      await render(
         React.createElement(messageCache.get(name), { useState, props }),
         {
           value: action.action_id,
@@ -83,7 +85,7 @@ export function interactiveMessageHandler(
       );
     }
 
-    const blocks = reconcile(
+    const blocks = await render(
       React.createElement(messageCache.get(name), { useState, props })
     );
 
