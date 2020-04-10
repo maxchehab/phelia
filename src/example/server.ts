@@ -13,21 +13,23 @@ dotenv.config();
 const app = express();
 const port = 3000;
 
+const components = [
+  BirthdayPicker,
+  Counter,
+  Greeter,
+  ModalExample,
+  MyModal,
+  RandomImage
+];
+
 app.post(
   "/api/webhook",
-  interactiveMessageHandler(process.env.SLACK_SIGNING_SECRET, [
-    BirthdayPicker,
-    Counter,
-    Greeter,
-    ModalExample,
-    MyModal,
-    RandomImage
-  ])
+  interactiveMessageHandler(process.env.SLACK_SIGNING_SECRET, components)
 );
 
 // This is how you post a message....
 const client = new PheliaClient(process.env.SLACK_TOKEN);
-client.postMessage(ModalExample, "@max");
+components.forEach(c => client.postMessage(c, "@max", { name: "max" }));
 
 app.listen(port, () =>
   console.log(`Example app listening at http://localhost:${port}`)

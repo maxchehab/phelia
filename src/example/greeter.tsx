@@ -16,7 +16,10 @@ export default function Greeter({ useState }: PheliaMessageProps) {
     <Message text="Hey there!">
       <Section
         accessory={
-          <Button action={"click"} onClick={user => setName(user.username)}>
+          <Button
+            action={"click"}
+            onClick={({ user }) => setName(user.username)}
+          >
             Click me
           </Button>
         }

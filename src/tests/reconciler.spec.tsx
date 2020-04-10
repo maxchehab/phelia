@@ -8,6 +8,7 @@ import {
   Divider,
   Image,
   ImageBlock,
+  InteractionEvent,
   Option,
   render,
   Section,
@@ -172,10 +173,10 @@ describe("Section", () => {
 
         await render(React.createElement(component), {
           value: "click",
-          user
+          event: { user }
         });
 
-        expect(onClick).toBeCalledWith(user);
+        expect(onClick).toBeCalledWith({ user });
         expect(onClick).toBeCalledTimes(1);
       });
     });
@@ -287,10 +288,10 @@ describe("Button", () => {
 
         await render(React.createElement(component), {
           value: "click",
-          user
+          event: { user }
         });
 
-        expect(onClick).toBeCalledWith(user);
+        expect(onClick).toBeCalledWith({ user });
         expect(onClick).toBeCalledTimes(1);
       });
     });
@@ -323,7 +324,7 @@ describe("Button", () => {
 
       await render(React.createElement(component), {
         value: "click",
-        user
+        event: { user }
       });
 
       expect(onClick).toBeCalledTimes(1);
@@ -577,7 +578,7 @@ describe("Option", () => {
 describe("DatePicker", () => {
   describe("Default DatePicker", () => {
     const onSubmit = jest.fn();
-    const component = () => <DatePicker onSubmit={onSubmit} action="date" />;
+    const component = () => <DatePicker onSelect={onSubmit} action="date" />;
 
     it("renders default DatePicker", async () => {
       const blocks = await render(React.createElement(component));
@@ -595,11 +596,10 @@ describe("DatePicker", () => {
 
         await render(React.createElement(component), {
           value: "date",
-          user,
-          data: { date: "2020-04-16" }
+          event: { user, date: "2020-04-16" } as InteractionEvent
         });
 
-        expect(onSubmit).toBeCalledWith(user, { date: "2020-04-16" });
+        expect(onSubmit).toBeCalledWith({ user, date: "2020-04-16" });
         expect(onSubmit).toBeCalledTimes(1);
       });
     });
@@ -608,7 +608,7 @@ describe("DatePicker", () => {
   describe("DatePicker with initial date property", () => {
     const component = () => (
       <DatePicker
-        onSubmit={() => null}
+        onSelect={() => null}
         action="date"
         initialDate="2020-11-11"
       />
@@ -623,7 +623,7 @@ describe("DatePicker", () => {
   describe("DatePicker with string placeholder property", () => {
     const component = () => (
       <DatePicker
-        onSubmit={() => null}
+        onSelect={() => null}
         action="date"
         initialDate="2020-11-11"
         placeholder="just a placeholder"
@@ -639,7 +639,7 @@ describe("DatePicker", () => {
   describe("DatePicker with Text component placeholder property", () => {
     const component = () => (
       <DatePicker
-        onSubmit={() => null}
+        onSelect={() => null}
         action="date"
         initialDate="2020-11-11"
         placeholder={<Text emoji>just a placeholder</Text>}
@@ -655,7 +655,7 @@ describe("DatePicker", () => {
   describe("DatePicker with confirm property", () => {
     const component = () => (
       <DatePicker
-        onSubmit={() => null}
+        onSelect={() => null}
         action="date"
         initialDate="2020-11-11"
         placeholder={<Text emoji>just a placeholder</Text>}

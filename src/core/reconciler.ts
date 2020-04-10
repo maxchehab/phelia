@@ -1,6 +1,7 @@
 import Reconciler, { OpaqueHandle } from "react-reconciler";
 import ReactReconciler from "react-reconciler";
 import { SlackUser } from "./phelia-client";
+import { InteractionEvent } from "./interactive-message-handler";
 
 type Type = any;
 type Props = JSX.ComponentProps & {
@@ -148,16 +149,19 @@ class HostConfig
     ) {
       if (props.onClick) {
         rootContainerInstance.promises.push(
-          props.onClick(rootContainerInstance.action.user)
+          props.onClick(rootContainerInstance.action.event)
         );
       }
 
       if (props.onSubmit) {
         rootContainerInstance.promises.push(
-          props.onSubmit(
-            rootContainerInstance.action.user,
-            rootContainerInstance.action.data
-          )
+          props.onSubmit(rootContainerInstance.action.event)
+        );
+      }
+
+      if (props.onSelect) {
+        rootContainerInstance.promises.push(
+          props.onSelect(rootContainerInstance.action.event)
         );
       }
 
@@ -305,8 +309,7 @@ class HostConfig
 
 interface Action {
   value: string;
-  user: SlackUser;
-  data?: any;
+  event: InteractionEvent;
 }
 
 function reconcile(

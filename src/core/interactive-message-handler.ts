@@ -4,12 +4,29 @@ import fs from "fs";
 import path from "path";
 import React, { useState as reactUseState } from "react";
 
-import { PheliaMessage, PheliaClient, PheliaModal } from "./phelia-client";
+import {
+  PheliaMessage,
+  PheliaClient,
+  PheliaModal,
+  SlackUser
+} from "./phelia-client";
 import { render } from "./reconciler";
 
 interface PheliaMessageMetadata {
   message: PheliaMessage;
   name: string;
+}
+
+export interface InteractionEvent {
+  user: SlackUser;
+}
+
+export interface SubmitEvent extends InteractionEvent {
+  form: { [key: string]: any };
+}
+
+export interface SelectDateEvent extends InteractionEvent {
+  date: string;
 }
 
 interface PheliaMessageContainer {
@@ -130,8 +147,7 @@ export function interactiveMessageHandler(
         }),
         {
           value: action.action_id,
-          user: payload.user,
-          data: parseActionData(action)
+          event: generateEvent(action, payload.user)
         }
       );
     }
@@ -218,18 +234,18 @@ export function interactiveMessageHandler(
     function useModal(
       key: string,
       _modal: PheliaMessage,
-      onSubmit?: (form: any) => Promise<void>,
-      onCancel?: () => Promise<void>
+      onSubmit?: (event: SubmitEvent) => Promise<void>,
+      onCancel?: (event: InteractionEvent) => Promise<void>
     ): (title: string, props?: any) => Promise<void> {
       if (key === viewContainer.modalKey && !executedCallbacks.get(key)) {
         executedCallbacks.set(key, true);
 
         if (payload.type === "view_submission") {
-          // todo pass in form data payload.state
-          executionPromises.push(onSubmit(null));
+          executionPromises.push(
+            onSubmit({ form: payload.state, user: payload.user })
+          );
         } else {
-          // todo pass in user data
-          executionPromises.push(onCancel());
+          executionPromises.push(onCancel({ user: payload.user }));
         }
       }
 
@@ -299,10 +315,15 @@ export function interactiveMessageHandler(
   return adapter.requestListener();
 }
 
-function parseActionData(action: any) {
+function generateEvent(
+  action: any,
+  user: SlackUser
+): SelectDateEvent | InteractionEvent {
   if (action.type === "datepicker") {
-    return { date: action.selected_date };
+    return { date: action.selected_date, user };
   }
+
+  return { user };
 }
 
 function loadMessagesFromArray(

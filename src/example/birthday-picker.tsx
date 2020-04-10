@@ -24,7 +24,7 @@ export default function BirthdayPicker({ useState }: PheliaMessageProps) {
         accessory={
           <DatePicker
             initialDate={birth}
-            onSubmit={async (user, { date }) => {
+            onSelect={async ({ user, date }) => {
               await delay(2000);
               setBirth(date);
               setUser(user.username);

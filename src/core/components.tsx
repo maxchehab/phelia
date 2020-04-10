@@ -1,5 +1,4 @@
 import React, { ReactElement } from "react";
-import { SlackUser } from "./phelia-client";
 import {
   ActionsBlock,
   Button as SlackButton,
@@ -12,6 +11,10 @@ import {
   SectionBlock
 } from "@slack/web-api";
 import { XOR } from "ts-xor";
+import {
+  SelectDateEvent,
+  InteractionEvent
+} from "./interactive-message-handler";
 
 interface TextProps {
   children: React.ReactText | React.ReactText[];
@@ -51,7 +54,7 @@ interface ButtonBase {
 }
 
 interface ButtonWithOnClick extends ButtonBase {
-  onClick: (user: SlackUser) => void | Promise<void>;
+  onClick: (event: InteractionEvent) => void | Promise<void>;
   action: string;
   children: string;
 }
@@ -273,7 +276,7 @@ export const Option = (props: OptionProps) => (
 
 interface DatePickerProps {
   action: string;
-  onSubmit: (user: SlackUser, data: { date: string }) => void | Promise<void>;
+  onSelect: (event: SelectDateEvent) => void | Promise<void>;
   initialDate?: string;
   placeholder?: ReactElement | string;
   confirm?: ReactElement;
