@@ -1,22 +1,29 @@
 import React from "react";
 
-import { PheliaMessageProps, Section, Actions, Button, Text } from "../core";
+import {
+  Actions,
+  Button,
+  Message,
+  PheliaMessageProps,
+  Section,
+  Text
+} from "../core";
 
 export default function Greeter({ useState }: PheliaMessageProps) {
   const [name, setName] = useState("name");
 
   return (
-    <>
+    <Message text="Hey there!">
       <Section
         accessory={
-          <Button action={"click"} onClick={(user) => setName(user.username)}>
+          <Button action={"click"} onClick={user => setName(user.username)}>
             Click me
           </Button>
         }
         text={<Text>Click the button</Text>}
       >
         <Text type="mrkdwn">*Name:*</Text>
-        <Text>{name ? name : "<unknown>"}</Text>
+        <Text>{name || "<unknown>"}</Text>
       </Section>
       <Actions>
         <Button
@@ -27,6 +34,6 @@ export default function Greeter({ useState }: PheliaMessageProps) {
           Reset
         </Button>
       </Actions>
-    </>
+    </Message>
   );
 }

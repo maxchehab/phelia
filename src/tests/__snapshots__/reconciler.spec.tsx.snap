@@ -1,214 +1,61 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Actions Actions with one Button renders Actions with one Button 1`] = `
-Array [
-  Object {
-    "elements": Array [
-      Object {
-        "action_id": undefined,
-        "confirm": undefined,
-        "style": undefined,
-        "text": Object {
-          "emoji": undefined,
-          "text": "Click me",
-          "type": "plain_text",
-        },
-        "type": "button",
-        "url": undefined,
+Object {
+  "elements": Array [
+    Object {
+      "action_id": undefined,
+      "confirm": undefined,
+      "style": undefined,
+      "text": Object {
+        "emoji": undefined,
+        "text": "Click me",
+        "type": "plain_text",
       },
-    ],
-    "type": "actions",
-  },
-]
+      "type": "button",
+      "url": undefined,
+    },
+  ],
+  "type": "actions",
+}
 `;
 
 exports[`Actions Actions with two Buttons renders Actions with two Buttons 1`] = `
-Array [
-  Object {
-    "elements": Array [
-      Object {
-        "action_id": undefined,
-        "confirm": undefined,
-        "style": undefined,
-        "text": Object {
-          "emoji": undefined,
-          "text": "Click me",
-          "type": "plain_text",
-        },
-        "type": "button",
-        "url": undefined,
+Object {
+  "elements": Array [
+    Object {
+      "action_id": undefined,
+      "confirm": undefined,
+      "style": undefined,
+      "text": Object {
+        "emoji": undefined,
+        "text": "Click me",
+        "type": "plain_text",
       },
-      Object {
-        "action_id": undefined,
-        "confirm": undefined,
-        "style": undefined,
-        "text": Object {
-          "emoji": undefined,
-          "text": "No, click me",
-          "type": "plain_text",
-        },
-        "type": "button",
-        "url": undefined,
+      "type": "button",
+      "url": undefined,
+    },
+    Object {
+      "action_id": undefined,
+      "confirm": undefined,
+      "style": undefined,
+      "text": Object {
+        "emoji": undefined,
+        "text": "No, click me",
+        "type": "plain_text",
       },
-    ],
-    "type": "actions",
-  },
-]
+      "type": "button",
+      "url": undefined,
+    },
+  ],
+  "type": "actions",
+}
 `;
 
 exports[`Button Button with Confirm component renders Button with emoji text property 1`] = `
-Array [
-  Object {
-    "action_id": undefined,
-    "confirm": Object {
-      "confirm": Object {
-        "text": "Yes, I confirm!",
-        "type": "plain_text",
-      },
-      "deny": Object {
-        "text": "No, go away!",
-        "type": "plain_text",
-      },
-      "isConfirm": [Function],
-      "style": undefined,
-      "text": Object {
-        "text": "Do you confirm me?",
-        "type": "plain_text",
-      },
-      "title": Object {
-        "text": "Confirm me?",
-        "type": "plain_text",
-      },
-    },
-    "style": undefined,
-    "text": Object {
-      "emoji": true,
-      "text": "Click me",
-      "type": "plain_text",
-    },
-    "type": "button",
-    "url": undefined,
-  },
-]
-`;
-
-exports[`Button Button with action property renders Button with value property 1`] = `
-Array [
-  Object {
-    "action_id": "click",
-    "confirm": undefined,
-    "style": undefined,
-    "text": Object {
-      "emoji": undefined,
-      "text": "Click me",
-      "type": "plain_text",
-    },
-    "type": "button",
-    "url": undefined,
-  },
-]
-`;
-
-exports[`Button Button with danger style renders Button with danger style 1`] = `
-Array [
-  Object {
-    "action_id": undefined,
-    "confirm": undefined,
-    "style": "danger",
-    "text": Object {
-      "emoji": undefined,
-      "text": "Click me",
-      "type": "plain_text",
-    },
-    "type": "button",
-    "url": undefined,
-  },
-]
-`;
-
-exports[`Button Button with emoji property renders Button with emoji text property 1`] = `
-Array [
-  Object {
-    "action_id": undefined,
-    "confirm": undefined,
-    "style": undefined,
-    "text": Object {
-      "emoji": true,
-      "text": "Click me",
-      "type": "plain_text",
-    },
-    "type": "button",
-    "url": undefined,
-  },
-]
-`;
-
-exports[`Button Button with url renders Button with url 1`] = `
-Array [
-  Object {
-    "action_id": undefined,
-    "confirm": undefined,
-    "style": undefined,
-    "text": Object {
-      "emoji": undefined,
-      "text": "Click me",
-      "type": "plain_text",
-    },
-    "type": "button",
-    "url": "https://google.com",
-  },
-]
-`;
-
-exports[`Button Default button renders Button with default properties 1`] = `
-Array [
-  Object {
-    "action_id": undefined,
-    "confirm": undefined,
-    "style": undefined,
-    "text": Object {
-      "emoji": undefined,
-      "text": "Click me",
-      "type": "plain_text",
-    },
-    "type": "button",
-    "url": undefined,
-  },
-]
-`;
-
-exports[`Confirm Confirm with Text Component properties renders Confirm component with Text Component properties 1`] = `
-Array [
-  Object {
-    "confirm": Object {
-      "emoji": true,
-      "text": "Yes, I confirm!",
-      "type": "plain_text",
-    },
-    "deny": Object {
-      "emoji": true,
-      "text": "No go away",
-      "type": "plain_text",
-    },
-    "isConfirm": [Function],
-    "style": undefined,
-    "text": Object {
-      "text": "*No go away*",
-      "type": "mrkdwn",
-      "verbatim": undefined,
-    },
-    "title": Object {
-      "emoji": true,
-      "text": "Confirm me?",
-      "type": "plain_text",
-    },
-  },
-]
-`;
-
-exports[`Confirm Confirm with string properties renders with string properties 1`] = `
-Array [
-  Object {
+Object {
+  "action_id": undefined,
+  "confirm": Object {
     "confirm": Object {
       "text": "Yes, I confirm!",
       "type": "plain_text",
@@ -228,487 +75,560 @@ Array [
       "type": "plain_text",
     },
   },
-]
+  "style": undefined,
+  "text": Object {
+    "emoji": true,
+    "text": "Click me",
+    "type": "plain_text",
+  },
+  "type": "button",
+  "url": undefined,
+}
+`;
+
+exports[`Button Button with action property renders Button with value property 1`] = `
+Object {
+  "action_id": "click",
+  "confirm": undefined,
+  "style": undefined,
+  "text": Object {
+    "emoji": undefined,
+    "text": "Click me",
+    "type": "plain_text",
+  },
+  "type": "button",
+  "url": undefined,
+}
+`;
+
+exports[`Button Button with danger style renders Button with danger style 1`] = `
+Object {
+  "action_id": undefined,
+  "confirm": undefined,
+  "style": "danger",
+  "text": Object {
+    "emoji": undefined,
+    "text": "Click me",
+    "type": "plain_text",
+  },
+  "type": "button",
+  "url": undefined,
+}
+`;
+
+exports[`Button Button with emoji property renders Button with emoji text property 1`] = `
+Object {
+  "action_id": undefined,
+  "confirm": undefined,
+  "style": undefined,
+  "text": Object {
+    "emoji": true,
+    "text": "Click me",
+    "type": "plain_text",
+  },
+  "type": "button",
+  "url": undefined,
+}
+`;
+
+exports[`Button Button with url renders Button with url 1`] = `
+Object {
+  "action_id": undefined,
+  "confirm": undefined,
+  "style": undefined,
+  "text": Object {
+    "emoji": undefined,
+    "text": "Click me",
+    "type": "plain_text",
+  },
+  "type": "button",
+  "url": "https://google.com",
+}
+`;
+
+exports[`Button Default button renders Button with default properties 1`] = `
+Object {
+  "action_id": undefined,
+  "confirm": undefined,
+  "style": undefined,
+  "text": Object {
+    "emoji": undefined,
+    "text": "Click me",
+    "type": "plain_text",
+  },
+  "type": "button",
+  "url": undefined,
+}
+`;
+
+exports[`Confirm Confirm with Text Component properties renders Confirm component with Text Component properties 1`] = `
+Object {
+  "confirm": Object {
+    "emoji": true,
+    "text": "Yes, I confirm!",
+    "type": "plain_text",
+  },
+  "deny": Object {
+    "emoji": true,
+    "text": "No go away",
+    "type": "plain_text",
+  },
+  "isConfirm": [Function],
+  "style": undefined,
+  "text": Object {
+    "text": "*No go away*",
+    "type": "mrkdwn",
+    "verbatim": undefined,
+  },
+  "title": Object {
+    "emoji": true,
+    "text": "Confirm me?",
+    "type": "plain_text",
+  },
+}
+`;
+
+exports[`Confirm Confirm with string properties renders with string properties 1`] = `
+Object {
+  "confirm": Object {
+    "text": "Yes, I confirm!",
+    "type": "plain_text",
+  },
+  "deny": Object {
+    "text": "No, go away!",
+    "type": "plain_text",
+  },
+  "isConfirm": [Function],
+  "style": undefined,
+  "text": Object {
+    "text": "Do you confirm me?",
+    "type": "plain_text",
+  },
+  "title": Object {
+    "text": "Confirm me?",
+    "type": "plain_text",
+  },
+}
 `;
 
 exports[`Context Context with Image and Text component renders Context with one element 1`] = `
-Array [
-  Object {
-    "elements": Array [
-      Object {
-        "alt_text": "an image",
-        "image_url": "https://google.com/image.png",
-        "type": "image",
-      },
-      Object {
-        "text": "*Hello world*",
-        "type": "mrkdwn",
-        "verbatim": undefined,
-      },
-    ],
-    "type": "context",
-  },
-]
-`;
-
-exports[`Context Context with one element renders Context with one element 1`] = `
-Array [
-  Object {
-    "elements": Array [
-      Object {
-        "alt_text": "an image",
-        "image_url": "https://google.com/image.png",
-        "type": "image",
-      },
-    ],
-    "type": "context",
-  },
-]
-`;
-
-exports[`DatePicker DatePicker with Text component placeholder property renders DatePicker with Text component placeholder property 1`] = `
-Array [
-  Object {
-    "action_id": "date",
-    "confirm": undefined,
-    "initial_date": "2020-11-11",
-    "placeholder": Object {
-      "emoji": true,
-      "text": "just a placeholder",
-      "type": "plain_text",
-    },
-    "type": "datepicker",
-  },
-]
-`;
-
-exports[`DatePicker DatePicker with confirm property renders DatePicker with confirm property 1`] = `
-Array [
-  Object {
-    "action_id": "date",
-    "confirm": Object {
-      "confirm": Object {
-        "text": "Yes, I confirm!",
-        "type": "plain_text",
-      },
-      "deny": Object {
-        "text": "No, go away!",
-        "type": "plain_text",
-      },
-      "isConfirm": [Function],
-      "style": undefined,
-      "text": Object {
-        "text": "Do you confirm me?",
-        "type": "plain_text",
-      },
-      "title": Object {
-        "text": "Confirm me?",
-        "type": "plain_text",
-      },
-    },
-    "initial_date": "2020-11-11",
-    "placeholder": Object {
-      "emoji": true,
-      "text": "just a placeholder",
-      "type": "plain_text",
-    },
-    "type": "datepicker",
-  },
-]
-`;
-
-exports[`DatePicker DatePicker with initial date property renders DatePicker with initial date property 1`] = `
-Array [
-  Object {
-    "action_id": "date",
-    "confirm": undefined,
-    "initial_date": "2020-11-11",
-    "placeholder": undefined,
-    "type": "datepicker",
-  },
-]
-`;
-
-exports[`DatePicker DatePicker with string placeholder property renders DatePicker with string placeholder property 1`] = `
-Array [
-  Object {
-    "action_id": "date",
-    "confirm": undefined,
-    "initial_date": "2020-11-11",
-    "placeholder": Object {
-      "text": "just a placeholder",
-      "type": "plain_text",
-    },
-    "type": "datepicker",
-  },
-]
-`;
-
-exports[`DatePicker Default DatePicker renders default DatePicker 1`] = `
-Array [
-  Object {
-    "action_id": "date",
-    "confirm": undefined,
-    "initial_date": undefined,
-    "placeholder": undefined,
-    "type": "datepicker",
-  },
-]
-`;
-
-exports[`Divider Default Divider renders Divider 1`] = `
-Array [
-  Object {
-    "type": "divider",
-  },
-]
-`;
-
-exports[`Image Block Default Image Block renders Image Block with image_url and alt_text properties 1`] = `
-Array [
-  Object {
-    "alt_text": "an image",
-    "image_url": "https://google.com/image.png",
-    "type": "image",
-  },
-]
-`;
-
-exports[`Image Block Image Block with emoji property renders Image Block with title 1`] = `
-Array [
-  Object {
-    "alt_text": "an image",
-    "image_url": "https://google.com/image.png",
-    "title": Object {
-      "emoji": true,
-      "text": "a string",
-      "type": "plain_text",
-    },
-    "type": "image",
-  },
-]
-`;
-
-exports[`Image Block Image Block with string title renders Image Block with title 1`] = `
-Array [
-  Object {
-    "alt_text": "an image",
-    "image_url": "https://google.com/image.png",
-    "title": Object {
-      "emoji": undefined,
-      "text": "a string",
-      "type": "plain_text",
-    },
-    "type": "image",
-  },
-]
-`;
-
-exports[`Image Default Image renders Image with image_url and alt_text properties 1`] = `
-Array [
-  Object {
-    "alt_text": "an image",
-    "image_url": "https://google.com/image.png",
-    "type": "image",
-  },
-]
-`;
-
-exports[`Option Option with Text child renders Option with Text child 1`] = `
-Array [
-  Object {
-    "description": undefined,
-    "isOption": [Function],
-    "text": Object {
-      "emoji": true,
-      "text": "Another option",
-      "type": "plain_text",
-    },
-    "url": undefined,
-    "value": "an option",
-  },
-]
-`;
-
-exports[`Option Option with description Text property renders Option with description Text property 1`] = `
-Array [
-  Object {
-    "description": Object {
-      "emoji": true,
-      "text": "hello i am a description",
-      "type": "plain_text",
-    },
-    "isOption": [Function],
-    "text": Object {
-      "emoji": true,
-      "text": "Another option",
-      "type": "plain_text",
-    },
-    "url": "https://google.com",
-    "value": "an option",
-  },
-]
-`;
-
-exports[`Option Option with description string property renders Option with description string property 1`] = `
-Array [
-  Object {
-    "description": Object {
-      "text": "hello i am a description",
-      "type": "plain_text",
-    },
-    "isOption": [Function],
-    "text": Object {
-      "emoji": true,
-      "text": "Another option",
-      "type": "plain_text",
-    },
-    "url": "https://google.com",
-    "value": "an option",
-  },
-]
-`;
-
-exports[`Option Option with string child renders Option with string child 1`] = `
-Array [
-  Object {
-    "description": undefined,
-    "isOption": [Function],
-    "text": Object {
-      "text": "I am an option",
-      "type": "plain_text",
-    },
-    "url": undefined,
-    "value": "an option",
-  },
-]
-`;
-
-exports[`Option Option with url property renders Option with url property 1`] = `
-Array [
-  Object {
-    "description": undefined,
-    "isOption": [Function],
-    "text": Object {
-      "emoji": true,
-      "text": "Another option",
-      "type": "plain_text",
-    },
-    "url": "https://google.com",
-    "value": "an option",
-  },
-]
-`;
-
-exports[`Section Section with Button accessory renders Section with a Button accessory 1`] = `
-Array [
-  Object {
-    "accessory": Object {
-      "action_id": "click",
-      "confirm": undefined,
-      "style": undefined,
-      "text": Object {
-        "emoji": undefined,
-        "text": "Click me",
-        "type": "plain_text",
-      },
-      "type": "button",
-      "url": undefined,
-    },
-    "text": Object {
-      "emoji": undefined,
-      "text": "Hello world",
-      "type": "plain_text",
-    },
-    "type": "section",
-  },
-]
-`;
-
-exports[`Section Section with Button accessory, Text, and Fields renders Section with a Button accessory, Text, and fields 1`] = `
-Array [
-  Object {
-    "accessory": Object {
-      "action_id": undefined,
-      "confirm": undefined,
-      "style": undefined,
-      "text": Object {
-        "emoji": undefined,
-        "text": "Click me",
-        "type": "plain_text",
-      },
-      "type": "button",
-      "url": undefined,
-    },
-    "fields": Array [
-      Object {
-        "emoji": undefined,
-        "text": "Field #1",
-        "type": "plain_text",
-      },
-      Object {
-        "emoji": undefined,
-        "text": "Field #2",
-        "type": "plain_text",
-      },
-    ],
-    "text": Object {
-      "emoji": undefined,
-      "text": "The text",
-      "type": "plain_text",
-    },
-    "type": "section",
-  },
-]
-`;
-
-exports[`Section Section with Image accessory renders Section with a Image accessory 1`] = `
-Array [
-  Object {
-    "accessory": Object {
+Object {
+  "elements": Array [
+    Object {
       "alt_text": "an image",
       "image_url": "https://google.com/image.png",
       "type": "image",
     },
-    "text": Object {
-      "emoji": undefined,
-      "text": "Hello world",
+    Object {
+      "text": "*Hello world*",
+      "type": "mrkdwn",
+      "verbatim": undefined,
+    },
+  ],
+  "type": "context",
+}
+`;
+
+exports[`Context Context with one element renders Context with one element 1`] = `
+Object {
+  "elements": Array [
+    Object {
+      "alt_text": "an image",
+      "image_url": "https://google.com/image.png",
+      "type": "image",
+    },
+  ],
+  "type": "context",
+}
+`;
+
+exports[`DatePicker DatePicker with Text component placeholder property renders DatePicker with Text component placeholder property 1`] = `
+Object {
+  "action_id": "date",
+  "confirm": undefined,
+  "initial_date": "2020-11-11",
+  "placeholder": Object {
+    "emoji": true,
+    "text": "just a placeholder",
+    "type": "plain_text",
+  },
+  "type": "datepicker",
+}
+`;
+
+exports[`DatePicker DatePicker with confirm property renders DatePicker with confirm property 1`] = `
+Object {
+  "action_id": "date",
+  "confirm": Object {
+    "confirm": Object {
+      "text": "Yes, I confirm!",
       "type": "plain_text",
     },
-    "type": "section",
+    "deny": Object {
+      "text": "No, go away!",
+      "type": "plain_text",
+    },
+    "isConfirm": [Function],
+    "style": undefined,
+    "text": Object {
+      "text": "Do you confirm me?",
+      "type": "plain_text",
+    },
+    "title": Object {
+      "text": "Confirm me?",
+      "type": "plain_text",
+    },
   },
-]
+  "initial_date": "2020-11-11",
+  "placeholder": Object {
+    "emoji": true,
+    "text": "just a placeholder",
+    "type": "plain_text",
+  },
+  "type": "datepicker",
+}
+`;
+
+exports[`DatePicker DatePicker with initial date property renders DatePicker with initial date property 1`] = `
+Object {
+  "action_id": "date",
+  "confirm": undefined,
+  "initial_date": "2020-11-11",
+  "placeholder": undefined,
+  "type": "datepicker",
+}
+`;
+
+exports[`DatePicker DatePicker with string placeholder property renders DatePicker with string placeholder property 1`] = `
+Object {
+  "action_id": "date",
+  "confirm": undefined,
+  "initial_date": "2020-11-11",
+  "placeholder": Object {
+    "text": "just a placeholder",
+    "type": "plain_text",
+  },
+  "type": "datepicker",
+}
+`;
+
+exports[`DatePicker Default DatePicker renders default DatePicker 1`] = `
+Object {
+  "action_id": "date",
+  "confirm": undefined,
+  "initial_date": undefined,
+  "placeholder": undefined,
+  "type": "datepicker",
+}
+`;
+
+exports[`Divider Default Divider renders Divider 1`] = `
+Object {
+  "type": "divider",
+}
+`;
+
+exports[`Image Block Default Image Block renders Image Block with image_url and alt_text properties 1`] = `
+Object {
+  "alt_text": "an image",
+  "image_url": "https://google.com/image.png",
+  "type": "image",
+}
+`;
+
+exports[`Image Block Image Block with emoji property renders Image Block with title 1`] = `
+Object {
+  "alt_text": "an image",
+  "image_url": "https://google.com/image.png",
+  "title": Object {
+    "emoji": true,
+    "text": "a string",
+    "type": "plain_text",
+  },
+  "type": "image",
+}
+`;
+
+exports[`Image Block Image Block with string title renders Image Block with title 1`] = `
+Object {
+  "alt_text": "an image",
+  "image_url": "https://google.com/image.png",
+  "title": Object {
+    "emoji": undefined,
+    "text": "a string",
+    "type": "plain_text",
+  },
+  "type": "image",
+}
+`;
+
+exports[`Image Default Image renders Image with image_url and alt_text properties 1`] = `
+Object {
+  "alt_text": "an image",
+  "image_url": "https://google.com/image.png",
+  "type": "image",
+}
+`;
+
+exports[`Option Option with Text child renders Option with Text child 1`] = `
+Object {
+  "description": undefined,
+  "isOption": [Function],
+  "text": Object {
+    "emoji": true,
+    "text": "Another option",
+    "type": "plain_text",
+  },
+  "url": undefined,
+  "value": "an option",
+}
+`;
+
+exports[`Option Option with description Text property renders Option with description Text property 1`] = `
+Object {
+  "description": Object {
+    "emoji": true,
+    "text": "hello i am a description",
+    "type": "plain_text",
+  },
+  "isOption": [Function],
+  "text": Object {
+    "emoji": true,
+    "text": "Another option",
+    "type": "plain_text",
+  },
+  "url": "https://google.com",
+  "value": "an option",
+}
+`;
+
+exports[`Option Option with description string property renders Option with description string property 1`] = `
+Object {
+  "description": Object {
+    "text": "hello i am a description",
+    "type": "plain_text",
+  },
+  "isOption": [Function],
+  "text": Object {
+    "emoji": true,
+    "text": "Another option",
+    "type": "plain_text",
+  },
+  "url": "https://google.com",
+  "value": "an option",
+}
+`;
+
+exports[`Option Option with string child renders Option with string child 1`] = `
+Object {
+  "description": undefined,
+  "isOption": [Function],
+  "text": Object {
+    "text": "I am an option",
+    "type": "plain_text",
+  },
+  "url": undefined,
+  "value": "an option",
+}
+`;
+
+exports[`Option Option with url property renders Option with url property 1`] = `
+Object {
+  "description": undefined,
+  "isOption": [Function],
+  "text": Object {
+    "emoji": true,
+    "text": "Another option",
+    "type": "plain_text",
+  },
+  "url": "https://google.com",
+  "value": "an option",
+}
+`;
+
+exports[`Section Section with Button accessory renders Section with a Button accessory 1`] = `
+Object {
+  "accessory": Object {
+    "action_id": "click",
+    "confirm": undefined,
+    "style": undefined,
+    "text": Object {
+      "emoji": undefined,
+      "text": "Click me",
+      "type": "plain_text",
+    },
+    "type": "button",
+    "url": undefined,
+  },
+  "text": Object {
+    "emoji": undefined,
+    "text": "Hello world",
+    "type": "plain_text",
+  },
+  "type": "section",
+}
+`;
+
+exports[`Section Section with Button accessory, Text, and Fields renders Section with a Button accessory, Text, and fields 1`] = `
+Object {
+  "accessory": Object {
+    "action_id": undefined,
+    "confirm": undefined,
+    "style": undefined,
+    "text": Object {
+      "emoji": undefined,
+      "text": "Click me",
+      "type": "plain_text",
+    },
+    "type": "button",
+    "url": undefined,
+  },
+  "fields": Array [
+    Object {
+      "emoji": undefined,
+      "text": "Field #1",
+      "type": "plain_text",
+    },
+    Object {
+      "emoji": undefined,
+      "text": "Field #2",
+      "type": "plain_text",
+    },
+  ],
+  "text": Object {
+    "emoji": undefined,
+    "text": "The text",
+    "type": "plain_text",
+  },
+  "type": "section",
+}
+`;
+
+exports[`Section Section with Image accessory renders Section with a Image accessory 1`] = `
+Object {
+  "accessory": Object {
+    "alt_text": "an image",
+    "image_url": "https://google.com/image.png",
+    "type": "image",
+  },
+  "text": Object {
+    "emoji": undefined,
+    "text": "Hello world",
+    "type": "plain_text",
+  },
+  "type": "section",
+}
 `;
 
 exports[`Section Section with a multi-child Text component renders Section with a multi-child Text component 1`] = `
-Array [
-  Object {
-    "accessory": undefined,
-    "fields": Array [
-      Object {
-        "emoji": undefined,
-        "text": "First text",
-        "type": "plain_text",
-      },
-    ],
-    "text": undefined,
-    "type": "section",
-  },
-]
+Object {
+  "accessory": undefined,
+  "fields": Array [
+    Object {
+      "emoji": undefined,
+      "text": "First text",
+      "type": "plain_text",
+    },
+  ],
+  "text": undefined,
+  "type": "section",
+}
 `;
 
 exports[`Section Section with a text property and no children renders Section with a text property and empty fields 1`] = `
-Array [
-  Object {
-    "accessory": undefined,
-    "text": Object {
-      "emoji": undefined,
-      "text": "Hello world",
-      "type": "plain_text",
-    },
-    "type": "section",
+Object {
+  "accessory": undefined,
+  "text": Object {
+    "emoji": undefined,
+    "text": "Hello world",
+    "type": "plain_text",
   },
-]
+  "type": "section",
+}
 `;
 
 exports[`Section Section with one Text component renders Section with child Text component in the fields property 1`] = `
-Array [
-  Object {
-    "accessory": undefined,
-    "fields": Array [
-      Object {
-        "emoji": undefined,
-        "text": "First text",
-        "type": "plain_text",
-      },
-    ],
-    "text": undefined,
-    "type": "section",
-  },
-]
+Object {
+  "accessory": undefined,
+  "fields": Array [
+    Object {
+      "emoji": undefined,
+      "text": "First text",
+      "type": "plain_text",
+    },
+  ],
+  "text": undefined,
+  "type": "section",
+}
 `;
 
 exports[`Section Section with string Text property renders Section with child Text component in the fields property 1`] = `
-Array [
-  Object {
-    "accessory": undefined,
-    "text": Object {
-      "text": "some text",
-      "type": "plain_text",
-    },
-    "type": "section",
+Object {
+  "accessory": undefined,
+  "text": Object {
+    "text": "some text",
+    "type": "plain_text",
   },
-]
+  "type": "section",
+}
 `;
 
 exports[`Section Section with two Text components renders Section with child Text components in the fields property 1`] = `
-Array [
-  Object {
-    "accessory": undefined,
-    "fields": Array [
-      Object {
-        "emoji": undefined,
-        "text": "First text",
-        "type": "plain_text",
-      },
-      Object {
-        "emoji": undefined,
-        "text": "First text",
-        "type": "plain_text",
-      },
-    ],
-    "text": undefined,
-    "type": "section",
-  },
-]
+Object {
+  "accessory": undefined,
+  "fields": Array [
+    Object {
+      "emoji": undefined,
+      "text": "First text",
+      "type": "plain_text",
+    },
+    Object {
+      "emoji": undefined,
+      "text": "First text",
+      "type": "plain_text",
+    },
+  ],
+  "text": undefined,
+  "type": "section",
+}
 `;
 
 exports[`Text Default Text renders plain_text Text without emoji 1`] = `
-Array [
-  Object {
-    "emoji": undefined,
-    "text": "hello world",
-    "type": "plain_text",
-  },
-]
+Object {
+  "emoji": undefined,
+  "text": "hello world",
+  "type": "plain_text",
+}
 `;
 
 exports[`Text Text with emoji renders plain_text Text with emoji 1`] = `
-Array [
-  Object {
-    "emoji": true,
-    "text": "hello world",
-    "type": "plain_text",
-  },
-]
+Object {
+  "emoji": true,
+  "text": "hello world",
+  "type": "plain_text",
+}
 `;
 
 exports[`Text Text with mrkdwn and verbatim property renders mrkdwn Text with verbatim 1`] = `
-Array [
-  Object {
-    "text": "hello world",
-    "type": "mrkdwn",
-    "verbatim": true,
-  },
-]
+Object {
+  "text": "hello world",
+  "type": "mrkdwn",
+  "verbatim": true,
+}
 `;
 
 exports[`Text Text with mrkdwn property renders mrkdwn Text without verbatim 1`] = `
-Array [
-  Object {
-    "text": "hello world",
-    "type": "mrkdwn",
-    "verbatim": undefined,
-  },
-]
+Object {
+  "text": "hello world",
+  "type": "mrkdwn",
+  "verbatim": undefined,
+}
 `;
 
 exports[`Text Text with two children renders Text with children concatenated 1`] = `
-Array [
-  Object {
-    "emoji": undefined,
-    "text": "hello world",
-    "type": "plain_text",
-  },
-]
+Object {
+  "emoji": undefined,
+  "text": "hello world",
+  "type": "plain_text",
+}
 `;

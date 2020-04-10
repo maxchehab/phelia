@@ -1,7 +1,6 @@
 import Reconciler, { OpaqueHandle } from "react-reconciler";
 import ReactReconciler from "react-reconciler";
 import { SlackUser } from "./phelia-client";
-import { ifError } from "assert";
 
 type Type = any;
 type Props = JSX.ComponentProps & {
@@ -67,7 +66,7 @@ class HostConfig
     if (props.toSlackElement) {
       return props.toSlackElement(
         props,
-        (e) => reconcile(e, rootContainerInstance.action),
+        e => reconcile(e, rootContainerInstance.action),
         rootContainerInstance.promises
       );
     }
@@ -79,6 +78,12 @@ class HostConfig
     child: Instance | TextInstance
   ): void {
     debug("appendInitialChild");
+
+    if (Array.isArray(parentInstance.blocks)) {
+      parentInstance.blocks.push(child);
+      return;
+    }
+
     if (parentInstance.type === "actions") {
       parentInstance.elements.push(child);
       return;
@@ -188,7 +193,7 @@ class HostConfig
     debug("createTextInstance");
     return {
       type: "text",
-      text,
+      text
     };
   }
   scheduleDeferredCallback(
@@ -223,8 +228,8 @@ class HostConfig
     container: Container,
     child: Instance | TextInstance
   ): void {
-    if (Array.isArray(container?.blocks)) {
-      container.blocks.push(child);
+    if (container.isRoot) {
+      container.node = child;
       return;
     }
 
@@ -293,7 +298,7 @@ class HostConfig
   ): void {
     debug("removeChildFromContainer", {
       container,
-      child,
+      child
     });
   }
 }
@@ -309,16 +314,16 @@ function reconcile(
   action?: Action
 ): [any, Promise<any>[]] {
   const reconcilerInstance = Reconciler(new HostConfig());
-  const root = {
+  const root: any = {
+    isRoot: true,
     action,
-    blocks: new Array(),
-    promises: new Array<Promise<any>>(),
+    promises: new Array<Promise<any>>()
   };
   const container = reconcilerInstance.createContainer(root, false, false);
 
   reconcilerInstance.updateContainer(element, container, null, null);
 
-  return [root.blocks, root.promises];
+  return [root.node, root.promises];
 }
 
 export async function render(

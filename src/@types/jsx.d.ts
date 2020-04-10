@@ -7,6 +7,8 @@ declare namespace JSX {
     | "divider"
     | "image-block"
     | "image"
+    | "message"
+    | "modal"
     | "section"
     | "text";
 

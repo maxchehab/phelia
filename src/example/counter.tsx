@@ -1,15 +1,22 @@
 import React from "react";
 
-import { PheliaMessageProps, Section, Actions, Button, Text } from "../core";
+import {
+  Actions,
+  Button,
+  Message,
+  PheliaMessageProps,
+  Section,
+  Text
+} from "../core";
 
 export default function Counter({
   useState,
-  props,
+  props
 }: PheliaMessageProps<{ name: string }>) {
   const [counter, setCounter] = useState("counter", 0);
 
   return (
-    <>
+    <Message text="A counter example">
       <Section>
         <Text>
           Hello {props.name}, here is your counter {counter}
@@ -23,6 +30,6 @@ export default function Counter({
           Dec
         </Button>
       </Actions>
-    </>
+    </Message>
   );
 }

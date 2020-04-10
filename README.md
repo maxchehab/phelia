@@ -22,13 +22,13 @@ A reactive Slack messaging framework.
      "/api/webhook",
      interactiveMessageHandler(process.env.SLACK_SIGNING_SECRET, [
        Counter,
-       Greeter,
+       Greeter
      ])
    );
 
    // Post a message...
    const client = new PheliaClient(process.env.SLACK_TOKEN);
-   client.postMessage(Greeter, null, "@max", "hello there!");
+   client.postMessage(Greeter, "@max");
 
    app.listen(3000);
    ```
@@ -44,23 +44,23 @@ A reactive Slack messaging framework.
      Section,
      Actions,
      Button,
-     Text,
+     Text
    } from "phelia/core";
 
    export default function Greeter({ useState }: PheliaMessageProps) {
      const [name, setName] = useState("name");
 
      return (
-       <>
+       <Message>
          <Section>
            <Text>{name ? `Hello ${name}` : "Click the button"}</Text>
          </Section>
          <Actions>
-           <Button action="greet" onClick={(user) => setName(user.username)}>
+           <Button action="greet" onClick={user => setName(user.username)}>
              Click me
            </Button>
          </Actions>
-       </>
+       </Message>
      );
    }
    ```
@@ -96,13 +96,13 @@ const client = redis.createClient();
 setStorage({
   set: (key, value) =>
     new Promise((resolve, reject) =>
-      client.set(key, value, (err) => (err ? reject(err) : resolve()))
+      client.set(key, value, err => (err ? reject(err) : resolve()))
     ),
 
-  get: (key) =>
+  get: key =>
     new Promise((resolve, reject) =>
       client.get(key, (err, reply) => (err ? reject(err) : resolve(reply)))
-    ),
+    )
 });
 ```
 
@@ -133,5 +133,5 @@ setStorage({
 | [Option group](https://api.slack.com/reference/block-kit/composition-objects#option_group)                          | ❌  |
 | [Filter for conversation lists](https://api.slack.com/reference/block-kit/composition-objects#filter_conversations) | ❌  |
 | [Messages](https://api.slack.com/surfaces/messages)                                                                 | ✅  | [Server](https://github.com/maxchehab/phelia/blob/master/src/example/server.ts)                    |
-| [Modals](https://api.slack.com/surfaces/modals)                                                                     | ❌  |
+| [Modals](https://api.slack.com/surfaces/modals)                                                                     | ✅  | [Modal Example](https://github.com/maxchehab/phelia/blob/master/src/example/modal-example.ts)      |
 | [Home Tab](https://api.slack.com/surfaces/tabs)                                                                     | ❌  |

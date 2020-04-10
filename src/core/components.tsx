@@ -4,12 +4,12 @@ import {
   ActionsBlock,
   Button as SlackButton,
   ContextBlock,
+  Datepicker,
   DividerBlock,
   ImageBlock as SlackImageBlock,
   ImageElement,
-  SectionBlock,
   Option as SlackOption,
-  Datepicker,
+  SectionBlock
 } from "@slack/web-api";
 import { XOR } from "ts-xor";
 
@@ -39,7 +39,7 @@ export const Text = (props: TextProps) => (
 );
 
 Text.defaultProps = {
-  type: "plain_text",
+  type: "plain_text"
 };
 
 interface ButtonBase {
@@ -68,12 +68,12 @@ export const Button = (props: ButtonProps) => (
         action_id: props.action,
         style: props.style,
         url: props.url,
-        text: { type: "plain_text", text: "", emoji: props.emoji },
+        text: { type: "plain_text", text: "", emoji: props.emoji }
       };
 
       const [confirm, confirmPromises] = reconcile(props.confirm);
 
-      instance.confirm = confirm[0];
+      instance.confirm = confirm;
       promises.push(...confirmPromises);
 
       return instance;
@@ -97,13 +97,13 @@ export const Section = (props: SectionProps) => (
     componentType="section"
     toSlackElement={(props, reconcile, promises): SectionBlock => {
       const instance: SectionBlock = {
-        type: "section",
+        type: "section"
       };
       const [accessory, accessoryPromises] = reconcile(props.accessory);
       const [text, textPromises] = reconcile(props.text);
 
-      instance.text = text[0];
-      instance.accessory = accessory[0];
+      instance.text = text;
+      instance.accessory = accessory;
 
       if (instance.text) {
         instance.text.type = "plain_text";
@@ -126,7 +126,7 @@ export const Actions = (props: ActionsProps) => (
     componentType="actions"
     toSlackElement={(): ActionsBlock => ({
       type: "actions",
-      elements: [],
+      elements: []
     })}
   />
 );
@@ -143,7 +143,7 @@ export const Image = (props: ImageProps) => (
     toSlackElement={(props): ImageElement => ({
       type: "image",
       image_url: props.image_url,
-      alt_text: props.alt_text,
+      alt_text: props.alt_text
     })}
   />
 );
@@ -163,14 +163,14 @@ export const ImageBlock = (props: ImageBlockProps) => (
       const instance: any = {
         type: "image",
         image_url: props.image_url,
-        alt_text: props.alt_text,
+        alt_text: props.alt_text
       };
 
       if (props.title) {
         instance.title = {
           type: "plain_text",
           text: props.title,
-          emoji: props.emoji,
+          emoji: props.emoji
         };
       }
 
@@ -216,16 +216,16 @@ export const Confirm = (props: ConfirmProps) => (
         // whereas slack forbids a confirm object to have a 'type' property
         isConfirm: () => true,
 
-        style: props.style,
+        style: props.style
       };
 
       const [title, titlePromises] = reconcile(props.title);
       const [confirm, confirmPromises] = reconcile(props.confirm);
       const [deny, denyPromises] = reconcile(props.deny);
 
-      instance.title = title[0];
-      instance.confirm = confirm[0];
-      instance.deny = deny[0];
+      instance.title = title;
+      instance.confirm = confirm;
+      instance.deny = deny;
 
       instance.title.type = "plain_text";
       instance.confirm.type = "plain_text";
@@ -253,12 +253,12 @@ export const Option = (props: OptionProps) => (
       const instance: any = {
         isOption: () => true,
         value: props.value,
-        url: props.url,
+        url: props.url
       };
 
       const [description, descriptionPromises] = reconcile(props.description);
 
-      instance.description = description[0];
+      instance.description = description;
 
       if (instance.description) {
         instance.description.type = "plain_text";
@@ -287,20 +287,77 @@ export const DatePicker = (props: DatePickerProps) => (
       const instance: Datepicker = {
         type: "datepicker",
         initial_date: props.initialDate,
-        action_id: props.action,
+        action_id: props.action
       };
 
       const [placeholder, placeholderPromises] = reconcile(props.placeholder);
       const [confirm, confirmPromises] = reconcile(props.confirm);
 
-      instance.placeholder = placeholder[0];
-      instance.confirm = confirm[0];
+      instance.placeholder = placeholder;
+      instance.confirm = confirm;
 
       if (instance.placeholder) {
         instance.placeholder.type = "plain_text";
       }
 
       promises.push(...placeholderPromises, ...confirmPromises);
+
+      return instance;
+    }}
+  />
+);
+
+interface MessageProps {
+  children: ReactElement | ReactElement[];
+  text?: string;
+}
+
+export const Message = (props: MessageProps) => (
+  <component
+    {...props}
+    componentType="message"
+    toSlackElement={({ text }) => ({ blocks: [], text })}
+  />
+);
+
+interface ModalProps {
+  children: ReactElement | ReactElement[];
+  title: ReactElement | string;
+  submit?: ReactElement | string;
+  close?: ReactElement | string;
+}
+
+export const Modal = (props: ModalProps) => (
+  <component
+    {...props}
+    componentType="modal"
+    toSlackElement={(props, reconcile, promises) => {
+      const instance: any = {
+        type: "modal",
+        blocks: []
+      };
+
+      const [title, titlePromises] = reconcile(props.title);
+      const [submit, submitPromises] = reconcile(props.submit);
+      const [close, closePromises] = reconcile(props.close);
+
+      instance.title = title;
+      instance.submit = submit;
+      instance.close = close;
+
+      if (instance.title) {
+        instance.title.type = "plain_text";
+      }
+
+      if (instance.submit) {
+        instance.submit.type = "plain_text";
+      }
+
+      if (instance.close) {
+        instance.close.type = "plain_text";
+      }
+
+      promises.push(...titlePromises, ...submitPromises, ...closePromises);
 
       return instance;
     }}

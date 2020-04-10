@@ -7,14 +7,14 @@ import {
   Divider,
   ImageBlock,
   PheliaMessageProps,
-  Text,
+  Text
 } from "../core";
 
 const imageUrls = [
   "https://cdn.pixabay.com/photo/2015/06/08/15/02/pug-801826__480.jpg",
   "https://cdn.pixabay.com/photo/2015/03/26/09/54/pug-690566__480.jpg",
   "https://cdn.pixabay.com/photo/2018/03/31/06/31/dog-3277416__480.jpg",
-  "https://cdn.pixabay.com/photo/2016/02/26/16/32/dog-1224267__480.jpg",
+  "https://cdn.pixabay.com/photo/2016/02/26/16/32/dog-1224267__480.jpg"
 ];
 
 function randomImage(): string {

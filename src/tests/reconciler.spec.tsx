@@ -11,7 +11,7 @@ import {
   Option,
   render,
   Section,
-  Text,
+  Text
 } from "../core";
 
 describe("Text", () => {
@@ -167,12 +167,12 @@ describe("Section", () => {
           username: "johnsmith",
           name: "john smith",
           id: "u123",
-          team_id: "t123",
+          team_id: "t123"
         };
 
         await render(React.createElement(component), {
           value: "click",
-          user,
+          user
         });
 
         expect(onClick).toBeCalledWith(user);
@@ -282,12 +282,12 @@ describe("Button", () => {
           username: "johnsmith",
           name: "john smith",
           id: "u123",
-          team_id: "t123",
+          team_id: "t123"
         };
 
         await render(React.createElement(component), {
           value: "click",
-          user,
+          user
         });
 
         expect(onClick).toBeCalledWith(user);
@@ -297,7 +297,7 @@ describe("Button", () => {
   });
 
   describe("Button with async onClick property", () => {
-    const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
+    const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
 
     const onClick = jest.fn();
 
@@ -318,12 +318,12 @@ describe("Button", () => {
         username: "johnsmith",
         name: "john smith",
         id: "u123",
-        team_id: "t123",
+        team_id: "t123"
       };
 
       await render(React.createElement(component), {
         value: "click",
-        user,
+        user
       });
 
       expect(onClick).toBeCalledTimes(1);
@@ -590,13 +590,13 @@ describe("DatePicker", () => {
           username: "johnsmith",
           name: "john smith",
           id: "u123",
-          team_id: "t123",
+          team_id: "t123"
         };
 
         await render(React.createElement(component), {
           value: "date",
           user,
-          data: { date: "2020-04-16" },
+          data: { date: "2020-04-16" }
         });
 
         expect(onSubmit).toBeCalledWith(user, { date: "2020-04-16" });
