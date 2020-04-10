@@ -133,5 +133,5 @@ setStorage({
 | [Option group](https://api.slack.com/reference/block-kit/composition-objects#option_group)                          | ❌  |
 | [Filter for conversation lists](https://api.slack.com/reference/block-kit/composition-objects#filter_conversations) | ❌  |
 | [Messages](https://api.slack.com/surfaces/messages)                                                                 | ✅  | [Server](https://github.com/maxchehab/phelia/blob/master/src/example/server.ts)                    |
-| [Modals](https://api.slack.com/surfaces/modals)                                                                     | ✅  | [Modal Example](https://github.com/maxchehab/phelia/blob/master/src/example/modal-example.ts)      |
+| [Modals](https://api.slack.com/surfaces/modals)                                                                     | ✅  | [Modal Example](https://github.com/maxchehab/phelia/blob/master/src/example/modal-example.tsx)     |
 | [Home Tab](https://api.slack.com/surfaces/tabs)                                                                     | ❌  |
