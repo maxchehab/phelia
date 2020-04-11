@@ -130,7 +130,7 @@ setStorage({
 | [User Select Menus](https://api.slack.com/reference/block-kit/block-elements#users_select)                          | ✅  | [User Select Menu](https://github.com/maxchehab/phelia/blob/master/src/example/user-select-menu.tsx)                  |
 | [External Select Menus](https://api.slack.com/reference/block-kit/block-elements#external_select)                   | ❌  |
 | [Conversation Select Menus](https://api.slack.com/reference/block-kit/block-elements#conversations_select)          | ✅  | [Conversation Select Menu](https://github.com/maxchehab/phelia/blob/master/src/example/conversations-select-menu.tsx) |
-| [Channel Select Menus](https://api.slack.com/reference/block-kit/block-elements#channel_select)                     | ❌  |
+| [Channel Select Menus](https://api.slack.com/reference/block-kit/block-elements#channels_select)                    | ✅  | [Channel Select Menu](https://github.com/maxchehab/phelia/blob/master/src/example/channels-select-menu.tsx)           |
 | [Text](https://api.slack.com/reference/block-kit/composition-objects#text)                                          | ✅  | [Counter](https://github.com/maxchehab/phelia/blob/master/src/example/counter.tsx)                                    |
 | [Confirmation dialog](https://api.slack.com/reference/block-kit/composition-objects#confirm)                        | ✅  | [Random Image](https://github.com/maxchehab/phelia/blob/master/src/example/random-image.tsx)                          |
 | [Option](https://api.slack.com/reference/block-kit/composition-objects#option)                                      | ✅  |

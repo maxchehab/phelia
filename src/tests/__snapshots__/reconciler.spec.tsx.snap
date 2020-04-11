@@ -161,6 +161,32 @@ Object {
 }
 `;
 
+exports[`Channel Select Menu Channel Select Menu with initial channel property renders a Channel Select Menu with initial channel property 1`] = `
+Object {
+  "action_id": "select",
+  "confirm": undefined,
+  "initial_channel": "C12345",
+  "placeholder": Object {
+    "text": "a placeholder",
+    "type": "plain_text",
+  },
+  "type": "channels_select",
+}
+`;
+
+exports[`Channel Select Menu Default Channel Select Menu renders a default Channel Select Menu 1`] = `
+Object {
+  "action_id": "select",
+  "confirm": undefined,
+  "initial_channel": undefined,
+  "placeholder": Object {
+    "text": "a placeholder",
+    "type": "plain_text",
+  },
+  "type": "channels_select",
+}
+`;
+
 exports[`Checkboxes Checkboxes with Confirm component renders Checkboxes with Confirm component 1`] = `
 Object {
   "action_id": "options",

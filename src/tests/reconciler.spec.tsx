@@ -1293,3 +1293,32 @@ describe("Conversations Select Menu", () => {
     });
   });
 });
+
+describe("Channel Select Menu", () => {
+  describe("Default Channel Select Menu", () => {
+    const component = () => (
+      <SelectMenu type="channels" action="select" placeholder="a placeholder" />
+    );
+
+    it("renders a default Channel Select Menu", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("Channel Select Menu with initial channel property", () => {
+    const component = () => (
+      <SelectMenu
+        type="channels"
+        action="select"
+        initialChannel="C12345"
+        placeholder="a placeholder"
+      />
+    );
+
+    it("renders a Channel Select Menu with initial channel property", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+});

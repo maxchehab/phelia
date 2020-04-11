@@ -607,6 +607,11 @@ interface UserSelectMenu extends SelectMenuBase {
   initialUser?: string;
 }
 
+interface ChannelSelectMenu extends SelectMenuBase {
+  type: "channels";
+  initialChannel?: string;
+}
+
 interface ConversationSelectMenu extends SelectMenuBase {
   type: "conversations";
   initialConversation?: string;
@@ -620,7 +625,8 @@ interface ConversationSelectMenu extends SelectMenuBase {
 type SelectMenuProps =
   | StaticSelectMenu
   | UserSelectMenu
-  | ConversationSelectMenu;
+  | ConversationSelectMenu
+  | ChannelSelectMenu;
 
 export const SelectMenu = (props: SelectMenuProps) => (
   <component
@@ -665,6 +671,10 @@ export const SelectMenu = (props: SelectMenuProps) => (
 
       if (props.type === "users") {
         instance.initial_user = props.initialUser;
+      }
+
+      if (props.type === "channels") {
+        instance.initial_channel = props.initialChannel;
       }
 
       if (props.type === "conversations") {

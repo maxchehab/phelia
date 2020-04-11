@@ -281,6 +281,10 @@ export function interactiveMessageHandler(
                 return [action, data.selected_conversation];
               }
 
+              if (data.type === "channels_select") {
+                return [action, data.selected_channel];
+              }
+
               return [action, data.value];
             })
             .reduce((form, [action, value]) => {
@@ -386,6 +390,10 @@ function generateEvent(
 
   if (action.type === "conversations_select") {
     return { user, selected: action.selected_conversation };
+  }
+
+  if (action.type === "channels_select") {
+    return { user, selected: action.selected_channel };
   }
 
   if (
