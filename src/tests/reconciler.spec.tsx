@@ -17,7 +17,8 @@ import {
   TextField,
   Checkboxes,
   OverflowMenu,
-  RadioButtons
+  RadioButtons,
+  OptionGroup
 } from "../core";
 
 describe("Text", () => {
@@ -1062,6 +1063,51 @@ describe("Radio Buttons", () => {
     );
 
     it("renders an Radio Buttons without a Url property", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+});
+
+describe("Option Group", () => {
+  describe("Option Group with a single Option", () => {
+    const component = () => (
+      <OptionGroup label="option group">
+        <Option value="1">Option 1</Option>
+      </OptionGroup>
+    );
+
+    it("renders an Option Group with a single Option", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("Option Group with two Options", () => {
+    const component = () => (
+      <OptionGroup label="option group">
+        <Option value="1">Option 1</Option>
+        <Option value="2">Option 2</Option>
+      </OptionGroup>
+    );
+
+    it("renders an Option Group with two Options", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("Option Group with Url Option", () => {
+    const component = () => (
+      <OptionGroup label="option group">
+        <Option value="1">Option 1</Option>
+        <Option value="2" url="google.com">
+          Option 2
+        </Option>
+      </OptionGroup>
+    );
+
+    it("renders an Option Group without a Url Option", async () => {
       const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });

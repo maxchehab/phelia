@@ -256,7 +256,7 @@ interface OptionProps {
 export const Option = (props: OptionProps) => (
   <component
     {...props}
-    componentType="confirm"
+    componentType="option"
     toSlackElement={(props, reconcile, promises): Promise<SlackOption> => {
       const instance: any = {
         isSelected: () => props.selected,
@@ -555,6 +555,36 @@ export const RadioButtons = (props: RadioButtonsProps) => (
       instance.confirm = confirm;
 
       promises.push(...optionPromises, ...confirmPromises);
+      return instance;
+    }}
+  />
+);
+
+interface OptionGroupProps {
+  label: ReactElement | string;
+  children: ReactElement | ReactElement[];
+}
+
+export const OptionGroup = (props: OptionGroupProps) => (
+  <component
+    {...props}
+    componentType="option-group"
+    toSlackElement={(props, reconcile, promises) => {
+      const instance: any = {
+        isOptionGroup: () => true,
+        options: []
+      };
+
+      const [label, labelPromises] = reconcile(props.label);
+
+      instance.label = label;
+
+      if (instance.label) {
+        instance.label.type = "plain_text";
+      }
+
+      promises.push(...labelPromises);
+
       return instance;
     }}
   />

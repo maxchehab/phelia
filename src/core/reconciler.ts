@@ -92,11 +92,13 @@ class HostConfig
 
     if (
       parentInstance.type === "checkboxes" ||
-      parentInstance.type === "radio_buttons"
+      parentInstance.type === "radio_buttons" ||
+      parentInstance.isOptionGroup
     ) {
       parentInstance.options.push({ ...child, url: undefined });
       return;
     }
+
     if (parentInstance.type === "input") {
       parentInstance.element = child;
       return;

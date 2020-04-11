@@ -11,6 +11,8 @@ declare namespace JSX {
     | "input"
     | "message"
     | "modal"
+    | "option-group"
+    | "option"
     | "overflow"
     | "radio-buttons"
     | "section"

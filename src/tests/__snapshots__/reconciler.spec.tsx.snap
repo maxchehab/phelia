@@ -750,6 +750,97 @@ Object {
 }
 `;
 
+exports[`Option Group Option Group with Url Option renders an Option Group without a Url Option 1`] = `
+Object {
+  "isOptionGroup": [Function],
+  "label": Object {
+    "text": "option group",
+    "type": "plain_text",
+  },
+  "options": Array [
+    Object {
+      "description": undefined,
+      "isOption": [Function],
+      "isSelected": [Function],
+      "text": Object {
+        "text": "Option 1",
+        "type": "plain_text",
+      },
+      "url": undefined,
+      "value": "1",
+    },
+    Object {
+      "description": undefined,
+      "isOption": [Function],
+      "isSelected": [Function],
+      "text": Object {
+        "text": "Option 2",
+        "type": "plain_text",
+      },
+      "url": undefined,
+      "value": "2",
+    },
+  ],
+}
+`;
+
+exports[`Option Group Option Group with a single Option renders an Option Group with a single Option 1`] = `
+Object {
+  "isOptionGroup": [Function],
+  "label": Object {
+    "text": "option group",
+    "type": "plain_text",
+  },
+  "options": Array [
+    Object {
+      "description": undefined,
+      "isOption": [Function],
+      "isSelected": [Function],
+      "text": Object {
+        "text": "Option 1",
+        "type": "plain_text",
+      },
+      "url": undefined,
+      "value": "1",
+    },
+  ],
+}
+`;
+
+exports[`Option Group Option Group with two Options renders an Option Group with two Options 1`] = `
+Object {
+  "isOptionGroup": [Function],
+  "label": Object {
+    "text": "option group",
+    "type": "plain_text",
+  },
+  "options": Array [
+    Object {
+      "description": undefined,
+      "isOption": [Function],
+      "isSelected": [Function],
+      "text": Object {
+        "text": "Option 1",
+        "type": "plain_text",
+      },
+      "url": undefined,
+      "value": "1",
+    },
+    Object {
+      "description": undefined,
+      "isOption": [Function],
+      "isSelected": [Function],
+      "text": Object {
+        "text": "Option 2",
+        "type": "plain_text",
+      },
+      "url": undefined,
+      "value": "2",
+    },
+  ],
+}
+`;
+
 exports[`Option Option with Text child renders Option with Text child 1`] = `
 Object {
   "description": undefined,
