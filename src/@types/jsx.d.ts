@@ -16,6 +16,7 @@ declare namespace JSX {
     | "overflow"
     | "radio-buttons"
     | "section"
+    | "select-menu"
     | "text-field"
     | "text";
 

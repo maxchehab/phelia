@@ -18,7 +18,8 @@ import {
   Checkboxes,
   OverflowMenu,
   RadioButtons,
-  OptionGroup
+  OptionGroup,
+  SelectMenu
 } from "../core";
 
 describe("Text", () => {
@@ -1108,6 +1109,106 @@ describe("Option Group", () => {
     );
 
     it("renders an Option Group without a Url Option", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+});
+
+describe("Static Select Menu", () => {
+  describe("Static Select Menu with one option", () => {
+    const component = () => (
+      <SelectMenu placeholder="a placeholder" action="select">
+        <Option value="1">Option 1</Option>
+      </SelectMenu>
+    );
+
+    it("renders a Static Select Menu with one option", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("Static Select Menu with two options", () => {
+    const component = () => (
+      <SelectMenu placeholder="a placeholder" action="select">
+        <Option value="1">Option 1</Option>
+        <Option value="2">Option 2</Option>
+      </SelectMenu>
+    );
+
+    it("renders a Static Select Menu with two options", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("Static Select Menu with selected option", () => {
+    const component = () => (
+      <SelectMenu placeholder="a placeholder" action="select">
+        <Option value="1">Option 1</Option>
+        <Option value="2" selected>
+          Option 2
+        </Option>
+      </SelectMenu>
+    );
+
+    it("renders a Static Select Menu with selected option", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("Static Select Menu with one option group", () => {
+    const component = () => (
+      <SelectMenu placeholder="a placeholder" action="select">
+        <OptionGroup label="group">
+          <Option value="1">Option 1</Option>
+        </OptionGroup>
+      </SelectMenu>
+    );
+
+    it("renders a Static Select Menu with one option group", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("Static Select Menu with two option groups", () => {
+    const component = () => (
+      <SelectMenu placeholder="a placeholder" action="select">
+        <OptionGroup label="group 1">
+          <Option value="1">Option 1</Option>
+        </OptionGroup>
+
+        <OptionGroup label="group 2">
+          <Option value="2">Option 2</Option>
+        </OptionGroup>
+      </SelectMenu>
+    );
+
+    it("renders a Static Select Menu with two option groups", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("Static Select Menu with selected option group", () => {
+    const component = () => (
+      <SelectMenu placeholder="a placeholder" action="select">
+        <OptionGroup label="group 1">
+          <Option value="1">Option 1</Option>
+        </OptionGroup>
+
+        <OptionGroup label="group 2">
+          <Option value="2" selected>
+            Option 2
+          </Option>
+        </OptionGroup>
+      </SelectMenu>
+    );
+
+    it("renders a Static Select Menu with selected option group", async () => {
       const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });

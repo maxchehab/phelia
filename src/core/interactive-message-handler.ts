@@ -266,7 +266,10 @@ export function interactiveMessageHandler(
                 return [action, selected];
               }
 
-              if (data.type === "radio_buttons") {
+              if (
+                data.type === "radio_buttons" ||
+                data.type === "static_select"
+              ) {
                 return [action, data.selected_option.value];
               }
 
@@ -368,7 +371,11 @@ function generateEvent(
     };
   }
 
-  if (action.type === "overflow" || action.type === "radio_buttons") {
+  if (
+    action.type === "overflow" ||
+    action.type === "radio_buttons" ||
+    action.type === "static_select"
+  ) {
     return { user, selected: action.selected_option.value };
   }
 

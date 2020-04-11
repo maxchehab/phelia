@@ -589,3 +589,71 @@ export const OptionGroup = (props: OptionGroupProps) => (
     }}
   />
 );
+
+interface SelectMenuProps {
+  action: string;
+  type?: "static";
+  onSelect?: (event: SelectOverflowMenuEvent) => void | Promise<void>;
+  children: ReactElement | ReactElement[];
+  placeholder: ReactElement | string;
+  confirm?: ReactElement;
+}
+
+export const SelectMenu = (props: SelectMenuProps) => (
+  <component
+    {...props}
+    componentType="select-menu"
+    toSlackElement={(props, reconcile, promises) => {
+      const instance: any = {
+        type: "static_select",
+        action_id: props.action
+      };
+
+      const [confirm, confirmPromises] = reconcile(props.confirm);
+      const [placeholder, placeholderPromises] = reconcile(props.placeholder);
+      const [{ fields: optionsOrGroups }, optionPromises] = reconcile(
+        React.createElement(Section, { children: props.children })
+      );
+
+      if (Array.isArray(optionsOrGroups) && optionsOrGroups.length) {
+        const isGroup = Boolean(optionsOrGroups[0].isOptionGroup);
+        let options = optionsOrGroups;
+
+        if (isGroup) {
+          options = optionsOrGroups.reduce((options, group) => {
+            options.push(...group.options);
+            return options;
+          }, []);
+        }
+
+        const selectedOption = options
+          .map(option => ({
+            ...option,
+            url: undefined
+          }))
+          .find(option => option.isSelected());
+
+        instance.initial_option = selectedOption;
+      }
+
+      instance.confirm = confirm;
+      instance.placeholder = placeholder;
+
+      if (instance.placeholder) {
+        instance.placeholder.type = "plain_text";
+      }
+
+      promises.push(
+        ...confirmPromises,
+        ...placeholderPromises,
+        ...optionPromises
+      );
+
+      return instance;
+    }}
+  />
+);
+
+SelectMenu.defaultProps = {
+  type: "static"
+};

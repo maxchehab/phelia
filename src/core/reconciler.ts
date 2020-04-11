@@ -90,6 +90,24 @@ class HostConfig
       return;
     }
 
+    if (parentInstance.type === "static_select") {
+      if (child.isOptionGroup) {
+        if (!Array.isArray(parentInstance.option_groups)) {
+          parentInstance.option_groups = [];
+        }
+
+        parentInstance.option_groups.push(child);
+        return;
+      }
+
+      if (!Array.isArray(parentInstance.options)) {
+        parentInstance.options = [];
+      }
+
+      parentInstance.options.push({ ...child, url: undefined });
+      return;
+    }
+
     if (
       parentInstance.type === "checkboxes" ||
       parentInstance.type === "radio_buttons" ||
