@@ -277,6 +277,10 @@ export function interactiveMessageHandler(
                 return [action, data.selected_user];
               }
 
+              if (data.type === "conversations_select") {
+                return [action, data.selected_conversation];
+              }
+
               return [action, data.value];
             })
             .reduce((form, [action, value]) => {
@@ -284,9 +288,10 @@ export function interactiveMessageHandler(
               return form;
             }, {} as any);
 
-          executionPromises.push(onSubmit({ form, user: payload.user }));
+          onSubmit &&
+            executionPromises.push(onSubmit({ form, user: payload.user }));
         } else {
-          executionPromises.push(onCancel({ user: payload.user }));
+          onCancel && executionPromises.push(onCancel({ user: payload.user }));
         }
       }
 
@@ -377,6 +382,10 @@ function generateEvent(
 
   if (action.type === "users_select") {
     return { user, selected: action.selected_user };
+  }
+
+  if (action.type === "conversations_select") {
+    return { user, selected: action.selected_conversation };
   }
 
   if (

@@ -1243,3 +1243,53 @@ describe("User Select Menu", () => {
     });
   });
 });
+
+describe("Conversations Select Menu", () => {
+  describe("Default Conversations Select Menu", () => {
+    const component = () => (
+      <SelectMenu
+        type="conversations"
+        action="select"
+        placeholder="a placeholder"
+      />
+    );
+
+    it("renders a default Conversations Select Menu", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("Conversations Select Menu with initial conversation property", () => {
+    const component = () => (
+      <SelectMenu
+        type="conversations"
+        action="select"
+        initialConversation="C12345"
+        placeholder="a placeholder"
+      />
+    );
+
+    it("renders a Conversations Select Menu with initial user property", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("Conversations Select Menu with a filter property", () => {
+    const component = () => (
+      <SelectMenu
+        type="conversations"
+        action="select"
+        initialConversation="C12345"
+        placeholder="a placeholder"
+        filter={{ excludeExternalSharedChannels: true }}
+      />
+    );
+
+    it("renders a Conversations Select Menu with a filter property", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+});

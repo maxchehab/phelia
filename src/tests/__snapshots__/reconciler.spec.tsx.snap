@@ -495,6 +495,50 @@ Object {
 }
 `;
 
+exports[`Conversations Select Menu Conversations Select Menu with a filter property renders a Conversations Select Menu with a filter property 1`] = `
+Object {
+  "action_id": "select",
+  "confirm": undefined,
+  "filter": Object {
+    "exclude_bot_users": undefined,
+    "exclude_external_shared_channels": true,
+    "include": undefined,
+  },
+  "initial_conversation": "C12345",
+  "placeholder": Object {
+    "text": "a placeholder",
+    "type": "plain_text",
+  },
+  "type": "conversations_select",
+}
+`;
+
+exports[`Conversations Select Menu Conversations Select Menu with initial conversation property renders a Conversations Select Menu with initial user property 1`] = `
+Object {
+  "action_id": "select",
+  "confirm": undefined,
+  "initial_conversation": "C12345",
+  "placeholder": Object {
+    "text": "a placeholder",
+    "type": "plain_text",
+  },
+  "type": "conversations_select",
+}
+`;
+
+exports[`Conversations Select Menu Default Conversations Select Menu renders a default Conversations Select Menu 1`] = `
+Object {
+  "action_id": "select",
+  "confirm": undefined,
+  "initial_conversation": undefined,
+  "placeholder": Object {
+    "text": "a placeholder",
+    "type": "plain_text",
+  },
+  "type": "conversations_select",
+}
+`;
+
 exports[`DatePicker DatePicker with Text component placeholder property renders DatePicker with Text component placeholder property 1`] = `
 Object {
   "action_id": "date",

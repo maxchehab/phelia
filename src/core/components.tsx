@@ -607,7 +607,20 @@ interface UserSelectMenu extends SelectMenuBase {
   initialUser?: string;
 }
 
-type SelectMenuProps = StaticSelectMenu | UserSelectMenu;
+interface ConversationSelectMenu extends SelectMenuBase {
+  type: "conversations";
+  initialConversation?: string;
+  filter?: {
+    include?: ("im" | "mpim" | "private" | "public")[];
+    excludeExternalSharedChannels?: boolean;
+    excludeBotUsers?: boolean;
+  };
+}
+
+type SelectMenuProps =
+  | StaticSelectMenu
+  | UserSelectMenu
+  | ConversationSelectMenu;
 
 export const SelectMenu = (props: SelectMenuProps) => (
   <component
@@ -652,6 +665,18 @@ export const SelectMenu = (props: SelectMenuProps) => (
 
       if (props.type === "users") {
         instance.initial_user = props.initialUser;
+      }
+
+      if (props.type === "conversations") {
+        instance.initial_conversation = props.initialConversation;
+
+        if (props.filter) {
+          instance.filter = {};
+          instance.filter.include = props.filter.include;
+          instance.filter.exclude_external_shared_channels =
+            props.filter.excludeExternalSharedChannels;
+          instance.filter.exclude_bot_users = props.filter.excludeBotUsers;
+        }
       }
 
       instance.confirm = confirm;
