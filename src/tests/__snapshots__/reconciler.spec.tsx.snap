@@ -370,6 +370,133 @@ Object {
 }
 `;
 
+exports[`Input Input with DatePicker element renders Input with DatePicker element 1`] = `
+Object {
+  "element": Object {
+    "action_id": "date",
+    "confirm": undefined,
+    "initial_date": undefined,
+    "placeholder": undefined,
+    "type": "datepicker",
+  },
+  "hint": undefined,
+  "label": Object {
+    "text": "Expiration date",
+    "type": "plain_text",
+  },
+  "optional": undefined,
+  "type": "input",
+}
+`;
+
+exports[`Input Input with hint Text component renders Input with hint Text component 1`] = `
+Object {
+  "element": Object {
+    "action_id": "date",
+    "confirm": undefined,
+    "initial_date": undefined,
+    "placeholder": undefined,
+    "type": "datepicker",
+  },
+  "hint": Object {
+    "emoji": true,
+    "text": "hint",
+    "type": "plain_text",
+  },
+  "label": Object {
+    "text": "label",
+    "type": "plain_text",
+  },
+  "optional": undefined,
+  "type": "input",
+}
+`;
+
+exports[`Input Input with hint Text component renders Input with hint Text component 2`] = `
+Object {
+  "element": Object {
+    "action_id": "date",
+    "confirm": undefined,
+    "initial_date": undefined,
+    "placeholder": undefined,
+    "type": "datepicker",
+  },
+  "hint": Object {
+    "emoji": true,
+    "text": "hint",
+    "type": "plain_text",
+  },
+  "label": Object {
+    "text": "label",
+    "type": "plain_text",
+  },
+  "optional": undefined,
+  "type": "input",
+}
+`;
+
+exports[`Input Input with label Text component renders Input with label Text component 1`] = `
+Object {
+  "element": Object {
+    "action_id": "date",
+    "confirm": undefined,
+    "initial_date": undefined,
+    "placeholder": undefined,
+    "type": "datepicker",
+  },
+  "hint": undefined,
+  "label": Object {
+    "emoji": true,
+    "text": "Label",
+    "type": "plain_text",
+  },
+  "optional": undefined,
+  "type": "input",
+}
+`;
+
+exports[`Input Input with label string renders Input with label string 1`] = `
+Object {
+  "element": Object {
+    "action_id": "date",
+    "confirm": undefined,
+    "initial_date": undefined,
+    "placeholder": undefined,
+    "type": "datepicker",
+  },
+  "hint": undefined,
+  "label": Object {
+    "text": "Expiration date",
+    "type": "plain_text",
+  },
+  "optional": undefined,
+  "type": "input",
+}
+`;
+
+exports[`Input Input with optional property renders Input with optional property 1`] = `
+Object {
+  "element": Object {
+    "action_id": "date",
+    "confirm": undefined,
+    "initial_date": undefined,
+    "placeholder": undefined,
+    "type": "datepicker",
+  },
+  "hint": Object {
+    "emoji": true,
+    "text": "hint",
+    "type": "plain_text",
+  },
+  "label": Object {
+    "text": "label",
+    "type": "plain_text",
+  },
+  "optional": true,
+  "type": "input",
+}
+`;
+
 exports[`Option Option with Text child renders Option with Text child 1`] = `
 Object {
   "description": undefined,

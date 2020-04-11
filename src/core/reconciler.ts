@@ -85,6 +85,11 @@ class HostConfig
       return;
     }
 
+    if (parentInstance.type === "input") {
+      parentInstance.element = child;
+      return;
+    }
+
     if (parentInstance.type === "actions") {
       parentInstance.elements.push(child);
       return;

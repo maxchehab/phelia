@@ -2,6 +2,7 @@ import React from "react";
 import { WebClient, WebClientOptions } from "@slack/web-api";
 
 import { render } from "./reconciler";
+import { InteractionEvent, SubmitEvent } from "./interactive-message-handler";
 
 export interface PheliaMessageProps<p = never> {
   props?: p;
@@ -9,8 +10,8 @@ export interface PheliaMessageProps<p = never> {
   useModal: (
     key: string,
     modal: PheliaModal,
-    onSubmit?: (form: any) => void | Promise<void>,
-    onCancel?: () => void | Promise<void>
+    onSubmit?: (event: SubmitEvent) => void | Promise<void>,
+    onCancel?: (event: InteractionEvent) => void | Promise<void>
   ) => (props?: any) => Promise<void>;
 }
 

@@ -115,7 +115,7 @@ setStorage({
 | [Divider](https://api.slack.com/reference/block-kit/blocks#divider)                                                 | ✅  | [Random Image](https://github.com/maxchehab/phelia/blob/master/src/example/random-image.tsx)       |
 | [File](https://api.slack.com/reference/block-kit/blocks#file)                                                       | ❌  |
 | [Image Block](https://api.slack.com/reference/block-kit/blocks#image)                                               | ✅  | [Random Image](https://github.com/maxchehab/phelia/blob/master/src/example/random-image.tsx)       |
-| [Input](https://api.slack.com/reference/block-kit/blocks#input)                                                     | ❌  |
+| [Input](https://api.slack.com/reference/block-kit/blocks#input)                                                     | ✅  | [Modal Example](https://github.com/maxchehab/phelia/blob/master/src/example/modal-example.tsx)     |
 | [Section](https://api.slack.com/reference/block-kit/blocks#section)                                                 | ✅  | [Counter](https://github.com/maxchehab/phelia/blob/master/src/example/counter.tsx)                 |
 | [Button](https://api.slack.com/reference/block-kit/block-elements#button)                                           | ✅  | [Counter](https://github.com/maxchehab/phelia/blob/master/src/example/counter.tsx)                 |
 | [Checkboxes](https://api.slack.com/reference/block-kit/block-elements#checkboxes)                                   | ❌  |

@@ -29,7 +29,7 @@ app.post(
 
 // This is how you post a message....
 const client = new PheliaClient(process.env.SLACK_TOKEN);
-components.forEach(c => client.postMessage(c, "@max", { name: "max" }));
+client.postMessage(ModalExample, "@max");
 
 app.listen(port, () =>
   console.log(`Example app listening at http://localhost:${port}`)

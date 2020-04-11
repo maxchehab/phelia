@@ -12,7 +12,8 @@ import {
   Option,
   render,
   Section,
-  Text
+  Text,
+  Input
 } from "../core";
 
 describe("Text", () => {
@@ -672,6 +673,86 @@ describe("DatePicker", () => {
     );
 
     it("renders DatePicker with confirm property", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+});
+
+describe("Input", () => {
+  describe("Input with DatePicker element", () => {
+    const component = () => (
+      <Input label="Expiration date">
+        <DatePicker action="date" />
+      </Input>
+    );
+
+    it("renders Input with DatePicker element", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("Input with label string", () => {
+    const component = () => (
+      <Input label="Expiration date">
+        <DatePicker action="date" />
+      </Input>
+    );
+
+    it("renders Input with label string", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("Input with label Text component", () => {
+    const component = () => (
+      <Input label={<Text emoji>Label</Text>}>
+        <DatePicker action="date" />
+      </Input>
+    );
+
+    it("renders Input with label Text component", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("Input with hint Text component", () => {
+    const component = () => (
+      <Input label={"label"} hint={<Text emoji>hint</Text>}>
+        <DatePicker action="date" />
+      </Input>
+    );
+
+    it("renders Input with hint Text component", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("Input with hint Text component", () => {
+    const component = () => (
+      <Input label="label" hint={<Text emoji>hint</Text>}>
+        <DatePicker action="date" />
+      </Input>
+    );
+
+    it("renders Input with hint Text component", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("Input with optional property", () => {
+    const component = () => (
+      <Input label="label" hint={<Text emoji>hint</Text>} optional>
+        <DatePicker action="date" />
+      </Input>
+    );
+
+    it("renders Input with optional property", async () => {
       const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });

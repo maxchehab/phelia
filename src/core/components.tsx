@@ -8,7 +8,8 @@ import {
   ImageBlock as SlackImageBlock,
   ImageElement,
   Option as SlackOption,
-  SectionBlock
+  SectionBlock,
+  InputBlock
 } from "@slack/web-api";
 import { XOR } from "ts-xor";
 import {
@@ -276,10 +277,10 @@ export const Option = (props: OptionProps) => (
 
 interface DatePickerProps {
   action: string;
-  onSelect: (event: SelectDateEvent) => void | Promise<void>;
-  initialDate?: string;
-  placeholder?: ReactElement | string;
   confirm?: ReactElement;
+  initialDate?: string;
+  onSelect?: (event: SelectDateEvent) => void | Promise<void>;
+  placeholder?: ReactElement | string;
 }
 
 export const DatePicker = (props: DatePickerProps) => (
@@ -361,6 +362,43 @@ export const Modal = (props: ModalProps) => (
       }
 
       promises.push(...titlePromises, ...submitPromises, ...closePromises);
+
+      return instance;
+    }}
+  />
+);
+
+interface InputProps {
+  label: string | ReactElement;
+  children: ReactElement;
+  hint?: string | ReactElement;
+  optional?: boolean;
+}
+export const Input = (props: InputProps) => (
+  <component
+    {...props}
+    componentType="input"
+    toSlackElement={(props, reconcile, promises): InputBlock => {
+      const instance: any = {
+        type: "input",
+        optional: props.optional
+      };
+
+      const [hint, hintPromises] = reconcile(props.hint);
+      const [label, labelPromises] = reconcile(props.label);
+
+      instance.hint = hint;
+      instance.label = label;
+
+      if (instance.label) {
+        instance.label.type = "plain_text";
+      }
+
+      if (instance.hint) {
+        instance.hint.type = "plain_text";
+      }
+
+      promises.push(...hintPromises, ...labelPromises);
 
       return instance;
     }}

@@ -7,7 +7,9 @@ import {
   Section,
   PheliaMessageProps,
   Message,
-  Modal
+  Modal,
+  DatePicker,
+  Input
 } from "../core";
 
 export function MyModal({ useState }: PheliaMessageProps) {
@@ -22,6 +24,11 @@ export function MyModal({ useState }: PheliaMessageProps) {
           <Text>Click the button!</Text>
         )}
       </Section>
+
+      <Input label="Expiration date">
+        <DatePicker action="date" />
+      </Input>
+
       <Actions>
         <Button action="next" onClick={() => setClicked(true)}>
           Click me

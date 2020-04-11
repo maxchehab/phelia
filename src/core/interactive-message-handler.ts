@@ -241,9 +241,23 @@ export function interactiveMessageHandler(
         executedCallbacks.set(key, true);
 
         if (payload.type === "view_submission") {
-          executionPromises.push(
-            onSubmit({ form: payload.state, user: payload.user })
-          );
+          const form = Object.keys(payload.view.state.values)
+            .map(key => [key, Object.keys(payload.view.state.values[key])[0]])
+            .map(([key, action]) => {
+              const data = payload.view.state.values[key][action];
+
+              if (data.type === "datepicker") {
+                return [action, data.selected_date];
+              }
+
+              return [action, "unknown"];
+            })
+            .reduce((form, [action, value]) => {
+              form[action] = value;
+              return form;
+            }, {} as any);
+
+          executionPromises.push(onSubmit({ form, user: payload.user }));
         } else {
           executionPromises.push(onCancel({ user: payload.user }));
         }
