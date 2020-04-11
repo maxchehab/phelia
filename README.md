@@ -123,7 +123,7 @@ setStorage({
 | [Text](https://api.slack.com/reference/block-kit/composition-objects#text)                                          | ✅  | [Random Image](https://github.com/maxchehab/phelia/blob/master/src/example/random-image.tsx)       |
 | [Image](https://api.slack.com/reference/block-kit/block-elements#image)                                             | ✅  | [Random Image](https://github.com/maxchehab/phelia/blob/master/src/example/random-image.tsx)       |
 | [Multi-select Menu](https://api.slack.com/reference/block-kit/block-elements#multi_select)                          | ❌  |
-| [Overflow Menu](https://api.slack.com/reference/block-kit/block-elements#overflow)                                  | ❌  |
+| [Overflow Menu](https://api.slack.com/reference/block-kit/block-elements#overflow)                                  | ✅  | [Overflow Menu](https://github.com/maxchehab/phelia/blob/master/src/example/overflow-menu.tsx)     |
 | [Plain-text input](https://api.slack.com/reference/block-kit/block-elements#input)                                  | ✅  | [Modal Example](https://github.com/maxchehab/phelia/blob/master/src/example/modal-example.tsx)     |
 | [Radio button group](https://api.slack.com/reference/block-kit/block-elements#radio)                                | ❌  |
 | [Select Menus](https://api.slack.com/reference/block-kit/block-elements#select)                                     | ❌  |

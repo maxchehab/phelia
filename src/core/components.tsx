@@ -16,7 +16,8 @@ import { XOR } from "ts-xor";
 import {
   InteractionEvent,
   SelectCheckboxesEvent,
-  SelectDateEvent
+  SelectDateEvent,
+  SelectOverflowMenuEvent
 } from "./interactive-message-handler";
 
 interface TextProps {
@@ -452,6 +453,7 @@ interface CheckboxesProps {
   confirm?: ReactElement;
   onSelect?: (event: SelectCheckboxesEvent) => void | Promise<void>;
 }
+
 export const Checkboxes = (props: CheckboxesProps) => (
   <component
     {...props}
@@ -481,6 +483,35 @@ export const Checkboxes = (props: CheckboxesProps) => (
       instance.confirm = confirm;
 
       promises.push(...optionPromises, ...confirmPromises);
+
+      return instance;
+    }}
+  />
+);
+
+interface OverflowMenuProps {
+  action: string;
+  children: ReactElement | ReactElement[];
+  confirm?: ReactElement;
+  onSelect?: (event: SelectOverflowMenuEvent) => void | Promise<void>;
+}
+
+export const OverflowMenu = (props: OverflowMenuProps) => (
+  <component
+    {...props}
+    componentType="overflow"
+    toSlackElement={(props, reconcile, promises) => {
+      const instance: any = {
+        type: "overflow",
+        action_id: props.action,
+        options: []
+      };
+
+      const [confirm, confirmPromises] = reconcile(props.confirm);
+
+      instance.confirm = confirm;
+
+      promises.push(...confirmPromises);
 
       return instance;
     }}

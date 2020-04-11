@@ -11,6 +11,7 @@ declare namespace JSX {
     | "input"
     | "message"
     | "modal"
+    | "overflow"
     | "section"
     | "text-field"
     | "text";

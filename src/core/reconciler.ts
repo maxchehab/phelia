@@ -85,6 +85,11 @@ class HostConfig
       return;
     }
 
+    if (parentInstance.type === "overflow") {
+      parentInstance.options.push(child);
+      return;
+    }
+
     if (parentInstance.type === "checkboxes") {
       parentInstance.options.push({ ...child, url: undefined });
       return;

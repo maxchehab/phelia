@@ -33,6 +33,10 @@ export interface SelectDateEvent extends InteractionEvent {
   date: string;
 }
 
+export interface SelectOverflowMenuEvent extends InteractionEvent {
+  selected: string;
+}
+
 interface PheliaMessageContainer {
   channelID: string;
   invokerKey: string;
@@ -344,7 +348,11 @@ export function interactiveMessageHandler(
 function generateEvent(
   action: any,
   user: SlackUser
-): SelectDateEvent | InteractionEvent | SelectCheckboxesEvent {
+):
+  | SelectDateEvent
+  | InteractionEvent
+  | SelectCheckboxesEvent
+  | SelectOverflowMenuEvent {
   if (action.type === "datepicker") {
     return { date: action.selected_date, user };
   }
@@ -354,6 +362,10 @@ function generateEvent(
       selected: action.selected_options.map((option: any) => option.value),
       user
     };
+  }
+
+  if (action.type === "overflow") {
+    return { user, selected: action.selected_option.value };
   }
 
   return { user };

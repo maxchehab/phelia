@@ -7,6 +7,7 @@ import BirthdayPicker from "./birthday-picker";
 import Counter from "./counter";
 import Greeter from "./greeter";
 import RandomImage from "./random-image";
+import OverflowMenuExample from "./overflow-menu";
 
 dotenv.config();
 
@@ -19,7 +20,8 @@ const components = [
   Greeter,
   ModalExample,
   MyModal,
-  RandomImage
+  RandomImage,
+  OverflowMenuExample
 ];
 
 app.post(
@@ -29,7 +31,7 @@ app.post(
 
 // This is how you post a message....
 const client = new PheliaClient(process.env.SLACK_TOKEN);
-client.postMessage(ModalExample, "@max");
+client.postMessage(OverflowMenuExample, "@max");
 
 app.listen(port, () =>
   console.log(`Example app listening at http://localhost:${port}`)

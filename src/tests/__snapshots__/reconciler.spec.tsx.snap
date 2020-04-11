@@ -831,6 +831,80 @@ Object {
 }
 `;
 
+exports[`Overflow Menu Overflow Menu with a Url options renders an Overflow menu with a Url option 1`] = `
+Object {
+  "action_id": "overflow",
+  "confirm": undefined,
+  "options": Array [
+    Object {
+      "description": undefined,
+      "isOption": [Function],
+      "isSelected": [Function],
+      "text": Object {
+        "text": "Dogs",
+        "type": "plain_text",
+      },
+      "url": "google.com",
+      "value": "dogs",
+    },
+  ],
+  "type": "overflow",
+}
+`;
+
+exports[`Overflow Menu Overflow Menu with a single option renders an Overflow menu with a single option 1`] = `
+Object {
+  "action_id": "overflow",
+  "confirm": undefined,
+  "options": Array [
+    Object {
+      "description": undefined,
+      "isOption": [Function],
+      "isSelected": [Function],
+      "text": Object {
+        "text": "Dogs",
+        "type": "plain_text",
+      },
+      "url": undefined,
+      "value": "dogs",
+    },
+  ],
+  "type": "overflow",
+}
+`;
+
+exports[`Overflow Menu Overflow Menu with two options renders an Overflow menu with a two options 1`] = `
+Object {
+  "action_id": "overflow",
+  "confirm": undefined,
+  "options": Array [
+    Object {
+      "description": undefined,
+      "isOption": [Function],
+      "isSelected": [Function],
+      "text": Object {
+        "text": "Dogs",
+        "type": "plain_text",
+      },
+      "url": undefined,
+      "value": "dogs",
+    },
+    Object {
+      "description": undefined,
+      "isOption": [Function],
+      "isSelected": [Function],
+      "text": Object {
+        "text": "Cats",
+        "type": "plain_text",
+      },
+      "url": undefined,
+      "value": "cats",
+    },
+  ],
+  "type": "overflow",
+}
+`;
+
 exports[`Section Section with Button accessory renders Section with a Button accessory 1`] = `
 Object {
   "accessory": Object {

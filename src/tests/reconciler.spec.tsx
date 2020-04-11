@@ -15,7 +15,8 @@ import {
   Text,
   Input,
   TextField,
-  Checkboxes
+  Checkboxes,
+  OverflowMenu
 } from "../core";
 
 describe("Text", () => {
@@ -956,6 +957,50 @@ describe("Checkboxes", () => {
     );
 
     it("renders Option component without Url property", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+});
+
+describe("Overflow Menu", () => {
+  describe("Overflow Menu with a single option", () => {
+    const component = () => (
+      <OverflowMenu action="overflow">
+        <Option value="dogs">Dogs</Option>
+      </OverflowMenu>
+    );
+
+    it("renders an Overflow menu with a single option", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("Overflow Menu with two options", () => {
+    const component = () => (
+      <OverflowMenu action="overflow">
+        <Option value="dogs">Dogs</Option>
+        <Option value="cats">Cats</Option>
+      </OverflowMenu>
+    );
+
+    it("renders an Overflow menu with a two options", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("Overflow Menu with a Url options", () => {
+    const component = () => (
+      <OverflowMenu action="overflow">
+        <Option url="google.com" value="dogs">
+          Dogs
+        </Option>
+      </OverflowMenu>
+    );
+
+    it("renders an Overflow menu with a Url option", async () => {
       const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });
