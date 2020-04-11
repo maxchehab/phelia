@@ -905,6 +905,126 @@ Object {
 }
 `;
 
+exports[`Radio Buttons Radio Buttons with a Url options renders an Radio Buttons without a Url property 1`] = `
+Object {
+  "action_id": "overflow",
+  "confirm": undefined,
+  "initial_option": undefined,
+  "options": Array [
+    Object {
+      "description": undefined,
+      "isOption": [Function],
+      "isSelected": [Function],
+      "text": Object {
+        "text": "Dogs",
+        "type": "plain_text",
+      },
+      "url": undefined,
+      "value": "dogs",
+    },
+  ],
+  "type": "radio_buttons",
+}
+`;
+
+exports[`Radio Buttons Radio Buttons with a single option renders an Radio Buttons with a single option 1`] = `
+Object {
+  "action_id": "overflow",
+  "confirm": undefined,
+  "initial_option": undefined,
+  "options": Array [
+    Object {
+      "description": undefined,
+      "isOption": [Function],
+      "isSelected": [Function],
+      "text": Object {
+        "text": "Dogs",
+        "type": "plain_text",
+      },
+      "url": undefined,
+      "value": "dogs",
+    },
+  ],
+  "type": "radio_buttons",
+}
+`;
+
+exports[`Radio Buttons Radio Buttons with selected option renders an Radio Buttons with a selected option 1`] = `
+Object {
+  "action_id": "overflow",
+  "confirm": undefined,
+  "initial_option": Object {
+    "description": undefined,
+    "isOption": [Function],
+    "isSelected": [Function],
+    "text": Object {
+      "text": "Cats",
+      "type": "plain_text",
+    },
+    "url": undefined,
+    "value": "cats",
+  },
+  "options": Array [
+    Object {
+      "description": undefined,
+      "isOption": [Function],
+      "isSelected": [Function],
+      "text": Object {
+        "text": "Dogs",
+        "type": "plain_text",
+      },
+      "url": undefined,
+      "value": "dogs",
+    },
+    Object {
+      "description": undefined,
+      "isOption": [Function],
+      "isSelected": [Function],
+      "text": Object {
+        "text": "Cats",
+        "type": "plain_text",
+      },
+      "url": undefined,
+      "value": "cats",
+    },
+  ],
+  "type": "radio_buttons",
+}
+`;
+
+exports[`Radio Buttons Radio Buttons with two options renders an Radio Buttons with a two options 1`] = `
+Object {
+  "action_id": "overflow",
+  "confirm": undefined,
+  "initial_option": undefined,
+  "options": Array [
+    Object {
+      "description": undefined,
+      "isOption": [Function],
+      "isSelected": [Function],
+      "text": Object {
+        "text": "Dogs",
+        "type": "plain_text",
+      },
+      "url": undefined,
+      "value": "dogs",
+    },
+    Object {
+      "description": undefined,
+      "isOption": [Function],
+      "isSelected": [Function],
+      "text": Object {
+        "text": "Cats",
+        "type": "plain_text",
+      },
+      "url": undefined,
+      "value": "cats",
+    },
+  ],
+  "type": "radio_buttons",
+}
+`;
+
 exports[`Section Section with Button accessory renders Section with a Button accessory 1`] = `
 Object {
   "accessory": Object {

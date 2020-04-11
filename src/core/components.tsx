@@ -517,3 +517,45 @@ export const OverflowMenu = (props: OverflowMenuProps) => (
     }}
   />
 );
+
+interface RadioButtonsProps {
+  action: string;
+  children: ReactElement | ReactElement[];
+  confirm?: ReactElement;
+  onSelect?: (event: SelectOverflowMenuEvent) => void | Promise<void>;
+}
+
+export const RadioButtons = (props: RadioButtonsProps) => (
+  <component
+    {...props}
+    componentType="radio-buttons"
+    toSlackElement={(props, reconcile, promises) => {
+      const instance: any = {
+        type: "radio_buttons",
+        action_id: props.action,
+        options: []
+      };
+
+      const [{ fields: options }, optionPromises] = reconcile(
+        React.createElement(Section, { children: props.children })
+      );
+      const [confirm, confirmPromises] = reconcile(props.confirm);
+
+      if (Array.isArray(options)) {
+        const selectedOption = options
+          .map(option => ({
+            ...option,
+            url: undefined
+          }))
+          .find(option => option.isSelected());
+
+        instance.initial_option = selectedOption;
+      }
+
+      instance.confirm = confirm;
+
+      promises.push(...optionPromises, ...confirmPromises);
+      return instance;
+    }}
+  />
+);

@@ -125,7 +125,7 @@ setStorage({
 | [Multi-select Menu](https://api.slack.com/reference/block-kit/block-elements#multi_select)                          | ❌  |
 | [Overflow Menu](https://api.slack.com/reference/block-kit/block-elements#overflow)                                  | ✅  | [Overflow Menu](https://github.com/maxchehab/phelia/blob/master/src/example/overflow-menu.tsx)     |
 | [Plain-text input](https://api.slack.com/reference/block-kit/block-elements#input)                                  | ✅  | [Modal Example](https://github.com/maxchehab/phelia/blob/master/src/example/modal-example.tsx)     |
-| [Radio button group](https://api.slack.com/reference/block-kit/block-elements#radio)                                | ❌  |
+| [Radio button group](https://api.slack.com/reference/block-kit/block-elements#radio)                                | ✅  | [Radio Buttons](https://github.com/maxchehab/phelia/blob/master/src/example/radio-buttons.tsx)     |
 | [Select Menus](https://api.slack.com/reference/block-kit/block-elements#select)                                     | ❌  |
 | [Text](https://api.slack.com/reference/block-kit/composition-objects#text)                                          | ✅  | [Counter](https://github.com/maxchehab/phelia/blob/master/src/example/counter.tsx)                 |
 | [Confirmation dialog](https://api.slack.com/reference/block-kit/composition-objects#confirm)                        | ✅  | [Random Image](https://github.com/maxchehab/phelia/blob/master/src/example/random-image.tsx)       |

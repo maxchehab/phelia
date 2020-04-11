@@ -266,6 +266,10 @@ export function interactiveMessageHandler(
                 return [action, selected];
               }
 
+              if (data.type === "radio_buttons") {
+                return [action, data.selected_option.value];
+              }
+
               return [action, data.value];
             })
             .reduce((form, [action, value]) => {
@@ -364,7 +368,7 @@ function generateEvent(
     };
   }
 
-  if (action.type === "overflow") {
+  if (action.type === "overflow" || action.type === "radio_buttons") {
     return { user, selected: action.selected_option.value };
   }
 

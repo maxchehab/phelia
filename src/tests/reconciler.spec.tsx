@@ -16,7 +16,8 @@ import {
   Input,
   TextField,
   Checkboxes,
-  OverflowMenu
+  OverflowMenu,
+  RadioButtons
 } from "../core";
 
 describe("Text", () => {
@@ -1001,6 +1002,66 @@ describe("Overflow Menu", () => {
     );
 
     it("renders an Overflow menu with a Url option", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+});
+
+describe("Radio Buttons", () => {
+  describe("Radio Buttons with a single option", () => {
+    const component = () => (
+      <RadioButtons action="overflow">
+        <Option value="dogs">Dogs</Option>
+      </RadioButtons>
+    );
+
+    it("renders an Radio Buttons with a single option", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("Radio Buttons with two options", () => {
+    const component = () => (
+      <RadioButtons action="overflow">
+        <Option value="dogs">Dogs</Option>
+        <Option value="cats">Cats</Option>
+      </RadioButtons>
+    );
+
+    it("renders an Radio Buttons with a two options", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("Radio Buttons with selected option", () => {
+    const component = () => (
+      <RadioButtons action="overflow">
+        <Option value="dogs">Dogs</Option>
+        <Option value="cats" selected>
+          Cats
+        </Option>
+      </RadioButtons>
+    );
+
+    it("renders an Radio Buttons with a selected option", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("Radio Buttons with a Url options", () => {
+    const component = () => (
+      <RadioButtons action="overflow">
+        <Option url="google.com" value="dogs">
+          Dogs
+        </Option>
+      </RadioButtons>
+    );
+
+    it("renders an Radio Buttons without a Url property", async () => {
       const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });

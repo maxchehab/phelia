@@ -90,7 +90,10 @@ class HostConfig
       return;
     }
 
-    if (parentInstance.type === "checkboxes") {
+    if (
+      parentInstance.type === "checkboxes" ||
+      parentInstance.type === "radio_buttons"
+    ) {
       parentInstance.options.push({ ...child, url: undefined });
       return;
     }
