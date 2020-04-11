@@ -33,7 +33,7 @@ export interface SelectDateEvent extends InteractionEvent {
   date: string;
 }
 
-export interface SelectOverflowMenuEvent extends InteractionEvent {
+export interface SelectOptionEvent extends InteractionEvent {
   selected: string;
 }
 
@@ -273,6 +273,10 @@ export function interactiveMessageHandler(
                 return [action, data.selected_option.value];
               }
 
+              if (data.type === "users_select") {
+                return [action, data.selected_user];
+              }
+
               return [action, data.value];
             })
             .reduce((form, [action, value]) => {
@@ -359,7 +363,7 @@ function generateEvent(
   | SelectDateEvent
   | InteractionEvent
   | SelectCheckboxesEvent
-  | SelectOverflowMenuEvent {
+  | SelectOptionEvent {
   if (action.type === "datepicker") {
     return { date: action.selected_date, user };
   }
@@ -369,6 +373,10 @@ function generateEvent(
       selected: action.selected_options.map((option: any) => option.value),
       user
     };
+  }
+
+  if (action.type === "users_select") {
+    return { user, selected: action.selected_user };
   }
 
   if (

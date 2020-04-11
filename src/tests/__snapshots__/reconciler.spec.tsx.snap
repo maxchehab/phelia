@@ -1658,3 +1658,29 @@ Object {
   "type": "plain_text_input",
 }
 `;
+
+exports[`User Select Menu Default User Select Menu renders a default User Select Menu 1`] = `
+Object {
+  "action_id": "select",
+  "confirm": undefined,
+  "initial_user": undefined,
+  "placeholder": Object {
+    "text": "a placeholder",
+    "type": "plain_text",
+  },
+  "type": "users_select",
+}
+`;
+
+exports[`User Select Menu User Select Menu with initial user property renders a User Select Menu with initial user property 1`] = `
+Object {
+  "action_id": "select",
+  "confirm": undefined,
+  "initial_user": "U12345",
+  "placeholder": Object {
+    "text": "a placeholder",
+    "type": "plain_text",
+  },
+  "type": "users_select",
+}
+`;

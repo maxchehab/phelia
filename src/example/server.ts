@@ -9,7 +9,14 @@ import Counter from "./counter";
 import Greeter from "./greeter";
 import OverflowMenuExample from "./overflow-menu";
 import RandomImage from "./random-image";
-import { SelectMenuExample, SelectMenuModal } from "./select-menu";
+import {
+  StaticSelectMenuExample,
+  StaticSelectMenuModal
+} from "./static-select-menu";
+import {
+  UsersSelectMenuExample,
+  UsersSelectMenuModal
+} from "./users-select-menu";
 
 dotenv.config();
 
@@ -26,8 +33,10 @@ const components = [
   OverflowMenuExample,
   RadioButtonModal,
   RadioButtonExample,
-  SelectMenuExample,
-  SelectMenuModal
+  StaticSelectMenuExample,
+  StaticSelectMenuModal,
+  UsersSelectMenuExample,
+  UsersSelectMenuModal
 ];
 
 app.post(
@@ -37,7 +46,7 @@ app.post(
 
 // This is how you post a message....
 const client = new PheliaClient(process.env.SLACK_TOKEN);
-client.postMessage(SelectMenuExample, "@max");
+client.postMessage(UsersSelectMenuExample, "@max");
 
 app.listen(port, () =>
   console.log(`Example app listening at http://localhost:${port}`)

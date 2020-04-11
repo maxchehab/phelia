@@ -17,7 +17,7 @@ import {
   InteractionEvent,
   SelectCheckboxesEvent,
   SelectDateEvent,
-  SelectOverflowMenuEvent
+  SelectOptionEvent
 } from "./interactive-message-handler";
 
 interface TextProps {
@@ -493,7 +493,7 @@ interface OverflowMenuProps {
   action: string;
   children: ReactElement | ReactElement[];
   confirm?: ReactElement;
-  onSelect?: (event: SelectOverflowMenuEvent) => void | Promise<void>;
+  onSelect?: (event: SelectOptionEvent) => void | Promise<void>;
 }
 
 export const OverflowMenu = (props: OverflowMenuProps) => (
@@ -522,7 +522,7 @@ interface RadioButtonsProps {
   action: string;
   children: ReactElement | ReactElement[];
   confirm?: ReactElement;
-  onSelect?: (event: SelectOverflowMenuEvent) => void | Promise<void>;
+  onSelect?: (event: SelectOptionEvent) => void | Promise<void>;
 }
 
 export const RadioButtons = (props: RadioButtonsProps) => (
@@ -590,14 +590,24 @@ export const OptionGroup = (props: OptionGroupProps) => (
   />
 );
 
-interface SelectMenuProps {
+interface SelectMenuBase {
   action: string;
-  type?: "static";
-  onSelect?: (event: SelectOverflowMenuEvent) => void | Promise<void>;
-  children: ReactElement | ReactElement[];
   placeholder: ReactElement | string;
   confirm?: ReactElement;
+  onSelect?: (event: SelectOptionEvent) => void | Promise<void>;
 }
+
+interface StaticSelectMenu extends SelectMenuBase {
+  type: "static";
+  children: ReactElement | ReactElement[];
+}
+
+interface UserSelectMenu extends SelectMenuBase {
+  type: "users";
+  initialUser?: string;
+}
+
+type SelectMenuProps = StaticSelectMenu | UserSelectMenu;
 
 export const SelectMenu = (props: SelectMenuProps) => (
   <component
@@ -605,7 +615,7 @@ export const SelectMenu = (props: SelectMenuProps) => (
     componentType="select-menu"
     toSlackElement={(props, reconcile, promises) => {
       const instance: any = {
-        type: "static_select",
+        type: props.type + "_select",
         action_id: props.action
       };
 
@@ -615,7 +625,11 @@ export const SelectMenu = (props: SelectMenuProps) => (
         React.createElement(Section, { children: props.children })
       );
 
-      if (Array.isArray(optionsOrGroups) && optionsOrGroups.length) {
+      if (
+        props.type === "static" &&
+        Array.isArray(optionsOrGroups) &&
+        optionsOrGroups.length
+      ) {
         const isGroup = Boolean(optionsOrGroups[0].isOptionGroup);
         let options = optionsOrGroups;
 
@@ -634,6 +648,10 @@ export const SelectMenu = (props: SelectMenuProps) => (
           .find(option => option.isSelected());
 
         instance.initial_option = selectedOption;
+      }
+
+      if (props.type === "users") {
+        instance.initial_user = props.initialUser;
       }
 
       instance.confirm = confirm;

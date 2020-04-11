@@ -1214,3 +1214,32 @@ describe("Static Select Menu", () => {
     });
   });
 });
+
+describe("User Select Menu", () => {
+  describe("Default User Select Menu", () => {
+    const component = () => (
+      <SelectMenu type="users" action="select" placeholder="a placeholder" />
+    );
+
+    it("renders a default User Select Menu", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("User Select Menu with initial user property", () => {
+    const component = () => (
+      <SelectMenu
+        type="users"
+        action="select"
+        initialUser="U12345"
+        placeholder="a placeholder"
+      />
+    );
+
+    it("renders a User Select Menu with initial user property", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+});

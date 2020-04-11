@@ -1,23 +1,24 @@
 import React from "react";
 
 import {
+  Actions,
   Button,
-  Text,
+  Divider,
   Input,
   Message,
   Modal,
   Option,
+  OptionGroup,
   PheliaMessageProps,
   Section,
-  Divider,
-  Actions,
   SelectMenu,
-  OptionGroup
+  SelectOptionEvent,
+  Text
 } from "../core";
 
-export function SelectMenuModal() {
+export function StaticSelectMenuModal() {
   return (
-    <Modal title="Select menu example" submit="Submit">
+    <Modal title="Static select menu example" submit="Submit">
       <Input label="Select menu">
         <SelectMenu action="select-groups" placeholder="A placeholder">
           <OptionGroup label="an option group">
@@ -39,16 +40,19 @@ export function SelectMenuModal() {
   );
 }
 
-export function SelectMenuExample({ useModal, useState }: PheliaMessageProps) {
+export function StaticSelectMenuExample({
+  useModal,
+  useState
+}: PheliaMessageProps) {
   const [form, setForm] = useState("form");
   const [selected, setSelected] = useState("selected");
 
-  const openModal = useModal("modal", SelectMenuModal, form => {
+  const openModal = useModal("modal", StaticSelectMenuModal, form => {
     setForm(JSON.stringify(form, null, 2));
   });
 
   return (
-    <Message text="A select menu example">
+    <Message text="A static select menu example">
       {selected && (
         <Section>
           <Text type="mrkdwn">*Selected:* {selected}</Text>
@@ -100,7 +104,7 @@ export function SelectMenuExample({ useModal, useState }: PheliaMessageProps) {
       <Divider />
 
       <Section
-        text="You can also have a Select menu in a modal"
+        text="You can also have a static select menu in a modal"
         accessory={
           <Button action="open-modal" onClick={() => openModal()}>
             Open modal
