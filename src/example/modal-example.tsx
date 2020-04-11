@@ -3,37 +3,34 @@ import React from "react";
 import {
   Actions,
   Button,
-  Text,
-  Section,
-  PheliaMessageProps,
+  DatePicker,
+  Input,
   Message,
   Modal,
-  DatePicker,
-  Input
+  PheliaMessageProps,
+  Section,
+  Text,
+  TextField
 } from "../core";
 
-export function MyModal({ useState }: PheliaMessageProps) {
-  const [clicked, setClicked] = useState("clicked", false);
-
+export function MyModal() {
   return (
-    <Modal title="A fancy pants modal" submit="accept me">
-      <Section>
-        {clicked ? (
-          <Text emoji>Naiceeeeeee :guy-chef-kiss:</Text>
-        ) : (
-          <Text>Click the button!</Text>
-        )}
-      </Section>
-
+    <Modal title="A fancy pants modal" submit="submit the form">
       <Input label="Expiration date">
         <DatePicker action="date" />
       </Input>
 
-      <Actions>
-        <Button action="next" onClick={() => setClicked(true)}>
-          Click me
-        </Button>
-      </Actions>
+      <Input label="Little bit">
+        <TextField action="little-bit" placeholder="just a little bit" />
+      </Input>
+
+      <Input label="Summary">
+        <TextField
+          action="summary"
+          placeholder="type something here"
+          multiline
+        />
+      </Input>
     </Modal>
   );
 }
@@ -42,11 +39,15 @@ type State = "submitted" | "canceled" | "init";
 
 export function ModalExample({ useModal, useState }: PheliaMessageProps) {
   const [state, setState] = useState<State>("state", "init");
+  const [form, setForm] = useState("form", "");
 
   const openModal = useModal(
     "modal",
     MyModal,
-    () => setState("submitted"),
+    form => {
+      setState("submitted");
+      setForm(JSON.stringify(form, null, 2));
+    },
     () => setState("canceled")
   );
 
@@ -54,13 +55,13 @@ export function ModalExample({ useModal, useState }: PheliaMessageProps) {
     <Message text="A modal example">
       {state === "canceled" && (
         <Section>
-          <Text emoji>:no_good: aceeeeeept meeeeee</Text>
+          <Text emoji>:no_good: why'd you have to do that</Text>
         </Section>
       )}
 
       {state === "submitted" && (
         <Section>
-          <Text emoji>Naiceeeeeee :guy-chef-kiss:</Text>
+          <Text type="mrkdwn">{"```\n" + form + "\n```"}</Text>
         </Section>
       )}
 
@@ -83,7 +84,7 @@ export function ModalExample({ useModal, useState }: PheliaMessageProps) {
             action="openModal"
             onClick={() => openModal()}
           >
-            Open zeee Modal
+            Open the modal
           </Button>
         </Actions>
       )}

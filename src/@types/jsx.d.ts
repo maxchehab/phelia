@@ -11,6 +11,7 @@ declare namespace JSX {
     | "message"
     | "modal"
     | "section"
+    | "text-field"
     | "text";
 
   type ToSlackElement = (

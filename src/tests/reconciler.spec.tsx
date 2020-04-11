@@ -13,7 +13,8 @@ import {
   render,
   Section,
   Text,
-  Input
+  Input,
+  TextField
 } from "../core";
 
 describe("Text", () => {
@@ -753,6 +754,100 @@ describe("Input", () => {
     );
 
     it("renders Input with optional property", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+});
+
+describe("TextField", () => {
+  describe("TextField with action", () => {
+    const component = () => <TextField action="text" />;
+
+    it("renders TextField with action", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("TextField with initial value", () => {
+    const component = () => (
+      <TextField action="text" initialValue="hey there" />
+    );
+
+    it("renders TextField with initial value", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("TextField with maxLength property", () => {
+    const component = () => (
+      <TextField action="text" initialValue="hey there" maxLength={10} />
+    );
+
+    it("renders TextField with maxLength property", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("TextField with minLength property", () => {
+    const component = () => (
+      <TextField action="text" initialValue="hey there" minLength={7} />
+    );
+
+    it("renders TextField with minLength property", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("TextField with multiline property set", () => {
+    const component = () => (
+      <TextField
+        action="text"
+        initialValue="hey there"
+        minLength={7}
+        multiline
+      />
+    );
+
+    it("renders TextField with multiline property set", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("TextField with string placeholder", () => {
+    const component = () => (
+      <TextField
+        action="text"
+        initialValue="hey there"
+        minLength={7}
+        multiline
+        placeholder="i am a placeholder"
+      />
+    );
+
+    it("renders TextField with string placeholder", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("TextField with Text component placeholder", () => {
+    const component = () => (
+      <TextField
+        action="text"
+        initialValue="hey there"
+        minLength={7}
+        multiline
+        placeholder={<Text emoji>I'm a placeholder</Text>}
+      />
+    );
+
+    it("renders TextField with Text component placeholder", async () => {
       const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });

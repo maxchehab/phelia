@@ -759,3 +759,94 @@ Object {
   "type": "plain_text",
 }
 `;
+
+exports[`TextField TextField with Text component placeholder renders TextField with Text component placeholder 1`] = `
+Object {
+  "action_id": "text",
+  "initial_value": "hey there",
+  "max_length": undefined,
+  "min_length": 7,
+  "multiline": true,
+  "placeholder": Object {
+    "emoji": true,
+    "text": "I'm a placeholder",
+    "type": "plain_text",
+  },
+  "type": "plain_text_input",
+}
+`;
+
+exports[`TextField TextField with action renders TextField with action 1`] = `
+Object {
+  "action_id": "text",
+  "initial_value": undefined,
+  "max_length": undefined,
+  "min_length": undefined,
+  "multiline": undefined,
+  "placeholder": undefined,
+  "type": "plain_text_input",
+}
+`;
+
+exports[`TextField TextField with initial value renders TextField with initial value 1`] = `
+Object {
+  "action_id": "text",
+  "initial_value": "hey there",
+  "max_length": undefined,
+  "min_length": undefined,
+  "multiline": undefined,
+  "placeholder": undefined,
+  "type": "plain_text_input",
+}
+`;
+
+exports[`TextField TextField with maxLength property renders TextField with maxLength property 1`] = `
+Object {
+  "action_id": "text",
+  "initial_value": "hey there",
+  "max_length": 10,
+  "min_length": undefined,
+  "multiline": undefined,
+  "placeholder": undefined,
+  "type": "plain_text_input",
+}
+`;
+
+exports[`TextField TextField with minLength property renders TextField with minLength property 1`] = `
+Object {
+  "action_id": "text",
+  "initial_value": "hey there",
+  "max_length": undefined,
+  "min_length": 7,
+  "multiline": undefined,
+  "placeholder": undefined,
+  "type": "plain_text_input",
+}
+`;
+
+exports[`TextField TextField with multiline property set renders TextField with multiline property set 1`] = `
+Object {
+  "action_id": "text",
+  "initial_value": "hey there",
+  "max_length": undefined,
+  "min_length": 7,
+  "multiline": true,
+  "placeholder": undefined,
+  "type": "plain_text_input",
+}
+`;
+
+exports[`TextField TextField with string placeholder renders TextField with string placeholder 1`] = `
+Object {
+  "action_id": "text",
+  "initial_value": "hey there",
+  "max_length": undefined,
+  "min_length": 7,
+  "multiline": true,
+  "placeholder": Object {
+    "text": "i am a placeholder",
+    "type": "plain_text",
+  },
+  "type": "plain_text_input",
+}
+`;

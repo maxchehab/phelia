@@ -9,7 +9,8 @@ import {
   ImageElement,
   Option as SlackOption,
   SectionBlock,
-  InputBlock
+  InputBlock,
+  PlainTextInput
 } from "@slack/web-api";
 import { XOR } from "ts-xor";
 import {
@@ -399,6 +400,43 @@ export const Input = (props: InputProps) => (
       }
 
       promises.push(...hintPromises, ...labelPromises);
+
+      return instance;
+    }}
+  />
+);
+
+interface TextFieldProps {
+  action: string;
+  initialValue?: string;
+  maxLength?: number;
+  minLength?: number;
+  multiline?: boolean;
+  placeholder?: ReactElement | string;
+}
+export const TextField = (props: TextFieldProps) => (
+  <component
+    {...props}
+    componentType="text-field"
+    toSlackElement={(props, reconcile, promises): PlainTextInput => {
+      const instance: PlainTextInput = {
+        type: "plain_text_input",
+        initial_value: props.initialValue,
+        action_id: props.action,
+        max_length: props.maxLength,
+        min_length: props.minLength,
+        multiline: props.multiline
+      };
+
+      const [placeholder, placeholderPromises] = reconcile(props.placeholder);
+
+      instance.placeholder = placeholder;
+
+      if (instance.placeholder) {
+        instance.placeholder.type = "plain_text";
+      }
+
+      promises.push(...placeholderPromises);
 
       return instance;
     }}

@@ -250,7 +250,7 @@ export function interactiveMessageHandler(
                 return [action, data.selected_date];
               }
 
-              return [action, "unknown"];
+              return [action, data.value];
             })
             .reduce((form, [action, value]) => {
               form[action] = value;
