@@ -161,6 +161,259 @@ Object {
 }
 `;
 
+exports[`Checkboxes Checkboxes with Confirm component renders Checkboxes with Confirm component 1`] = `
+Object {
+  "action_id": "options",
+  "confirm": Object {
+    "confirm": Object {
+      "text": "Yes, I confirm!",
+      "type": "plain_text",
+    },
+    "deny": Object {
+      "text": "No, go away!",
+      "type": "plain_text",
+    },
+    "isConfirm": [Function],
+    "style": undefined,
+    "text": Object {
+      "text": "Do you confirm me?",
+      "type": "plain_text",
+    },
+    "title": Object {
+      "text": "Confirm me?",
+      "type": "plain_text",
+    },
+  },
+  "initial_options": Array [
+    Object {
+      "description": undefined,
+      "isOption": [Function],
+      "isSelected": [Function],
+      "text": Object {
+        "text": "hey",
+        "type": "plain_text",
+      },
+      "url": undefined,
+      "value": "1",
+    },
+    Object {
+      "description": undefined,
+      "isOption": [Function],
+      "isSelected": [Function],
+      "text": Object {
+        "text": "hello",
+        "type": "plain_text",
+      },
+      "url": undefined,
+      "value": "2",
+    },
+  ],
+  "options": Array [
+    Object {
+      "description": undefined,
+      "isOption": [Function],
+      "isSelected": [Function],
+      "text": Object {
+        "text": "hey",
+        "type": "plain_text",
+      },
+      "url": undefined,
+      "value": "1",
+    },
+    Object {
+      "description": undefined,
+      "isOption": [Function],
+      "isSelected": [Function],
+      "text": Object {
+        "text": "hello",
+        "type": "plain_text",
+      },
+      "url": undefined,
+      "value": "2",
+    },
+  ],
+  "type": "checkboxes",
+}
+`;
+
+exports[`Checkboxes Checkboxes with Url property in Options component renders Option component without Url property 1`] = `
+Object {
+  "action_id": "options",
+  "confirm": undefined,
+  "initial_options": undefined,
+  "options": Array [
+    Object {
+      "description": undefined,
+      "isOption": [Function],
+      "isSelected": [Function],
+      "text": Object {
+        "text": "hey",
+        "type": "plain_text",
+      },
+      "url": undefined,
+      "value": "1",
+    },
+  ],
+  "type": "checkboxes",
+}
+`;
+
+exports[`Checkboxes Checkboxes with one option renders Checkboxes with one option 1`] = `
+Object {
+  "action_id": "options",
+  "confirm": undefined,
+  "initial_options": undefined,
+  "options": Array [
+    Object {
+      "description": undefined,
+      "isOption": [Function],
+      "isSelected": [Function],
+      "text": Object {
+        "text": "hello",
+        "type": "plain_text",
+      },
+      "url": undefined,
+      "value": "1",
+    },
+  ],
+  "type": "checkboxes",
+}
+`;
+
+exports[`Checkboxes Checkboxes with one selected option renders Checkboxes with one selected option 1`] = `
+Object {
+  "action_id": "options",
+  "confirm": undefined,
+  "initial_options": Array [
+    Object {
+      "description": undefined,
+      "isOption": [Function],
+      "isSelected": [Function],
+      "text": Object {
+        "text": "hey",
+        "type": "plain_text",
+      },
+      "url": undefined,
+      "value": "1",
+    },
+  ],
+  "options": Array [
+    Object {
+      "description": undefined,
+      "isOption": [Function],
+      "isSelected": [Function],
+      "text": Object {
+        "text": "hey",
+        "type": "plain_text",
+      },
+      "url": undefined,
+      "value": "1",
+    },
+    Object {
+      "description": undefined,
+      "isOption": [Function],
+      "isSelected": [Function],
+      "text": Object {
+        "text": "hello",
+        "type": "plain_text",
+      },
+      "url": undefined,
+      "value": "2",
+    },
+  ],
+  "type": "checkboxes",
+}
+`;
+
+exports[`Checkboxes Checkboxes with two options renders Checkboxes with two options 1`] = `
+Object {
+  "action_id": "options",
+  "confirm": undefined,
+  "initial_options": undefined,
+  "options": Array [
+    Object {
+      "description": undefined,
+      "isOption": [Function],
+      "isSelected": [Function],
+      "text": Object {
+        "text": "hey",
+        "type": "plain_text",
+      },
+      "url": undefined,
+      "value": "1",
+    },
+    Object {
+      "description": undefined,
+      "isOption": [Function],
+      "isSelected": [Function],
+      "text": Object {
+        "text": "hello",
+        "type": "plain_text",
+      },
+      "url": undefined,
+      "value": "2",
+    },
+  ],
+  "type": "checkboxes",
+}
+`;
+
+exports[`Checkboxes Checkboxes with two selected options renders Checkboxes with two selected options 1`] = `
+Object {
+  "action_id": "options",
+  "confirm": undefined,
+  "initial_options": Array [
+    Object {
+      "description": undefined,
+      "isOption": [Function],
+      "isSelected": [Function],
+      "text": Object {
+        "text": "hey",
+        "type": "plain_text",
+      },
+      "url": undefined,
+      "value": "1",
+    },
+    Object {
+      "description": undefined,
+      "isOption": [Function],
+      "isSelected": [Function],
+      "text": Object {
+        "text": "hello",
+        "type": "plain_text",
+      },
+      "url": undefined,
+      "value": "2",
+    },
+  ],
+  "options": Array [
+    Object {
+      "description": undefined,
+      "isOption": [Function],
+      "isSelected": [Function],
+      "text": Object {
+        "text": "hey",
+        "type": "plain_text",
+      },
+      "url": undefined,
+      "value": "1",
+    },
+    Object {
+      "description": undefined,
+      "isOption": [Function],
+      "isSelected": [Function],
+      "text": Object {
+        "text": "hello",
+        "type": "plain_text",
+      },
+      "url": undefined,
+      "value": "2",
+    },
+  ],
+  "type": "checkboxes",
+}
+`;
+
 exports[`Confirm Confirm with Text Component properties renders Confirm component with Text Component properties 1`] = `
 Object {
   "confirm": Object {
@@ -501,6 +754,7 @@ exports[`Option Option with Text child renders Option with Text child 1`] = `
 Object {
   "description": undefined,
   "isOption": [Function],
+  "isSelected": [Function],
   "text": Object {
     "emoji": true,
     "text": "Another option",
@@ -519,6 +773,7 @@ Object {
     "type": "plain_text",
   },
   "isOption": [Function],
+  "isSelected": [Function],
   "text": Object {
     "emoji": true,
     "text": "Another option",
@@ -536,6 +791,7 @@ Object {
     "type": "plain_text",
   },
   "isOption": [Function],
+  "isSelected": [Function],
   "text": Object {
     "emoji": true,
     "text": "Another option",
@@ -550,6 +806,7 @@ exports[`Option Option with string child renders Option with string child 1`] = 
 Object {
   "description": undefined,
   "isOption": [Function],
+  "isSelected": [Function],
   "text": Object {
     "text": "I am an option",
     "type": "plain_text",
@@ -563,6 +820,7 @@ exports[`Option Option with url property renders Option with url property 1`] = 
 Object {
   "description": undefined,
   "isOption": [Function],
+  "isSelected": [Function],
   "text": Object {
     "emoji": true,
     "text": "Another option",

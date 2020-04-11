@@ -14,7 +14,8 @@ import {
   Section,
   Text,
   Input,
-  TextField
+  TextField,
+  Checkboxes
 } from "../core";
 
 describe("Text", () => {
@@ -848,6 +849,113 @@ describe("TextField", () => {
     );
 
     it("renders TextField with Text component placeholder", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+});
+
+describe("Checkboxes", () => {
+  describe("Checkboxes with one option", () => {
+    const component = () => (
+      <Checkboxes action="options">
+        <Option value="1">hello</Option>
+      </Checkboxes>
+    );
+
+    it("renders Checkboxes with one option", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("Checkboxes with two options", () => {
+    const component = () => (
+      <Checkboxes action="options">
+        <Option value="1">hey</Option>
+        <Option value="2">hello</Option>
+      </Checkboxes>
+    );
+
+    it("renders Checkboxes with two options", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("Checkboxes with one selected option", () => {
+    const component = () => (
+      <Checkboxes action="options">
+        <Option value="1" selected>
+          hey
+        </Option>
+        <Option value="2">hello</Option>
+      </Checkboxes>
+    );
+
+    it("renders Checkboxes with one selected option", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("Checkboxes with two selected options", () => {
+    const component = () => (
+      <Checkboxes action="options">
+        <Option value="1" selected>
+          hey
+        </Option>
+        <Option value="2" selected>
+          hello
+        </Option>
+      </Checkboxes>
+    );
+
+    it("renders Checkboxes with two selected options", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("Checkboxes with Confirm component", () => {
+    const component = () => (
+      <Checkboxes
+        action="options"
+        confirm={
+          <Confirm
+            title="Confirm me?"
+            confirm="Yes, I confirm!"
+            deny="No, go away!"
+          >
+            Do you confirm me?
+          </Confirm>
+        }
+      >
+        <Option value="1" selected>
+          hey
+        </Option>
+        <Option value="2" selected>
+          hello
+        </Option>
+      </Checkboxes>
+    );
+
+    it("renders Checkboxes with Confirm component", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("Checkboxes with Url property in Options component", () => {
+    const component = () => (
+      <Checkboxes action="options">
+        <Option value="1" url="https://google.com">
+          hey
+        </Option>
+      </Checkboxes>
+    );
+
+    it("renders Option component without Url property", async () => {
       const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
     });

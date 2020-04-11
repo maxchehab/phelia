@@ -85,6 +85,10 @@ class HostConfig
       return;
     }
 
+    if (parentInstance.type === "checkboxes") {
+      parentInstance.options.push({ ...child, url: undefined });
+      return;
+    }
     if (parentInstance.type === "input") {
       parentInstance.element = child;
       return;

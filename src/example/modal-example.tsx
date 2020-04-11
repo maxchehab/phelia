@@ -3,10 +3,12 @@ import React from "react";
 import {
   Actions,
   Button,
+  Checkboxes,
   DatePicker,
   Input,
   Message,
   Modal,
+  Option,
   PheliaMessageProps,
   Section,
   Text,
@@ -22,6 +24,18 @@ export function MyModal() {
 
       <Input label="Little bit">
         <TextField action="little-bit" placeholder="just a little bit" />
+      </Input>
+
+      <Input label="Some checkboxes">
+        <Checkboxes action="checkboxes">
+          <Option value="option-a">option a</Option>
+
+          <Option value="option-b" selected>
+            option b
+          </Option>
+
+          <Option value="option-c">option c</Option>
+        </Checkboxes>
       </Input>
 
       <Input label="Summary">

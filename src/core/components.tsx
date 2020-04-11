@@ -14,8 +14,9 @@ import {
 } from "@slack/web-api";
 import { XOR } from "ts-xor";
 import {
-  SelectDateEvent,
-  InteractionEvent
+  InteractionEvent,
+  SelectCheckboxesEvent,
+  SelectDateEvent
 } from "./interactive-message-handler";
 
 interface TextProps {
@@ -248,6 +249,7 @@ interface OptionProps {
   value: string;
   description?: ReactElement | string;
   url?: string;
+  selected?: boolean;
 }
 
 export const Option = (props: OptionProps) => (
@@ -256,6 +258,7 @@ export const Option = (props: OptionProps) => (
     componentType="confirm"
     toSlackElement={(props, reconcile, promises): Promise<SlackOption> => {
       const instance: any = {
+        isSelected: () => props.selected,
         isOption: () => true,
         value: props.value,
         url: props.url
@@ -437,6 +440,47 @@ export const TextField = (props: TextFieldProps) => (
       }
 
       promises.push(...placeholderPromises);
+
+      return instance;
+    }}
+  />
+);
+
+interface CheckboxesProps {
+  action: string;
+  children: ReactElement | ReactElement[];
+  confirm?: ReactElement;
+  onSelect?: (event: SelectCheckboxesEvent) => void | Promise<void>;
+}
+export const Checkboxes = (props: CheckboxesProps) => (
+  <component
+    {...props}
+    componentType="checkboxes"
+    toSlackElement={(props, reconcile, promises) => {
+      const instance: any = {
+        type: "checkboxes",
+        action_id: props.action,
+        options: []
+      };
+
+      const [{ fields: options }, optionPromises] = reconcile(
+        React.createElement(Section, { children: props.children })
+      );
+      const [confirm, confirmPromises] = reconcile(props.confirm);
+
+      if (Array.isArray(options)) {
+        const selectedOptions = options
+          .filter(option => option.isSelected())
+          .map(option => ({ ...option, url: undefined }));
+
+        instance.initial_options = selectedOptions.length
+          ? selectedOptions
+          : undefined;
+      }
+
+      instance.confirm = confirm;
+
+      promises.push(...optionPromises, ...confirmPromises);
 
       return instance;
     }}

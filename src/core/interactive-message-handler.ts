@@ -25,6 +25,10 @@ export interface SubmitEvent extends InteractionEvent {
   form: { [key: string]: any };
 }
 
+export interface SelectCheckboxesEvent extends InteractionEvent {
+  selected: string[];
+}
+
 export interface SelectDateEvent extends InteractionEvent {
   date: string;
 }
@@ -250,6 +254,14 @@ export function interactiveMessageHandler(
                 return [action, data.selected_date];
               }
 
+              if (data.type === "checkboxes") {
+                const selected = data.selected_options.map(
+                  (option: any) => option.value
+                );
+
+                return [action, selected];
+              }
+
               return [action, data.value];
             })
             .reduce((form, [action, value]) => {
@@ -332,9 +344,16 @@ export function interactiveMessageHandler(
 function generateEvent(
   action: any,
   user: SlackUser
-): SelectDateEvent | InteractionEvent {
+): SelectDateEvent | InteractionEvent | SelectCheckboxesEvent {
   if (action.type === "datepicker") {
     return { date: action.selected_date, user };
+  }
+
+  if (action.type === "checkboxes") {
+    return {
+      selected: action.selected_options.map((option: any) => option.value),
+      user
+    };
   }
 
   return { user };
