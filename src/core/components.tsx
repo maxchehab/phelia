@@ -17,7 +17,8 @@ import {
   InteractionEvent,
   SelectCheckboxesEvent,
   SelectDateEvent,
-  SelectOptionEvent
+  SelectOptionEvent,
+  LoadOptionsEvent
 } from "./interactive-message-handler";
 
 interface TextProps {
@@ -612,6 +613,17 @@ interface ChannelSelectMenu extends SelectMenuBase {
   initialChannel?: string;
 }
 
+export type LoadOptions = (
+  event: LoadOptionsEvent
+) => ReactElement[] | Promise<ReactElement[]>;
+
+interface ExternalSelectMenu extends SelectMenuBase {
+  type: "external";
+  initialOption?: ReactElement;
+  loadOptions: LoadOptions;
+  minQueryLength?: number;
+}
+
 interface ConversationSelectMenu extends SelectMenuBase {
   type: "conversations";
   initialConversation?: string;
@@ -626,7 +638,8 @@ type SelectMenuProps =
   | StaticSelectMenu
   | UserSelectMenu
   | ConversationSelectMenu
-  | ChannelSelectMenu;
+  | ChannelSelectMenu
+  | ExternalSelectMenu;
 
 export const SelectMenu = (props: SelectMenuProps) => (
   <component
@@ -642,6 +655,9 @@ export const SelectMenu = (props: SelectMenuProps) => (
       const [placeholder, placeholderPromises] = reconcile(props.placeholder);
       const [{ fields: optionsOrGroups }, optionPromises] = reconcile(
         React.createElement(Section, { children: props.children })
+      );
+      const [initialOption, initialOptionPromises] = reconcile(
+        props.initialOption
       );
 
       if (
@@ -667,6 +683,14 @@ export const SelectMenu = (props: SelectMenuProps) => (
           .find(option => option.isSelected());
 
         instance.initial_option = selectedOption;
+      }
+
+      if (props.type === "external") {
+        if (initialOption) {
+          instance.initial_option = { ...initialOption, url: undefined };
+        }
+
+        instance.min_query_length = props.minQueryLength;
       }
 
       if (props.type === "users") {
@@ -699,7 +723,8 @@ export const SelectMenu = (props: SelectMenuProps) => (
       promises.push(
         ...confirmPromises,
         ...placeholderPromises,
-        ...optionPromises
+        ...optionPromises,
+        ...initialOptionPromises
       );
 
       return instance;
@@ -709,4 +734,4 @@ export const SelectMenu = (props: SelectMenuProps) => (
 
 SelectMenu.defaultProps = {
   type: "static"
-};
+} as SelectMenuProps;

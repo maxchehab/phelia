@@ -19,8 +19,10 @@ import {
   OverflowMenu,
   RadioButtons,
   OptionGroup,
-  SelectMenu
+  SelectMenu,
+  getLoadOptions
 } from "../core";
+import { query } from "express";
 
 describe("Text", () => {
   describe("Default Text", () => {
@@ -1319,6 +1321,62 @@ describe("Channel Select Menu", () => {
     it("renders a Channel Select Menu with initial channel property", async () => {
       const blocks = await render(React.createElement(component));
       expect(blocks).toMatchSnapshot();
+    });
+  });
+});
+
+describe("External Select Menu", () => {
+  describe("Default External Select Menu", () => {
+    const loadOptions = jest.fn();
+    const component = () => (
+      <SelectMenu
+        type="external"
+        minQueryLength={100}
+        loadOptions={event => {
+          loadOptions(event);
+          return [
+            <OptionGroup key="1" label={"A group"}>
+              <Option value="option-1">This was loaded asynchronously</Option>
+            </OptionGroup>
+          ];
+        }}
+        action="select"
+        placeholder="a placeholder"
+      />
+    );
+
+    it("renders a default External Select Menu", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+
+    describe("When fetching loadOptions", () => {
+      it("fetches the correct loadOptions function", async () => {
+        const user = {
+          username: "johnsmith",
+          name: "john smith",
+          id: "u123",
+          team_id: "t123"
+        };
+
+        const loadOptionsFn = await getLoadOptions(component(), {
+          value: "select",
+          event: {
+            user
+          }
+        });
+
+        await loadOptionsFn({
+          user,
+          query: "a query"
+        });
+
+        expect(loadOptions).toBeCalled();
+        expect(loadOptions).toBeCalledWith({
+          user,
+          query: "a query"
+        });
+      });
     });
   });
 });

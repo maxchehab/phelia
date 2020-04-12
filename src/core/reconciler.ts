@@ -2,6 +2,7 @@ import Reconciler, { OpaqueHandle } from "react-reconciler";
 import ReactReconciler from "react-reconciler";
 import { SlackUser } from "./phelia-client";
 import { InteractionEvent } from "./interactive-message-handler";
+import { LoadOptions } from "./components";
 
 type Type = any;
 type Props = JSX.ComponentProps & {
@@ -67,7 +68,10 @@ class HostConfig
     if (props.toSlackElement) {
       return props.toSlackElement(
         props,
-        e => reconcile(e, rootContainerInstance.action),
+        e => {
+          const [nodes, promises] = reconcile(e, rootContainerInstance.action);
+          return [nodes, promises];
+        },
         rootContainerInstance.promises
       );
     }
@@ -200,6 +204,10 @@ class HostConfig
         rootContainerInstance.promises.push(
           props.onSelect(rootContainerInstance.action.event)
         );
+      }
+
+      if (props.loadOptions) {
+        rootContainerInstance.loadOptions = props.loadOptions;
       }
 
       return true;
@@ -352,7 +360,7 @@ interface Action {
 function reconcile(
   element: React.FunctionComponentElement<any>,
   action?: Action
-): [any, Promise<any>[]] {
+): [any, Promise<any>[], LoadOptions | undefined] {
   const reconcilerInstance = Reconciler(new HostConfig());
   const root: any = {
     isRoot: true,
@@ -363,7 +371,7 @@ function reconcile(
 
   reconcilerInstance.updateContainer(element, container, null, null);
 
-  return [root.node, root.promises];
+  return [root.node, root.promises, root.loadOptions];
 }
 
 export async function render(
@@ -375,4 +383,15 @@ export async function render(
   await Promise.all(promises);
 
   return blocks;
+}
+
+export async function getLoadOptions(
+  element: React.FunctionComponentElement<any>,
+  action: Action
+) {
+  const [_, promises, loadOptions] = reconcile(element, action);
+
+  await Promise.all(promises);
+
+  return loadOptions;
 }

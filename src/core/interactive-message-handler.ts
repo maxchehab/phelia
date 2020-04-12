@@ -10,7 +10,8 @@ import {
   PheliaModal,
   SlackUser
 } from "./phelia-client";
-import { render } from "./reconciler";
+import { render, getLoadOptions } from "./reconciler";
+import { SelectMenu } from "./components";
 
 interface PheliaMessageMetadata {
   message: PheliaMessage;
@@ -35,6 +36,10 @@ export interface SelectDateEvent extends InteractionEvent {
 
 export interface SelectOptionEvent extends InteractionEvent {
   selected: string;
+}
+
+export interface LoadOptionsEvent extends InteractionEvent {
+  query: string;
 }
 
 interface PheliaMessageContainer {
@@ -268,7 +273,8 @@ export function interactiveMessageHandler(
 
               if (
                 data.type === "radio_buttons" ||
-                data.type === "static_select"
+                data.type === "static_select" ||
+                data.type === "external_select"
               ) {
                 return [action, data.selected_option.value];
               }
@@ -350,6 +356,59 @@ export function interactiveMessageHandler(
     );
   }
 
+  async function processOption(payload: any) {
+    const { channel_id, message_ts, view_id, type } = payload.container;
+    const messageKey: string =
+      type === "view" ? view_id : `${channel_id}:${message_ts}`;
+
+    const rawMessageContainer = await PheliaClient.Storage.get(messageKey);
+
+    if (!rawMessageContainer) {
+      throw new Error(
+        `Could not find Message Container with key ${messageKey} in storage.`
+      );
+    }
+
+    const container: PheliaMessageContainer = JSON.parse(rawMessageContainer);
+
+    function useState<t>(key: string): [t, (value: t) => void] {
+      return [container.state[key], (_: t): void => null];
+    }
+
+    function useModal(): (title: string, props?: any) => Promise<void> {
+      return async () => null;
+    }
+
+    const loadOptions = await getLoadOptions(
+      React.createElement(messageCache.get(container.name) as PheliaMessage, {
+        useState,
+        props: container.props,
+        useModal
+      }),
+      { value: payload.action_id, event: { user: payload.user } }
+    );
+
+    const optionsComponent = await loadOptions({
+      user: payload.user,
+      query: payload.value
+    });
+
+    const { options, option_groups } = await render(
+      React.createElement(SelectMenu, {
+        placeholder: "",
+        action: "",
+        type: "static",
+        children: optionsComponent
+      })
+    );
+
+    if (options) {
+      return { options };
+    }
+
+    return { option_groups };
+  }
+
   adapter.viewSubmission(new RegExp(/.*/), async payload => {
     processSubmission(payload);
   });
@@ -358,9 +417,13 @@ export function interactiveMessageHandler(
     processSubmission(payload);
   });
 
+  adapter.action({ type: "block_suggestion" }, processOption);
+
   adapter.action(new RegExp(/.*/), async payload => {
     processAction(payload);
   });
+
+  adapter.options(new RegExp(/.*/), processOption);
 
   return adapter.requestListener();
 }
@@ -399,7 +462,8 @@ function generateEvent(
   if (
     action.type === "overflow" ||
     action.type === "radio_buttons" ||
-    action.type === "static_select"
+    action.type === "static_select" ||
+    action.type === "external_select"
   ) {
     return { user, selected: action.selected_option.value };
   }
