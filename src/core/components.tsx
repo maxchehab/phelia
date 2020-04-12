@@ -648,7 +648,8 @@ export const SelectMenu = (props: SelectMenuProps) => (
     toSlackElement={(props, reconcile, promises) => {
       const instance: any = {
         type: props.type + "_select",
-        action_id: props.action
+        action_id: props.action,
+        onSearchOptions: props.onSearchOptions
       };
 
       const [confirm, confirmPromises] = reconcile(props.confirm);
@@ -791,7 +792,8 @@ export const MultiSelectMenu = (props: MultiSelectMenuProps) => (
       const instance: any = {
         type: "multi_" + props.type + "_select",
         action_id: props.action,
-        max_selected_items: props.maxSelectedItems
+        max_selected_items: props.maxSelectedItems,
+        onSearchOptions: props.onSearchOptions
       };
 
       const [confirm, confirmPromises] = reconcile(props.confirm);

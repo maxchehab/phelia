@@ -68,7 +68,22 @@ class HostConfig
       return props.toSlackElement(
         props,
         e => {
-          const [nodes, promises] = reconcile(e, rootContainerInstance.action);
+          const [nodes, promises, onSearchOptions] = reconcile(
+            e,
+            rootContainerInstance.action,
+            rootContainerInstance.getOnSearchOptions
+          );
+
+          if (
+            nodes &&
+            rootContainerInstance.action &&
+            nodes.action_id === rootContainerInstance.action.value &&
+            rootContainerInstance.getOnSearchOptions &&
+            onSearchOptions
+          ) {
+            rootContainerInstance.onSearchOptions = onSearchOptions;
+          }
+
           return [nodes, promises];
         },
         rootContainerInstance.promises
@@ -179,6 +194,7 @@ class HostConfig
       "appendInitialChild::" + JSON.stringify({ parentInstance, child })
     );
   }
+
   finalizeInitialChildren(
     parentInstance: Instance,
     type: Type,
@@ -190,6 +206,11 @@ class HostConfig
       rootContainerInstance.action &&
       props.action === rootContainerInstance.action.value
     ) {
+      if (rootContainerInstance.getOnSearchOptions && props.onSearchOptions) {
+        rootContainerInstance.onSearchOptions = props.onSearchOptions;
+        return true;
+      }
+
       if (props.onClick) {
         rootContainerInstance.promises.push(
           props.onClick(rootContainerInstance.action.event)
@@ -206,10 +227,6 @@ class HostConfig
         rootContainerInstance.promises.push(
           props.onSelect(rootContainerInstance.action.event)
         );
-      }
-
-      if (props.onSearchOptions) {
-        rootContainerInstance.onSearchOptions = props.onSearchOptions;
       }
 
       return true;
@@ -361,13 +378,15 @@ interface Action {
 
 function reconcile(
   element: React.FunctionComponentElement<any>,
-  action?: Action
+  action?: Action,
+  getOnSearchOptions?: boolean
 ): [any, Promise<any>[], SearchOptions] {
   const reconcilerInstance = Reconciler(new HostConfig());
   const root: any = {
     isRoot: true,
     action,
-    promises: new Array<Promise<any>>()
+    promises: new Array<Promise<any>>(),
+    getOnSearchOptions
   };
   const container = reconcilerInstance.createContainer(root, false, false);
 
@@ -391,7 +410,7 @@ export async function getOnSearchOptions(
   element: React.FunctionComponentElement<any>,
   action: Action
 ) {
-  const [_, promises, onSearchOptions] = reconcile(element, action);
+  const [_, promises, onSearchOptions] = reconcile(element, action, true);
 
   await Promise.all(promises);
 

@@ -1484,3 +1484,59 @@ describe("Multi Static Select Menu", () => {
     });
   });
 });
+
+describe("Multi External Select Menu", () => {
+  describe("Default Multi External Select Menu", () => {
+    const onSearchOptions = jest.fn();
+    const component = () => (
+      <MultiSelectMenu
+        type="external"
+        minQueryLength={100}
+        onSearchOptions={event => {
+          onSearchOptions(event);
+          return [
+            <OptionGroup key="1" label={"A group"}>
+              <Option value="option-1">This was loaded asynchronously</Option>
+            </OptionGroup>
+          ];
+        }}
+        action="select"
+        placeholder="a placeholder"
+      />
+    );
+
+    it("renders a default Multi External Select Menu", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+
+    describe("When fetching onSearchOptions", () => {
+      it("fetches the correct onSearchOptions function", async () => {
+        const user = {
+          username: "johnsmith",
+          name: "john smith",
+          id: "u123",
+          team_id: "t123"
+        };
+
+        const onSearchOptionsFn = await getOnSearchOptions(component(), {
+          value: "select",
+          event: {
+            user
+          }
+        });
+
+        await onSearchOptionsFn({
+          user,
+          query: "a query"
+        });
+
+        expect(onSearchOptions).toBeCalled();
+        expect(onSearchOptions).toBeCalledWith({
+          user,
+          query: "a query"
+        });
+      });
+    });
+  });
+});

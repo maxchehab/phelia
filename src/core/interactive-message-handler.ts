@@ -265,7 +265,8 @@ export function interactiveMessageHandler(
 
               if (
                 data.type === "checkboxes" ||
-                data.type === "multi_static_select"
+                data.type === "multi_static_select" ||
+                data.type === "multi_external_select"
               ) {
                 const selected = data.selected_options.map(
                   (option: any) => option.value
@@ -443,7 +444,11 @@ function generateEvent(
     return { date: action.selected_date, user };
   }
 
-  if (action.type === "checkboxes" || action.type === "multi_static_select") {
+  if (
+    action.type === "checkboxes" ||
+    action.type === "multi_static_select" ||
+    action.type === "multi_external_select"
+  ) {
     return {
       selected: action.selected_options.map((option: any) => option.value),
       user

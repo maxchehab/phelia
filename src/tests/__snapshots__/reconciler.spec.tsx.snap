@@ -166,6 +166,7 @@ Object {
   "action_id": "select",
   "confirm": undefined,
   "initial_channel": "C12345",
+  "onSearchOptions": undefined,
   "placeholder": Object {
     "text": "a placeholder",
     "type": "plain_text",
@@ -179,6 +180,7 @@ Object {
   "action_id": "select",
   "confirm": undefined,
   "initial_channel": undefined,
+  "onSearchOptions": undefined,
   "placeholder": Object {
     "text": "a placeholder",
     "type": "plain_text",
@@ -531,6 +533,7 @@ Object {
     "include": undefined,
   },
   "initial_conversation": "C12345",
+  "onSearchOptions": undefined,
   "placeholder": Object {
     "text": "a placeholder",
     "type": "plain_text",
@@ -544,6 +547,7 @@ Object {
   "action_id": "select",
   "confirm": undefined,
   "initial_conversation": "C12345",
+  "onSearchOptions": undefined,
   "placeholder": Object {
     "text": "a placeholder",
     "type": "plain_text",
@@ -557,6 +561,7 @@ Object {
   "action_id": "select",
   "confirm": undefined,
   "initial_conversation": undefined,
+  "onSearchOptions": undefined,
   "placeholder": Object {
     "text": "a placeholder",
     "type": "plain_text",
@@ -656,6 +661,7 @@ Object {
   "action_id": "select",
   "confirm": undefined,
   "min_query_length": 100,
+  "onSearchOptions": [Function],
   "placeholder": Object {
     "text": "a placeholder",
     "type": "plain_text",
@@ -833,12 +839,29 @@ Object {
 }
 `;
 
+exports[`Multi External Select Menu Default Multi External Select Menu renders a default Multi External Select Menu 1`] = `
+Object {
+  "action_id": "select",
+  "confirm": undefined,
+  "initial_options": undefined,
+  "max_selected_items": undefined,
+  "min_query_length": 100,
+  "onSearchOptions": [Function],
+  "placeholder": Object {
+    "text": "a placeholder",
+    "type": "plain_text",
+  },
+  "type": "multi_external_select",
+}
+`;
+
 exports[`Multi Static Select Menu Multi Static Select Menu with one option group renders a Multi Static Select Menu with one option group 1`] = `
 Object {
   "action_id": "select",
   "confirm": undefined,
   "initial_options": Array [],
   "max_selected_items": undefined,
+  "onSearchOptions": undefined,
   "option_groups": Array [
     Object {
       "isOptionGroup": [Function],
@@ -875,6 +898,7 @@ Object {
   "confirm": undefined,
   "initial_options": Array [],
   "max_selected_items": undefined,
+  "onSearchOptions": undefined,
   "options": Array [
     Object {
       "description": undefined,
@@ -914,6 +938,7 @@ Object {
     },
   ],
   "max_selected_items": 10,
+  "onSearchOptions": undefined,
   "option_groups": Array [
     Object {
       "isOptionGroup": [Function],
@@ -982,6 +1007,7 @@ Object {
     },
   ],
   "max_selected_items": undefined,
+  "onSearchOptions": undefined,
   "options": Array [
     Object {
       "description": undefined,
@@ -1020,6 +1046,7 @@ Object {
   "confirm": undefined,
   "initial_options": Array [],
   "max_selected_items": undefined,
+  "onSearchOptions": undefined,
   "option_groups": Array [
     Object {
       "isOptionGroup": [Function],
@@ -1076,6 +1103,7 @@ Object {
   "confirm": undefined,
   "initial_options": Array [],
   "max_selected_items": undefined,
+  "onSearchOptions": undefined,
   "options": Array [
     Object {
       "description": undefined,
@@ -1626,6 +1654,7 @@ Object {
   "action_id": "select",
   "confirm": undefined,
   "initial_option": undefined,
+  "onSearchOptions": undefined,
   "option_groups": Array [
     Object {
       "isOptionGroup": [Function],
@@ -1661,6 +1690,7 @@ Object {
   "action_id": "select",
   "confirm": undefined,
   "initial_option": undefined,
+  "onSearchOptions": undefined,
   "options": Array [
     Object {
       "description": undefined,
@@ -1697,6 +1727,7 @@ Object {
     "url": undefined,
     "value": "2",
   },
+  "onSearchOptions": undefined,
   "option_groups": Array [
     Object {
       "isOptionGroup": [Function],
@@ -1762,6 +1793,7 @@ Object {
     "url": undefined,
     "value": "2",
   },
+  "onSearchOptions": undefined,
   "options": Array [
     Object {
       "description": undefined,
@@ -1799,6 +1831,7 @@ Object {
   "action_id": "select",
   "confirm": undefined,
   "initial_option": undefined,
+  "onSearchOptions": undefined,
   "option_groups": Array [
     Object {
       "isOptionGroup": [Function],
@@ -1854,6 +1887,7 @@ Object {
   "action_id": "select",
   "confirm": undefined,
   "initial_option": undefined,
+  "onSearchOptions": undefined,
   "options": Array [
     Object {
       "description": undefined,
@@ -2022,6 +2056,7 @@ Object {
   "action_id": "select",
   "confirm": undefined,
   "initial_user": undefined,
+  "onSearchOptions": undefined,
   "placeholder": Object {
     "text": "a placeholder",
     "type": "plain_text",
@@ -2035,6 +2070,7 @@ Object {
   "action_id": "select",
   "confirm": undefined,
   "initial_user": "U12345",
+  "onSearchOptions": undefined,
   "placeholder": Object {
     "text": "a placeholder",
     "type": "plain_text",
