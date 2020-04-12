@@ -833,6 +833,281 @@ Object {
 }
 `;
 
+exports[`Multi Static Select Menu Multi Static Select Menu with one option group renders a Multi Static Select Menu with one option group 1`] = `
+Object {
+  "action_id": "select",
+  "confirm": undefined,
+  "initial_options": Array [],
+  "max_selected_items": undefined,
+  "option_groups": Array [
+    Object {
+      "isOptionGroup": [Function],
+      "label": Object {
+        "text": "group",
+        "type": "plain_text",
+      },
+      "options": Array [
+        Object {
+          "description": undefined,
+          "isOption": [Function],
+          "isSelected": [Function],
+          "text": Object {
+            "text": "Option 1",
+            "type": "plain_text",
+          },
+          "url": undefined,
+          "value": "1",
+        },
+      ],
+    },
+  ],
+  "placeholder": Object {
+    "text": "a placeholder",
+    "type": "plain_text",
+  },
+  "type": "multi_static_select",
+}
+`;
+
+exports[`Multi Static Select Menu Multi Static Select Menu with one option renders a Multi Static Select Menu with one option 1`] = `
+Object {
+  "action_id": "select",
+  "confirm": undefined,
+  "initial_options": Array [],
+  "max_selected_items": undefined,
+  "options": Array [
+    Object {
+      "description": undefined,
+      "isOption": [Function],
+      "isSelected": [Function],
+      "text": Object {
+        "text": "Option 1",
+        "type": "plain_text",
+      },
+      "url": undefined,
+      "value": "1",
+    },
+  ],
+  "placeholder": Object {
+    "text": "a placeholder",
+    "type": "plain_text",
+  },
+  "type": "multi_static_select",
+}
+`;
+
+exports[`Multi Static Select Menu Multi Static Select Menu with selected option group renders a Multi Static Select Menu with selected option group 1`] = `
+Object {
+  "action_id": "select",
+  "confirm": undefined,
+  "initial_options": Array [
+    Object {
+      "description": undefined,
+      "isOption": [Function],
+      "isSelected": [Function],
+      "text": Object {
+        "text": "Option 2",
+        "type": "plain_text",
+      },
+      "url": undefined,
+      "value": "2",
+    },
+  ],
+  "max_selected_items": 10,
+  "option_groups": Array [
+    Object {
+      "isOptionGroup": [Function],
+      "label": Object {
+        "text": "group 1",
+        "type": "plain_text",
+      },
+      "options": Array [
+        Object {
+          "description": undefined,
+          "isOption": [Function],
+          "isSelected": [Function],
+          "text": Object {
+            "text": "Option 1",
+            "type": "plain_text",
+          },
+          "url": undefined,
+          "value": "1",
+        },
+      ],
+    },
+    Object {
+      "isOptionGroup": [Function],
+      "label": Object {
+        "text": "group 2",
+        "type": "plain_text",
+      },
+      "options": Array [
+        Object {
+          "description": undefined,
+          "isOption": [Function],
+          "isSelected": [Function],
+          "text": Object {
+            "text": "Option 2",
+            "type": "plain_text",
+          },
+          "url": undefined,
+          "value": "2",
+        },
+      ],
+    },
+  ],
+  "placeholder": Object {
+    "text": "a placeholder",
+    "type": "plain_text",
+  },
+  "type": "multi_static_select",
+}
+`;
+
+exports[`Multi Static Select Menu Multi Static Select Menu with selected option renders a Multi Static Select Menu with selected option 1`] = `
+Object {
+  "action_id": "select",
+  "confirm": undefined,
+  "initial_options": Array [
+    Object {
+      "description": undefined,
+      "isOption": [Function],
+      "isSelected": [Function],
+      "text": Object {
+        "text": "Option 2",
+        "type": "plain_text",
+      },
+      "url": undefined,
+      "value": "2",
+    },
+  ],
+  "max_selected_items": undefined,
+  "options": Array [
+    Object {
+      "description": undefined,
+      "isOption": [Function],
+      "isSelected": [Function],
+      "text": Object {
+        "text": "Option 1",
+        "type": "plain_text",
+      },
+      "url": undefined,
+      "value": "1",
+    },
+    Object {
+      "description": undefined,
+      "isOption": [Function],
+      "isSelected": [Function],
+      "text": Object {
+        "text": "Option 2",
+        "type": "plain_text",
+      },
+      "url": undefined,
+      "value": "2",
+    },
+  ],
+  "placeholder": Object {
+    "text": "a placeholder",
+    "type": "plain_text",
+  },
+  "type": "multi_static_select",
+}
+`;
+
+exports[`Multi Static Select Menu Multi Static Select Menu with two option groups renders a Static Select Menu with two option groups 1`] = `
+Object {
+  "action_id": "select",
+  "confirm": undefined,
+  "initial_options": Array [],
+  "max_selected_items": undefined,
+  "option_groups": Array [
+    Object {
+      "isOptionGroup": [Function],
+      "label": Object {
+        "text": "group 1",
+        "type": "plain_text",
+      },
+      "options": Array [
+        Object {
+          "description": undefined,
+          "isOption": [Function],
+          "isSelected": [Function],
+          "text": Object {
+            "text": "Option 1",
+            "type": "plain_text",
+          },
+          "url": undefined,
+          "value": "1",
+        },
+      ],
+    },
+    Object {
+      "isOptionGroup": [Function],
+      "label": Object {
+        "text": "group 2",
+        "type": "plain_text",
+      },
+      "options": Array [
+        Object {
+          "description": undefined,
+          "isOption": [Function],
+          "isSelected": [Function],
+          "text": Object {
+            "text": "Option 2",
+            "type": "plain_text",
+          },
+          "url": undefined,
+          "value": "2",
+        },
+      ],
+    },
+  ],
+  "placeholder": Object {
+    "text": "a placeholder",
+    "type": "plain_text",
+  },
+  "type": "multi_static_select",
+}
+`;
+
+exports[`Multi Static Select Menu Multi Static Select Menu with two options renders a Multi Static Select Menu with two options 1`] = `
+Object {
+  "action_id": "select",
+  "confirm": undefined,
+  "initial_options": Array [],
+  "max_selected_items": undefined,
+  "options": Array [
+    Object {
+      "description": undefined,
+      "isOption": [Function],
+      "isSelected": [Function],
+      "text": Object {
+        "text": "Option 1",
+        "type": "plain_text",
+      },
+      "url": undefined,
+      "value": "1",
+    },
+    Object {
+      "description": undefined,
+      "isOption": [Function],
+      "isSelected": [Function],
+      "text": Object {
+        "text": "Option 2",
+        "type": "plain_text",
+      },
+      "url": undefined,
+      "value": "2",
+    },
+  ],
+  "placeholder": Object {
+    "text": "a placeholder",
+    "type": "plain_text",
+  },
+  "type": "multi_static_select",
+}
+`;
+
 exports[`Option Group Option Group with Url Option renders an Option Group without a Url Option 1`] = `
 Object {
   "isOptionGroup": [Function],

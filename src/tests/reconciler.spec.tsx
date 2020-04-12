@@ -20,7 +20,8 @@ import {
   RadioButtons,
   OptionGroup,
   SelectMenu,
-  getOnSearchOptions
+  getOnSearchOptions,
+  MultiSelectMenu
 } from "../core";
 
 describe("Text", () => {
@@ -1376,6 +1377,110 @@ describe("External Select Menu", () => {
           query: "a query"
         });
       });
+    });
+  });
+});
+
+describe("Multi Static Select Menu", () => {
+  describe("Multi Static Select Menu with one option", () => {
+    const component = () => (
+      <MultiSelectMenu placeholder="a placeholder" action="select">
+        <Option value="1">Option 1</Option>
+      </MultiSelectMenu>
+    );
+
+    it("renders a Multi Static Select Menu with one option", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("Multi Static Select Menu with two options", () => {
+    const component = () => (
+      <MultiSelectMenu placeholder="a placeholder" action="select">
+        <Option value="1">Option 1</Option>
+        <Option value="2">Option 2</Option>
+      </MultiSelectMenu>
+    );
+
+    it("renders a Multi Static Select Menu with two options", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("Multi Static Select Menu with selected option", () => {
+    const component = () => (
+      <MultiSelectMenu placeholder="a placeholder" action="select">
+        <Option value="1">Option 1</Option>
+        <Option value="2" selected>
+          Option 2
+        </Option>
+      </MultiSelectMenu>
+    );
+
+    it("renders a Multi Static Select Menu with selected option", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("Multi Static Select Menu with one option group", () => {
+    const component = () => (
+      <MultiSelectMenu placeholder="a placeholder" action="select">
+        <OptionGroup label="group">
+          <Option value="1">Option 1</Option>
+        </OptionGroup>
+      </MultiSelectMenu>
+    );
+
+    it("renders a Multi Static Select Menu with one option group", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("Multi Static Select Menu with two option groups", () => {
+    const component = () => (
+      <MultiSelectMenu placeholder="a placeholder" action="select">
+        <OptionGroup label="group 1">
+          <Option value="1">Option 1</Option>
+        </OptionGroup>
+
+        <OptionGroup label="group 2">
+          <Option value="2">Option 2</Option>
+        </OptionGroup>
+      </MultiSelectMenu>
+    );
+
+    it("renders a Static Select Menu with two option groups", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("Multi Static Select Menu with selected option group", () => {
+    const component = () => (
+      <MultiSelectMenu
+        maxSelectedItems={10}
+        placeholder="a placeholder"
+        action="select"
+      >
+        <OptionGroup label="group 1">
+          <Option value="1">Option 1</Option>
+        </OptionGroup>
+
+        <OptionGroup label="group 2">
+          <Option value="2" selected>
+            Option 2
+          </Option>
+        </OptionGroup>
+      </MultiSelectMenu>
+    );
+
+    it("renders a Multi Static Select Menu with selected option group", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
     });
   });
 });

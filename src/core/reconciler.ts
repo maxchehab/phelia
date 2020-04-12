@@ -93,7 +93,10 @@ class HostConfig
       return;
     }
 
-    if (parentInstance.type === "static_select") {
+    if (
+      parentInstance.type === "static_select" ||
+      parentInstance.type === "multi_static_select"
+    ) {
       if (child.isOptionGroup) {
         if (!Array.isArray(parentInstance.option_groups)) {
           parentInstance.option_groups = [];

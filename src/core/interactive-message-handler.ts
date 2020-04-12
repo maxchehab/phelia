@@ -26,7 +26,7 @@ export interface SubmitEvent extends InteractionEvent {
   form: { [key: string]: any };
 }
 
-export interface SelectCheckboxesEvent extends InteractionEvent {
+export interface MultiSelectOptionEvent extends InteractionEvent {
   selected: string[];
 }
 
@@ -263,7 +263,10 @@ export function interactiveMessageHandler(
                 return [action, data.selected_date];
               }
 
-              if (data.type === "checkboxes") {
+              if (
+                data.type === "checkboxes" ||
+                data.type === "multi_static_select"
+              ) {
                 const selected = data.selected_options.map(
                   (option: any) => option.value
                 );
@@ -434,13 +437,13 @@ function generateEvent(
 ):
   | SelectDateEvent
   | InteractionEvent
-  | SelectCheckboxesEvent
+  | MultiSelectOptionEvent
   | SelectOptionEvent {
   if (action.type === "datepicker") {
     return { date: action.selected_date, user };
   }
 
-  if (action.type === "checkboxes") {
+  if (action.type === "checkboxes" || action.type === "multi_static_select") {
     return {
       selected: action.selected_options.map((option: any) => option.value),
       user

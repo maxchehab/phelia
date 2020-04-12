@@ -15,7 +15,7 @@ import {
 import { XOR } from "ts-xor";
 import {
   InteractionEvent,
-  SelectCheckboxesEvent,
+  MultiSelectOptionEvent,
   SelectDateEvent,
   SelectOptionEvent,
   SearchOptionsEvent
@@ -452,7 +452,7 @@ interface CheckboxesProps {
   action: string;
   children: ReactElement | ReactElement[];
   confirm?: ReactElement;
-  onSelect?: (event: SelectCheckboxesEvent) => void | Promise<void>;
+  onSelect?: (event: MultiSelectOptionEvent) => void | Promise<void>;
 }
 
 export const Checkboxes = (props: CheckboxesProps) => (
@@ -635,11 +635,11 @@ interface ConversationSelectMenu extends SelectMenuBase {
 }
 
 type SelectMenuProps =
-  | StaticSelectMenu
-  | UserSelectMenu
-  | ConversationSelectMenu
   | ChannelSelectMenu
-  | ExternalSelectMenu;
+  | ConversationSelectMenu
+  | ExternalSelectMenu
+  | StaticSelectMenu
+  | UserSelectMenu;
 
 export const SelectMenu = (props: SelectMenuProps) => (
   <component
@@ -735,3 +735,143 @@ export const SelectMenu = (props: SelectMenuProps) => (
 SelectMenu.defaultProps = {
   type: "static"
 } as SelectMenuProps;
+
+interface MultiSelectMenuBase {
+  action: string;
+  placeholder: ReactElement | string;
+  confirm?: ReactElement;
+  onSelect?: (event: MultiSelectOptionEvent) => void | Promise<void>;
+  maxSelectedItems?: number;
+}
+
+interface MultiStaticSelectMenu extends MultiSelectMenuBase {
+  type: "static";
+  children: ReactElement | ReactElement[];
+}
+
+interface MultiUserSelectMenu extends MultiSelectMenuBase {
+  type: "users";
+  initialUsers?: string;
+}
+
+interface MultiChannelSelectMenu extends MultiSelectMenuBase {
+  type: "channels";
+  initialChannels?: string;
+}
+
+interface MultiExternalSelectMenu extends MultiSelectMenuBase {
+  type: "external";
+  initialOptions?: ReactElement[];
+  onSearchOptions: SearchOptions;
+  minQueryLength?: number;
+}
+
+interface MultiConversationSelectMenu extends MultiSelectMenuBase {
+  type: "conversations";
+  initialConversations?: string[];
+  filter?: {
+    include?: ("im" | "mpim" | "private" | "public")[];
+    excludeExternalSharedChannels?: boolean;
+    excludeBotUsers?: boolean;
+  };
+}
+
+type MultiSelectMenuProps =
+  | MultiChannelSelectMenu
+  | MultiConversationSelectMenu
+  | MultiExternalSelectMenu
+  | MultiStaticSelectMenu
+  | MultiUserSelectMenu;
+
+export const MultiSelectMenu = (props: MultiSelectMenuProps) => (
+  <component
+    {...props}
+    componentType="multi-select-menu"
+    toSlackElement={(props, reconcile, promises) => {
+      const instance: any = {
+        type: "multi_" + props.type + "_select",
+        action_id: props.action,
+        max_selected_items: props.maxSelectedItems
+      };
+
+      const [confirm, confirmPromises] = reconcile(props.confirm);
+      const [placeholder, placeholderPromises] = reconcile(props.placeholder);
+      const [{ fields: optionsOrGroups }, optionPromises] = reconcile(
+        React.createElement(Section, { children: props.children })
+      );
+      const [{ fields: initialOptions }, initialOptionsPromises] = reconcile(
+        React.createElement(Section, { children: props.children })
+      );
+
+      if (
+        props.type === "static" &&
+        Array.isArray(optionsOrGroups) &&
+        optionsOrGroups.length
+      ) {
+        const isGroup = Boolean(optionsOrGroups[0].isOptionGroup);
+        let options = optionsOrGroups;
+
+        if (isGroup) {
+          options = optionsOrGroups.reduce((options, group) => {
+            options.push(...group.options);
+            return options;
+          }, []);
+        }
+
+        const selectedOptions = options
+          .map(option => ({
+            ...option,
+            url: undefined
+          }))
+          .filter(option => option.isSelected());
+
+        instance.initial_options = selectedOptions;
+      }
+
+      if (props.type === "external") {
+        instance.initial_options = initialOptions;
+        instance.min_query_length = props.minQueryLength;
+      }
+
+      if (props.type === "users") {
+        instance.initial_users = props.initialUsers;
+      }
+
+      if (props.type === "channels") {
+        instance.initial_channels = props.initialChannels;
+      }
+
+      if (props.type === "conversations") {
+        instance.initial_conversations = props.initialConversations;
+
+        if (props.filter) {
+          instance.filter = {};
+          instance.filter.include = props.filter.include;
+          instance.filter.exclude_external_shared_channels =
+            props.filter.excludeExternalSharedChannels;
+          instance.filter.exclude_bot_users = props.filter.excludeBotUsers;
+        }
+      }
+
+      instance.confirm = confirm;
+      instance.placeholder = placeholder;
+
+      if (instance.placeholder) {
+        instance.placeholder.type = "plain_text";
+      }
+
+      promises.push(
+        ...confirmPromises,
+        ...placeholderPromises,
+        ...optionPromises,
+        ...initialOptionsPromises
+      );
+
+      return instance;
+    }}
+  />
+);
+
+MultiSelectMenu.defaultProps = {
+  type: "static"
+} as MultiSelectMenuProps;
