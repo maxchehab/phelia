@@ -20,9 +20,8 @@ import {
   RadioButtons,
   OptionGroup,
   SelectMenu,
-  getLoadOptions
+  getOnSearchOptions
 } from "../core";
-import { query } from "express";
 
 describe("Text", () => {
   describe("Default Text", () => {
@@ -1327,13 +1326,13 @@ describe("Channel Select Menu", () => {
 
 describe("External Select Menu", () => {
   describe("Default External Select Menu", () => {
-    const loadOptions = jest.fn();
+    const onSearchOptions = jest.fn();
     const component = () => (
       <SelectMenu
         type="external"
         minQueryLength={100}
-        loadOptions={event => {
-          loadOptions(event);
+        onSearchOptions={event => {
+          onSearchOptions(event);
           return [
             <OptionGroup key="1" label={"A group"}>
               <Option value="option-1">This was loaded asynchronously</Option>
@@ -1350,8 +1349,8 @@ describe("External Select Menu", () => {
       expect(blocks).toMatchSnapshot();
     });
 
-    describe("When fetching loadOptions", () => {
-      it("fetches the correct loadOptions function", async () => {
+    describe("When fetching onSearchOptions", () => {
+      it("fetches the correct onSearchOptions function", async () => {
         const user = {
           username: "johnsmith",
           name: "john smith",
@@ -1359,20 +1358,20 @@ describe("External Select Menu", () => {
           team_id: "t123"
         };
 
-        const loadOptionsFn = await getLoadOptions(component(), {
+        const onSearchOptionsFn = await getOnSearchOptions(component(), {
           value: "select",
           event: {
             user
           }
         });
 
-        await loadOptionsFn({
+        await onSearchOptionsFn({
           user,
           query: "a query"
         });
 
-        expect(loadOptions).toBeCalled();
-        expect(loadOptions).toBeCalledWith({
+        expect(onSearchOptions).toBeCalled();
+        expect(onSearchOptions).toBeCalledWith({
           user,
           query: "a query"
         });

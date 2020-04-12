@@ -21,7 +21,7 @@ export function ExternalSelectMenuModal() {
       <Input label="All external">
         <SelectMenu
           minQueryLength={0}
-          loadOptions={() => [
+          onSearchOptions={() => [
             <OptionGroup key="1" label={"A group"}>
               <Option value="option-1">This was loaded asynchronously</Option>
             </OptionGroup>
@@ -63,7 +63,7 @@ export function ExternalSelectMenuExample({
                   This was loaded asynchronously
                 </Option>
               }
-              loadOptions={() => [
+              onSearchOptions={() => [
                 <Option key="1" value="option-1">
                   This was loaded asynchronously
                 </Option>

@@ -18,7 +18,7 @@ import {
   SelectCheckboxesEvent,
   SelectDateEvent,
   SelectOptionEvent,
-  LoadOptionsEvent
+  SearchOptionsEvent
 } from "./interactive-message-handler";
 
 interface TextProps {
@@ -613,14 +613,14 @@ interface ChannelSelectMenu extends SelectMenuBase {
   initialChannel?: string;
 }
 
-export type LoadOptions = (
-  event: LoadOptionsEvent
+export type SearchOptions = (
+  event: SearchOptionsEvent
 ) => ReactElement[] | Promise<ReactElement[]>;
 
 interface ExternalSelectMenu extends SelectMenuBase {
   type: "external";
   initialOption?: ReactElement;
-  loadOptions: LoadOptions;
+  onSearchOptions: SearchOptions;
   minQueryLength?: number;
 }
 

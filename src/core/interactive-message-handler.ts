@@ -10,7 +10,7 @@ import {
   PheliaModal,
   SlackUser
 } from "./phelia-client";
-import { render, getLoadOptions } from "./reconciler";
+import { render, getOnSearchOptions } from "./reconciler";
 import { SelectMenu } from "./components";
 
 interface PheliaMessageMetadata {
@@ -38,7 +38,7 @@ export interface SelectOptionEvent extends InteractionEvent {
   selected: string;
 }
 
-export interface LoadOptionsEvent extends InteractionEvent {
+export interface SearchOptionsEvent extends InteractionEvent {
   query: string;
 }
 
@@ -379,7 +379,7 @@ export function interactiveMessageHandler(
       return async () => null;
     }
 
-    const loadOptions = await getLoadOptions(
+    const onSearchOptions = await getOnSearchOptions(
       React.createElement(messageCache.get(container.name) as PheliaMessage, {
         useState,
         props: container.props,
@@ -388,7 +388,7 @@ export function interactiveMessageHandler(
       { value: payload.action_id, event: { user: payload.user } }
     );
 
-    const optionsComponent = await loadOptions({
+    const optionsComponent = await onSearchOptions({
       user: payload.user,
       query: payload.value
     });
