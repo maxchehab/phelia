@@ -40,7 +40,11 @@ import {
 import {
   MultiUsersSelectMenuExample,
   MultiUsersSelectMenuModal
-} from "./multi-users-select-menu copy";
+} from "./multi-users-select-menu";
+import {
+  MultiChannelsSelectMenuModal,
+  MultiChannelsSelectMenuExample
+} from "./multi-channels-select-menu";
 
 dotenv.config();
 
@@ -72,7 +76,9 @@ const components = [
   MultiExternalSelectMenuExample,
   MultiExternalSelectMenuModal,
   MultiUsersSelectMenuExample,
-  MultiUsersSelectMenuModal
+  MultiUsersSelectMenuModal,
+  MultiChannelsSelectMenuExample,
+  MultiChannelsSelectMenuModal
 ];
 
 app.post(
@@ -82,7 +88,7 @@ app.post(
 
 // This is how you post a message....
 const client = new PheliaClient(process.env.SLACK_TOKEN);
-client.postMessage(MultiUsersSelectMenuExample, "@max");
+client.postMessage(MultiChannelsSelectMenuExample, "@max");
 
 app.listen(port, () =>
   console.log(`Example app listening at http://localhost:${port}`)

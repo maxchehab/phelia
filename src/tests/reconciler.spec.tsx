@@ -1573,3 +1573,36 @@ describe("Multi User Select Menu", () => {
     });
   });
 });
+
+describe("Multi Channel Select Menu", () => {
+  describe("Default Multi Channel Select Menu", () => {
+    const component = () => (
+      <MultiSelectMenu
+        type="channels"
+        action="select"
+        placeholder="a placeholder"
+      />
+    );
+
+    it("renders a default Multi Channel Select Menu", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("Multi Channel Select Menu with initial channel property", () => {
+    const component = () => (
+      <MultiSelectMenu
+        type="channels"
+        action="select"
+        initialChannels={["C12345"]}
+        placeholder="a placeholder"
+      />
+    );
+
+    it("renders a Multi Channel Select Menu with initial channel property", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+});

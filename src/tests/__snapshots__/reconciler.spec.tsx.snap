@@ -839,6 +839,38 @@ Object {
 }
 `;
 
+exports[`Multi Channel Select Menu Default Multi Channel Select Menu renders a default Multi Channel Select Menu 1`] = `
+Object {
+  "action_id": "select",
+  "confirm": undefined,
+  "initial_channels": undefined,
+  "max_selected_items": undefined,
+  "onSearchOptions": undefined,
+  "placeholder": Object {
+    "text": "a placeholder",
+    "type": "plain_text",
+  },
+  "type": "multi_channels_select",
+}
+`;
+
+exports[`Multi Channel Select Menu Multi Channel Select Menu with initial channel property renders a Multi Channel Select Menu with initial channel property 1`] = `
+Object {
+  "action_id": "select",
+  "confirm": undefined,
+  "initial_channels": Array [
+    "C12345",
+  ],
+  "max_selected_items": undefined,
+  "onSearchOptions": undefined,
+  "placeholder": Object {
+    "text": "a placeholder",
+    "type": "plain_text",
+  },
+  "type": "multi_channels_select",
+}
+`;
+
 exports[`Multi External Select Menu Default Multi External Select Menu renders a default Multi External Select Menu 1`] = `
 Object {
   "action_id": "select",

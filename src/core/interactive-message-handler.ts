@@ -279,6 +279,10 @@ export function interactiveMessageHandler(
                 return [action, data.selected_users];
               }
 
+              if (data.type === "multi_channels_select") {
+                return [action, data.selected_channels];
+              }
+
               if (
                 data.type === "radio_buttons" ||
                 data.type === "static_select" ||
@@ -461,6 +465,10 @@ function generateEvent(
 
   if (action.type === "multi_users_select") {
     return { user, selected: action.selected_users };
+  }
+
+  if (action.type === "multi_channels_select") {
+    return { user, selected: action.selected_channels };
   }
 
   if (action.type === "users_select") {
