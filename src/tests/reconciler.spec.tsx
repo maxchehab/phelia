@@ -1606,3 +1606,53 @@ describe("Multi Channel Select Menu", () => {
     });
   });
 });
+
+describe("Multi Conversations Select Menu", () => {
+  describe("Default Multi Conversations Select Menu", () => {
+    const component = () => (
+      <MultiSelectMenu
+        type="conversations"
+        action="select"
+        placeholder="a placeholder"
+      />
+    );
+
+    it("renders a default Conversations Select Menu", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("Multi Conversations Select Menu with initial conversation property", () => {
+    const component = () => (
+      <MultiSelectMenu
+        type="conversations"
+        action="select"
+        initialConversations={["C12345"]}
+        placeholder="a placeholder"
+      />
+    );
+
+    it("renders a Multi Conversations Select Menu with initial user property", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("Multi Conversations Select Menu with a filter property", () => {
+    const component = () => (
+      <MultiSelectMenu
+        type="conversations"
+        action="select"
+        initialConversations={["C12345"]}
+        placeholder="a placeholder"
+        filter={{ excludeExternalSharedChannels: true }}
+      />
+    );
+
+    it("renders a Conversations Select Menu with a filter property", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+});

@@ -871,6 +871,60 @@ Object {
 }
 `;
 
+exports[`Multi Conversations Select Menu Default Multi Conversations Select Menu renders a default Conversations Select Menu 1`] = `
+Object {
+  "action_id": "select",
+  "confirm": undefined,
+  "initial_conversations": undefined,
+  "max_selected_items": undefined,
+  "onSearchOptions": undefined,
+  "placeholder": Object {
+    "text": "a placeholder",
+    "type": "plain_text",
+  },
+  "type": "multi_conversations_select",
+}
+`;
+
+exports[`Multi Conversations Select Menu Multi Conversations Select Menu with a filter property renders a Conversations Select Menu with a filter property 1`] = `
+Object {
+  "action_id": "select",
+  "confirm": undefined,
+  "filter": Object {
+    "exclude_bot_users": undefined,
+    "exclude_external_shared_channels": true,
+    "include": undefined,
+  },
+  "initial_conversations": Array [
+    "C12345",
+  ],
+  "max_selected_items": undefined,
+  "onSearchOptions": undefined,
+  "placeholder": Object {
+    "text": "a placeholder",
+    "type": "plain_text",
+  },
+  "type": "multi_conversations_select",
+}
+`;
+
+exports[`Multi Conversations Select Menu Multi Conversations Select Menu with initial conversation property renders a Multi Conversations Select Menu with initial user property 1`] = `
+Object {
+  "action_id": "select",
+  "confirm": undefined,
+  "initial_conversations": Array [
+    "C12345",
+  ],
+  "max_selected_items": undefined,
+  "onSearchOptions": undefined,
+  "placeholder": Object {
+    "text": "a placeholder",
+    "type": "plain_text",
+  },
+  "type": "multi_conversations_select",
+}
+`;
+
 exports[`Multi External Select Menu Default Multi External Select Menu renders a default Multi External Select Menu 1`] = `
 Object {
   "action_id": "select",

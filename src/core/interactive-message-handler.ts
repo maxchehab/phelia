@@ -283,6 +283,10 @@ export function interactiveMessageHandler(
                 return [action, data.selected_channels];
               }
 
+              if (data.type === "multi_conversations_select") {
+                return [action, data.selected_conversations];
+              }
+
               if (
                 data.type === "radio_buttons" ||
                 data.type === "static_select" ||
@@ -469,6 +473,10 @@ function generateEvent(
 
   if (action.type === "multi_channels_select") {
     return { user, selected: action.selected_channels };
+  }
+
+  if (action.type === "multi_conversations_select") {
+    return { user, selected: action.selected_conversations };
   }
 
   if (action.type === "users_select") {
