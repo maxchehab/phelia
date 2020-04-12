@@ -7,19 +7,19 @@ import {
   DividerBlock,
   ImageBlock as SlackImageBlock,
   ImageElement,
-  Option as SlackOption,
-  SectionBlock,
   InputBlock,
-  PlainTextInput
+  Option as SlackOption,
+  PlainTextInput,
+  SectionBlock
 } from "@slack/web-api";
 import { XOR } from "ts-xor";
 import {
   InteractionEvent,
   MultiSelectOptionEvent,
+  SearchOptionsEvent,
   SelectDateEvent,
-  SelectOptionEvent,
-  SearchOptionsEvent
-} from "./interactive-message-handler";
+  SelectOptionEvent
+} from "./interfaces";
 
 interface TextProps {
   children: React.ReactText | React.ReactText[];

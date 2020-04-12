@@ -11,31 +11,36 @@ import {
   Divider,
   Actions,
   SelectMenu
-} from "../core";
+} from "../../core";
 
-export function UsersSelectMenuModal() {
+export function ConversationsSelectMenuModal() {
   return (
-    <Modal title="Users select menu" submit="Submit">
-      <Input label="Select menu">
-        <SelectMenu type="users" action="user" placeholder="A placeholder" />
+    <Modal title="Conversations menu" submit="Submit">
+      <Input label="Excluding Shared Channels">
+        <SelectMenu
+          type="conversations"
+          action="conversation"
+          filter={{ excludeExternalSharedChannels: true }}
+          placeholder="A placeholder"
+        />
       </Input>
     </Modal>
   );
 }
 
-export function UsersSelectMenuExample({
+export function ConversationsSelectMenuExample({
   useModal,
   useState
 }: PheliaMessageProps) {
   const [form, setForm] = useState("form");
   const [selected, setSelected] = useState("selected");
 
-  const openModal = useModal("modal", UsersSelectMenuModal, form => {
+  const openModal = useModal("modal", ConversationsSelectMenuModal, form => {
     setForm(JSON.stringify(form, null, 2));
   });
 
   return (
-    <Message text="A users select menu example">
+    <Message text="A conversations select menu example">
       {selected && (
         <Section>
           <Text type="mrkdwn">*Selected:* {selected}</Text>
@@ -46,8 +51,8 @@ export function UsersSelectMenuExample({
         <>
           <Actions>
             <SelectMenu
-              type="users"
-              action="select-groups"
+              type="conversations"
+              action="conversations"
               placeholder="A placeholder"
               onSelect={event => setSelected(event.selected)}
             />
@@ -58,7 +63,7 @@ export function UsersSelectMenuExample({
       <Divider />
 
       <Section
-        text="You can also have a users select menu in a modal"
+        text="You can also have a conversations select menu in a modal"
         accessory={
           <Button action="open-modal" onClick={() => openModal()}>
             Open modal

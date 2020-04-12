@@ -7,9 +7,9 @@ import {
   PheliaMessageProps,
   Section,
   Text
-} from "../core";
+} from "../../core";
 
-export default function Greeter({ useState }: PheliaMessageProps) {
+export function Greeter({ useState }: PheliaMessageProps) {
   const [name, setName] = useState("name");
 
   return (

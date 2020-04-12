@@ -1,54 +1,38 @@
 import dotenv from "dotenv";
 import express from "express";
 
-import { ModalExample, MyModal } from "./modal-example";
-import { PheliaClient, interactiveMessageHandler } from "../core";
-import { RadioButtonModal, RadioButtonExample } from "./radio-buttons";
-import BirthdayPicker from "./birthday-picker";
-import Counter from "./counter";
-import Greeter from "./greeter";
-import OverflowMenuExample from "./overflow-menu";
-import RandomImage from "./random-image";
+import Phelia from "../core";
 import {
+  BirthdayPicker,
+  ChannelsSelectMenuExample,
+  ChannelsSelectMenuModal,
+  ConversationsSelectMenuExample,
+  ConversationsSelectMenuModal,
+  Counter,
+  ExternalSelectMenuExample,
+  ExternalSelectMenuModal,
+  Greeter,
+  ModalExample,
+  MultiChannelsSelectMenuExample,
+  MultiChannelsSelectMenuModal,
+  MultiConversationsSelectMenuExample,
+  MultiConversationsSelectMenuModal,
+  MultiExternalSelectMenuExample,
+  MultiExternalSelectMenuModal,
+  MultiStaticSelectMenuExample,
+  MultiStaticSelectMenuModal,
+  MultiUsersSelectMenuExample,
+  MultiUsersSelectMenuModal,
+  MyModal,
+  OverflowMenuExample,
+  RadioButtonExample,
+  RadioButtonModal,
+  RandomImage,
   StaticSelectMenuExample,
-  StaticSelectMenuModal
-} from "./static-select-menu";
-import {
+  StaticSelectMenuModal,
   UsersSelectMenuExample,
   UsersSelectMenuModal
-} from "./users-select-menu";
-import {
-  ConversationsSelectMenuExample,
-  ConversationsSelectMenuModal
-} from "./conversations-select-menu";
-import {
-  ChannelsSelectMenuExample,
-  ChannelsSelectMenuModal
-} from "./channels-select-menu";
-import {
-  ExternalSelectMenuExample,
-  ExternalSelectMenuModal
-} from "./external-select-menu";
-import {
-  MultiStaticSelectMenuExample,
-  MultiStaticSelectMenuModal
-} from "./multi-static-select-menu";
-import {
-  MultiExternalSelectMenuExample,
-  MultiExternalSelectMenuModal
-} from "./multi-external-select-menu";
-import {
-  MultiUsersSelectMenuExample,
-  MultiUsersSelectMenuModal
-} from "./multi-users-select-menu";
-import {
-  MultiChannelsSelectMenuModal,
-  MultiChannelsSelectMenuExample
-} from "./multi-channels-select-menu";
-import {
-  MultiConversationsSelectMenuExample,
-  MultiConversationsSelectMenuModal
-} from "./multi-conversations-select-menu";
+} from "./example-messages";
 
 dotenv.config();
 
@@ -87,13 +71,15 @@ const components = [
   MultiConversationsSelectMenuModal
 ];
 
+const client = new Phelia(process.env.SLACK_TOKEN);
+
+// Register the interaction webhook
 app.post(
   "/api/webhook",
-  interactiveMessageHandler(process.env.SLACK_SIGNING_SECRET, components)
+  client.messageHandler(process.env.SLACK_SIGNING_SECRET, components)
 );
 
 // This is how you post a message....
-const client = new PheliaClient(process.env.SLACK_TOKEN);
 client.postMessage(MultiConversationsSelectMenuExample, "@max");
 
 app.listen(port, () =>

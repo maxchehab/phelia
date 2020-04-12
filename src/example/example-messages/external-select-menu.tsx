@@ -13,7 +13,7 @@ import {
   SelectMenu,
   Option,
   OptionGroup
-} from "../core";
+} from "../../core";
 
 export function ExternalSelectMenuModal() {
   return (

@@ -1,4 +1,6 @@
+import { Phelia } from "./phelia";
+
+export default Phelia;
 export * from "./components";
-export * from "./phelia-client";
 export * from "./reconciler";
-export * from "./interactive-message-handler";
+export * from "./interfaces";

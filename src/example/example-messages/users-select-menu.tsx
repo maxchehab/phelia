@@ -11,35 +11,31 @@ import {
   Divider,
   Actions,
   SelectMenu
-} from "../core";
+} from "../../core";
 
-export function ChannelsSelectMenuModal() {
+export function UsersSelectMenuModal() {
   return (
-    <Modal title="Channels menu" submit="Submit">
-      <Input label="All channels">
-        <SelectMenu
-          type="channels"
-          action="conversation"
-          placeholder="A placeholder"
-        />
+    <Modal title="Users select menu" submit="Submit">
+      <Input label="Select menu">
+        <SelectMenu type="users" action="user" placeholder="A placeholder" />
       </Input>
     </Modal>
   );
 }
 
-export function ChannelsSelectMenuExample({
+export function UsersSelectMenuExample({
   useModal,
   useState
 }: PheliaMessageProps) {
   const [form, setForm] = useState("form");
   const [selected, setSelected] = useState("selected");
 
-  const openModal = useModal("modal", ChannelsSelectMenuModal, form => {
+  const openModal = useModal("modal", UsersSelectMenuModal, form => {
     setForm(JSON.stringify(form, null, 2));
   });
 
   return (
-    <Message text="A channels select menu example">
+    <Message text="A users select menu example">
       {selected && (
         <Section>
           <Text type="mrkdwn">*Selected:* {selected}</Text>
@@ -50,8 +46,8 @@ export function ChannelsSelectMenuExample({
         <>
           <Actions>
             <SelectMenu
-              type="channels"
-              action="channels"
+              type="users"
+              action="select-groups"
               placeholder="A placeholder"
               onSelect={event => setSelected(event.selected)}
             />
@@ -62,7 +58,7 @@ export function ChannelsSelectMenuExample({
       <Divider />
 
       <Section
-        text="You can also have a channels select menu in a modal"
+        text="You can also have a users select menu in a modal"
         accessory={
           <Button action="open-modal" onClick={() => openModal()}>
             Open modal

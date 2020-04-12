@@ -1,44 +1,57 @@
 import React from "react";
 
 import {
+  Actions,
   Button,
   Divider,
   Input,
   Message,
   Modal,
-  MultiSelectMenu,
+  Option,
+  OptionGroup,
   PheliaMessageProps,
   Section,
-  Text
-} from "../core";
+  Text,
+  MultiSelectMenu
+} from "../../core";
 
-export function MultiUsersSelectMenuModal() {
+export function MultiStaticSelectMenuModal() {
   return (
-    <Modal title="Users multi select menu" submit="Submit">
+    <Modal title="Static multi select menu" submit="Submit">
       <Input label="Select menu">
-        <MultiSelectMenu
-          type="users"
-          action="selection"
-          placeholder="A placeholder"
-        />
+        <MultiSelectMenu action="selection" placeholder="A placeholder">
+          <OptionGroup label="an option group">
+            <Option value="option-a">option a</Option>
+            <Option value="option-b">option b</Option>
+            <Option value="option-c">option c</Option>
+          </OptionGroup>
+
+          <OptionGroup label="another option group">
+            <Option value="option-d">option d</Option>
+            <Option value="option-e" selected>
+              option e
+            </Option>
+            <Option value="option-f">option f</Option>
+          </OptionGroup>
+        </MultiSelectMenu>
       </Input>
     </Modal>
   );
 }
 
-export function MultiUsersSelectMenuExample({
+export function MultiStaticSelectMenuExample({
   useModal,
   useState
 }: PheliaMessageProps) {
   const [form, setForm] = useState("form");
   const [selected, setSelected] = useState("selected");
 
-  const openModal = useModal("modal", MultiUsersSelectMenuModal, form => {
+  const openModal = useModal("modal", MultiStaticSelectMenuModal, form => {
     setForm(JSON.stringify(form, null, 2));
   });
 
   return (
-    <Message text="A multi users select menu example">
+    <Message text="A multi static select menu example">
       {selected && (
         <Section>
           <Text type="mrkdwn">*Selected:* {selected}</Text>
@@ -50,11 +63,20 @@ export function MultiUsersSelectMenuExample({
           text="A Multi-Select Menu in a Section component"
           accessory={
             <MultiSelectMenu
-              type="users"
               action="select"
               placeholder="A placeholder"
               onSelect={event => setSelected(event.selected.join(", "))}
-            />
+            >
+              <Option value="option-a">option a</Option>
+
+              <Option value="option-b" selected>
+                option b
+              </Option>
+
+              <Option value="option-c" selected>
+                option c
+              </Option>
+            </MultiSelectMenu>
           }
         />
       )}

@@ -1,5 +1,6 @@
-import { PheliaStorage, PheliaClient } from "./phelia-client";
+import { Phelia } from "./phelia";
+import { PheliaStorage } from "./interfaces";
 
 export function setStorage(storage: PheliaStorage) {
-  PheliaClient.SetStorage(storage);
+  Phelia.SetStorage(storage);
 }

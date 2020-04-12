@@ -8,7 +8,7 @@ import {
   ImageBlock,
   PheliaMessageProps,
   Text
-} from "../core";
+} from "../../core";
 
 const imageUrls = [
   "https://cdn.pixabay.com/photo/2015/06/08/15/02/pug-801826__480.jpg",
@@ -22,7 +22,7 @@ function randomImage(): string {
   return imageUrls[index];
 }
 
-export default function RandomImage({ useState }: PheliaMessageProps) {
+export function RandomImage({ useState }: PheliaMessageProps) {
   const [imageUrl, setImageUrl] = useState("imageUrl", randomImage());
 
   return (

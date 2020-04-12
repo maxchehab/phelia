@@ -1,6 +1,7 @@
-import Reconciler, { OpaqueHandle } from "react-reconciler";
 import ReactReconciler from "react-reconciler";
-import { InteractionEvent } from "./interactive-message-handler";
+import Reconciler, { OpaqueHandle } from "react-reconciler";
+
+import { Action } from "./interfaces";
 import { SearchOptions } from "./components";
 
 type Type = any;
@@ -38,31 +39,31 @@ class HostConfig
       TimeoutHandle,
       NoTimeout
     > {
-  getPublicInstance(instance: Instance | TextInstance) {
+  getPublicInstance(_instance: Instance | TextInstance) {
     // throw new Error("Method not implemented.");
   }
-  getRootHostContext(rootContainerInstance: Container): HostContext {
+  getRootHostContext(_rootContainerInstance: Container): HostContext {
     return { type: "root" };
   }
   getChildHostContext(
-    parentHostContext: HostContext,
+    _parentHostContext: HostContext,
     type: Type,
-    rootContainerInstance: Container
+    _rootContainerInstance: Container
   ): HostContext {
     return { type };
   }
-  prepareForCommit(containerInfo: Container): void {
+  prepareForCommit(_containerInfo: Container): void {
     return;
   }
-  resetAfterCommit(containerInfo: Container): void {
+  resetAfterCommit(_containerInfo: Container): void {
     return;
   }
   createInstance(
     type: Type,
     props: Props,
     rootContainerInstance: Container,
-    hostContext: HostContext,
-    internalInstanceHandle: OpaqueHandle
+    _hostContext: HostContext,
+    _internalInstanceHandle: OpaqueHandle
   ): Instance {
     if (props.toSlackElement) {
       return props.toSlackElement(
@@ -196,11 +197,11 @@ class HostConfig
   }
 
   finalizeInitialChildren(
-    parentInstance: Instance,
-    type: Type,
+    _parentInstance: Instance,
+    _type: Type,
     props: Props,
     rootContainerInstance: Container,
-    hostContext: HostContext
+    _hostContext: HostContext
   ): boolean {
     if (
       rootContainerInstance.action &&
@@ -235,28 +236,27 @@ class HostConfig
     return false;
   }
   prepareUpdate(
-    instance: Instance,
-    type: Type,
-    oldProps: Props,
-    newProps: Props,
-    rootContainerInstance: Container,
-    hostContext: HostContext
+    _instance: Instance,
+    _type: Type,
+    _oldProps: Props,
+    _newProps: Props,
+    _rootContainerInstance: Container,
+    _hostContext: HostContext
   ) {
     debug("prepareUpdate");
     return true;
   }
-  shouldSetTextContent(type: Type, props: Props): boolean {
+  shouldSetTextContent(_type: Type, _props: Props): boolean {
     return false;
   }
-  shouldDeprioritizeSubtree(type: Type, props: Props): boolean {
-    // throw new Error("Method not implemented.");
+  shouldDeprioritizeSubtree(_type: Type, _props: Props): boolean {
     return false;
   }
   createTextInstance(
     text: string,
-    rootContainerInstance: Container,
-    hostContext: HostContext,
-    internalInstanceHandle: OpaqueHandle
+    _rootContainerInstance: Container,
+    _hostContext: HostContext,
+    _internalInstanceHandle: OpaqueHandle
   ) {
     debug("createTextInstance");
     return {
@@ -265,23 +265,15 @@ class HostConfig
     };
   }
   scheduleDeferredCallback(
-    callback: () => any,
-    options?: { timeout: number }
-  ): any {
-    // throw new Error("Method not implemented.");
-  }
-  cancelDeferredCallback(callbackID: any): void {
-    // throw new Error("Method not implemented.");
-  }
+    _callback: () => any,
+    _options?: { timeout: number }
+  ): any {}
+  cancelDeferredCallback(callbackID: any): void {}
   setTimeout(
-    handler: (...args: any[]) => void,
-    timeout: number
-  ): TimeoutHandle | NoTimeout {
-    // throw new Error("Method not implemented.");
-  }
-  clearTimeout(handle: TimeoutHandle | NoTimeout): void {
-    // throw new Error("Method not implemented.");
-  }
+    _handler: (...args: any[]) => void,
+    _timeout: number
+  ): TimeoutHandle | NoTimeout {}
+  clearTimeout(handle: TimeoutHandle | NoTimeout): void {}
   noTimeout: NoTimeout;
 
   now(): number {
@@ -306,23 +298,26 @@ class HostConfig
     throw new Error("container is not an array");
   }
 
-  appendChild(parentInstance: Instance, child: Instance | TextInstance): void {
+  appendChild(
+    _parentInstance: Instance,
+    _child: Instance | TextInstance
+  ): void {
     debug("appendChild");
   }
 
   commitTextUpdate(
     textInstance: TextInstance,
-    oldText: string,
+    _oldText: string,
     newText: string
   ): void {
     debug("commitTextUpdate");
     textInstance.text = newText;
   }
   commitMount?(
-    instance: Instance,
-    type: Type,
-    newProps: Props,
-    internalInstanceHandle: Reconciler.Fiber
+    _instance: Instance,
+    _type: Type,
+    _newProps: Props,
+    _internalInstanceHandle: Reconciler.Fiber
   ): void {
     debug("commitMount");
   }
@@ -330,16 +325,16 @@ class HostConfig
   replaceContainerChildren?(container: Container, newChildren: ChildSet): void {
     debug("replaceContainerChildren", { container, newChildren });
   }
-  resetTextContent(instance: Instance) {
+  resetTextContent(_instance: Instance) {
     debug("resetTextContent");
   }
   commitUpdate?(
-    instance: Instance,
-    updatePayload: UpdatePayload,
-    type: Type,
-    oldProps: Props,
-    newProps: Props,
-    internalInstanceHandle: OpaqueHandle
+    _instance: Instance,
+    _updatePayload: UpdatePayload,
+    _type: Type,
+    _oldProps: Props,
+    _newProps: Props,
+    _internalInstanceHandle: OpaqueHandle
   ): void {}
 
   insertBefore?(
@@ -369,11 +364,6 @@ class HostConfig
       child
     });
   }
-}
-
-interface Action {
-  value: string;
-  event: InteractionEvent;
 }
 
 function reconcile(

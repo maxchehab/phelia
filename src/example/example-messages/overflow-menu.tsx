@@ -6,9 +6,9 @@ import {
   Section,
   Text,
   PheliaMessageProps
-} from "../core";
+} from "../../core";
 
-export default function OverflowMenuExample({ useState }: PheliaMessageProps) {
+export function OverflowMenuExample({ useState }: PheliaMessageProps) {
   const [selected, setSelected] = useState("selected");
 
   const overflow = (

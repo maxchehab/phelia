@@ -10,14 +10,14 @@ import {
   PheliaMessageProps,
   Section,
   Text
-} from "../core";
+} from "../../core";
 
-export function MultiChannelsSelectMenuModal() {
+export function MultiConversationsSelectMenuModal() {
   return (
-    <Modal title="Channels multi select" submit="Submit">
+    <Modal title="Select a conversation" submit="Submit">
       <Input label="Select menu">
         <MultiSelectMenu
-          type="channels"
+          type="conversations"
           action="selection"
           placeholder="A placeholder"
         />
@@ -26,19 +26,23 @@ export function MultiChannelsSelectMenuModal() {
   );
 }
 
-export function MultiChannelsSelectMenuExample({
+export function MultiConversationsSelectMenuExample({
   useModal,
   useState
 }: PheliaMessageProps) {
   const [form, setForm] = useState("form");
   const [selected, setSelected] = useState("selected");
 
-  const openModal = useModal("modal", MultiChannelsSelectMenuModal, form => {
-    setForm(JSON.stringify(form, null, 2));
-  });
+  const openModal = useModal(
+    "modal",
+    MultiConversationsSelectMenuModal,
+    form => {
+      setForm(JSON.stringify(form, null, 2));
+    }
+  );
 
   return (
-    <Message text="A multi channels select menu example">
+    <Message text="multi conversations menu">
       {selected && (
         <Section>
           <Text type="mrkdwn">*Selected:* {selected}</Text>
@@ -50,7 +54,7 @@ export function MultiChannelsSelectMenuExample({
           text="A Multi-Select Menu in a Section component"
           accessory={
             <MultiSelectMenu
-              type="channels"
+              type="conversations"
               action="select"
               placeholder="A placeholder"
               onSelect={event => setSelected(event.selected.join(", "))}

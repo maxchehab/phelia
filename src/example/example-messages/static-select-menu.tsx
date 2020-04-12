@@ -12,9 +12,8 @@ import {
   PheliaMessageProps,
   Section,
   SelectMenu,
-  SelectOptionEvent,
   Text
-} from "../core";
+} from "../../core";
 
 export function StaticSelectMenuModal() {
   return (

@@ -13,7 +13,7 @@ import {
   Section,
   Text,
   TextField
-} from "../core";
+} from "../../core";
 
 export function MyModal() {
   return (

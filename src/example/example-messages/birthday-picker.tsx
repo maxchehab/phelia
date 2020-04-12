@@ -1,10 +1,10 @@
 import React from "react";
 
-import { PheliaMessageProps, Section, DatePicker, Message } from "../core";
+import { Section, DatePicker, Message, PheliaMessageProps } from "../../core";
 
 const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
 
-export default function BirthdayPicker({ useState }: PheliaMessageProps) {
+export function BirthdayPicker({ useState }: PheliaMessageProps) {
   const [birth, setBirth] = useState("birth");
   const [user, setUser] = useState("user");
 

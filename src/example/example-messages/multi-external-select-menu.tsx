@@ -9,11 +9,10 @@ import {
   PheliaMessageProps,
   Section,
   Divider,
-  Actions,
   Option,
   OptionGroup,
   MultiSelectMenu
-} from "../core";
+} from "../../core";
 
 export function MultiExternalSelectMenuModal() {
   return (

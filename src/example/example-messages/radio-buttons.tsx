@@ -10,7 +10,7 @@ import {
   PheliaMessageProps,
   Section,
   RadioButtons
-} from "../core";
+} from "../../core";
 
 export function RadioButtonModal() {
   return (

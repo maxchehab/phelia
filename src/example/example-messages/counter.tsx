@@ -7,9 +7,9 @@ import {
   PheliaMessageProps,
   Section,
   Text
-} from "../core";
+} from "../../core";
 
-export default function Counter({
+export function Counter({
   useState,
   props
 }: PheliaMessageProps<{ name: string }>) {

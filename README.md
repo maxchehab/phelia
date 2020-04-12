@@ -11,7 +11,7 @@ A reactive Slack messaging framework.
 
    ```ts
    import express from "express";
-   import { PheliaClient, interactiveMessageHandler } from "phelia/core";
+   import { Phelia, interactiveMessageHandler } from "phelia/core";
 
    import Counter from "./counter";
    import Greeter from "./greeter";
