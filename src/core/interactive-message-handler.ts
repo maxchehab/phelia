@@ -275,6 +275,10 @@ export function interactiveMessageHandler(
                 return [action, selected];
               }
 
+              if (data.type === "multi_users_select") {
+                return [action, data.selected_users];
+              }
+
               if (
                 data.type === "radio_buttons" ||
                 data.type === "static_select" ||
@@ -453,6 +457,10 @@ function generateEvent(
       selected: action.selected_options.map((option: any) => option.value),
       user
     };
+  }
+
+  if (action.type === "multi_users_select") {
+    return { user, selected: action.selected_users };
   }
 
   if (action.type === "users_select") {

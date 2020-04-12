@@ -124,7 +124,7 @@ setStorage({
 | [Image](https://api.slack.com/reference/block-kit/block-elements#image)                                                | ✅  | [Random Image](https://github.com/maxchehab/phelia/blob/master/src/example/random-image.tsx)                             |
 | [Multi static select Menu](https://api.slack.com/reference/block-kit/block-elements#multi_select)                      | ✅  | [Multi Static Select Menu](https://github.com/maxchehab/phelia/blob/master/src/example/multi-static-select-menu.tsx)     |
 | [Multi external select Menu](https://api.slack.com/reference/block-kit/block-elements#multi_external_select)           | ✅  | [Multi External Select Menu](https://github.com/maxchehab/phelia/blob/master/src/example/multi-external-select-menu.tsx) |
-| [Multi users select Menu](https://api.slack.com/reference/block-kit/block-elements#multi_users_select)                 | ❌  |
+| [Multi users select Menu](https://api.slack.com/reference/block-kit/block-elements#multi_users_select)                 | ✅  | [Multi Users Select Menu](https://github.com/maxchehab/phelia/blob/master/src/example/multi-users-select-menu.tsx)       |
 | [Multi channels select Menu](https://api.slack.com/reference/block-kit/block-elements#multi_channels_select)           | ❌  |
 | [Multi conversations select Menu](https://api.slack.com/reference/block-kit/block-elements#multi_conversations_select) | ❌  |
 | [Overflow Menu](https://api.slack.com/reference/block-kit/block-elements#overflow)                                     | ✅  | [Overflow Menu](https://github.com/maxchehab/phelia/blob/master/src/example/overflow-menu.tsx)                           |

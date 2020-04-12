@@ -752,12 +752,12 @@ interface MultiStaticSelectMenu extends MultiSelectMenuBase {
 
 interface MultiUserSelectMenu extends MultiSelectMenuBase {
   type: "users";
-  initialUsers?: string;
+  initialUsers?: string[];
 }
 
 interface MultiChannelSelectMenu extends MultiSelectMenuBase {
   type: "channels";
-  initialChannels?: string;
+  initialChannels?: string[];
 }
 
 interface MultiExternalSelectMenu extends MultiSelectMenuBase {

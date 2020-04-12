@@ -1136,6 +1136,38 @@ Object {
 }
 `;
 
+exports[`Multi User Select Menu Default Multi User Select Menu renders a default Multi User Select Menu 1`] = `
+Object {
+  "action_id": "select",
+  "confirm": undefined,
+  "initial_users": undefined,
+  "max_selected_items": undefined,
+  "onSearchOptions": undefined,
+  "placeholder": Object {
+    "text": "a placeholder",
+    "type": "plain_text",
+  },
+  "type": "multi_users_select",
+}
+`;
+
+exports[`Multi User Select Menu Multi User Select Menu with initial user property renders a Multi User Select Menu with initial user property 1`] = `
+Object {
+  "action_id": "select",
+  "confirm": undefined,
+  "initial_users": Array [
+    "U12345",
+  ],
+  "max_selected_items": undefined,
+  "onSearchOptions": undefined,
+  "placeholder": Object {
+    "text": "a placeholder",
+    "type": "plain_text",
+  },
+  "type": "multi_users_select",
+}
+`;
+
 exports[`Option Group Option Group with Url Option renders an Option Group without a Url Option 1`] = `
 Object {
   "isOptionGroup": [Function],

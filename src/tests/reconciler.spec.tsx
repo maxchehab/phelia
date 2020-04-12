@@ -1540,3 +1540,36 @@ describe("Multi External Select Menu", () => {
     });
   });
 });
+
+describe("Multi User Select Menu", () => {
+  describe("Default Multi User Select Menu", () => {
+    const component = () => (
+      <MultiSelectMenu
+        type="users"
+        action="select"
+        placeholder="a placeholder"
+      />
+    );
+
+    it("renders a default Multi User Select Menu", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
+  describe("Multi User Select Menu with initial user property", () => {
+    const component = () => (
+      <MultiSelectMenu
+        type="users"
+        action="select"
+        initialUsers={["U12345"]}
+        placeholder="a placeholder"
+      />
+    );
+
+    it("renders a Multi User Select Menu with initial user property", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+});
