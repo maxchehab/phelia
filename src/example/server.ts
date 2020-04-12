@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 import express from "express";
+import { createEventAdapter } from "@slack/events-api";
 
 import Phelia from "../core";
 import {
@@ -31,7 +32,8 @@ import {
   StaticSelectMenuExample,
   StaticSelectMenuModal,
   UsersSelectMenuExample,
-  UsersSelectMenuModal
+  UsersSelectMenuModal,
+  HomeApp
 } from "./example-messages";
 
 dotenv.config();
@@ -39,7 +41,9 @@ dotenv.config();
 const app = express();
 const port = 3000;
 
-const components = [
+const client = new Phelia(process.env.SLACK_TOKEN);
+
+client.registerComponents([
   BirthdayPicker,
   Counter,
   Greeter,
@@ -69,18 +73,23 @@ const components = [
   MultiChannelsSelectMenuModal,
   MultiConversationsSelectMenuExample,
   MultiConversationsSelectMenuModal
-];
-
-const client = new Phelia(process.env.SLACK_TOKEN);
+]);
 
 // Register the interaction webhook
 app.post(
-  "/api/webhook",
-  client.messageHandler(process.env.SLACK_SIGNING_SECRET, components)
+  "/interactions",
+  client.messageHandler(process.env.SLACK_SIGNING_SECRET)
 );
 
+// Register your Home App
+const slackEvents = createEventAdapter(process.env.SLACK_SIGNING_SECRET);
+
+slackEvents.on("app_home_opened", client.appHomeHandler(HomeApp));
+
+app.use("/events", slackEvents.requestListener());
+
 // This is how you post a message....
-client.postMessage(MultiConversationsSelectMenuExample, "@max");
+client.postMessage(ModalExample, "@max", { name: "Max" });
 
 app.listen(port, () =>
   console.log(`Example app listening at http://localhost:${port}`)

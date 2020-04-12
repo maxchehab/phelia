@@ -70,6 +70,17 @@ export function generateEvent(
   return { user };
 }
 
+export function parseMessageKey(payload: any) {
+  if (payload?.view?.id) {
+    return payload.view.id;
+  }
+
+  if (payload.container) {
+    const { channel_id, message_ts, view_id, type } = payload.container;
+    return type === "view" ? view_id : `${channel_id}:${message_ts}`;
+  }
+}
+
 export function loadMessagesFromArray(
   messages: PheliaMessage[]
 ): PheliaMessageMetadata[] {

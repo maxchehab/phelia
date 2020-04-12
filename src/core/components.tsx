@@ -877,3 +877,33 @@ export const MultiSelectMenu = (props: MultiSelectMenuProps) => (
 MultiSelectMenu.defaultProps = {
   type: "static"
 } as MultiSelectMenuProps;
+
+interface HomeProps {
+  children: ReactElement | ReactElement[];
+  title?: ReactElement | string;
+}
+
+export const Home = (props: HomeProps) => (
+  <component
+    {...props}
+    componentType="home"
+    toSlackElement={(props, reconcile, promises) => {
+      const instance: any = {
+        type: "home",
+        blocks: []
+      };
+
+      const [title, titlePromises] = reconcile(props.title);
+
+      instance.title = title;
+
+      if (instance.title) {
+        instance.title.type = "plain_text";
+      }
+
+      promises.push(...titlePromises);
+
+      return instance;
+    }}
+  />
+);

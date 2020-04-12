@@ -6,6 +6,7 @@ declare namespace JSX {
     | "confirm"
     | "context"
     | "divider"
+    | "home"
     | "image-block"
     | "image"
     | "input"

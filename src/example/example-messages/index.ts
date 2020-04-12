@@ -45,3 +45,4 @@ export {
   MultiConversationsSelectMenuExample,
   MultiConversationsSelectMenuModal
 } from "./multi-conversations-select-menu";
+export { HomeApp } from "./home-app";

@@ -1,12 +1,25 @@
+type UseModal = (
+  key: string,
+  modal: PheliaModal,
+  onSubmit?: (event: SubmitEvent) => void | Promise<void>,
+  onCancel?: (event: InteractionEvent) => void | Promise<void>
+) => (props?: any) => Promise<void>;
+
+type UseState = <t = any>(
+  key: string,
+  initialValue?: t
+) => [t, (value: t) => void];
+
 export interface PheliaMessageProps<p = never> {
   props?: p;
-  useState<t = any>(key: string, initialValue?: t): [t, (value: t) => void];
-  useModal: (
-    key: string,
-    modal: PheliaModal,
-    onSubmit?: (event: SubmitEvent) => void | Promise<void>,
-    onCancel?: (event: InteractionEvent) => void | Promise<void>
-  ) => (props?: any) => Promise<void>;
+  useState: UseState;
+  useModal: UseModal;
+}
+
+export interface PheliaHomeProps {
+  useState: UseState;
+  useModal: UseModal;
+  user: SlackUser;
 }
 
 export interface SlackUser {
@@ -24,6 +37,7 @@ export type PheliaMessage<p = any> = (
 export type PheliaModalProps<p> = Omit<PheliaMessageProps<p>, "useModal">;
 
 export type PheliaModal<p = any> = (props: PheliaModalProps<p>) => JSX.Element;
+export type PheliaHome = (props: PheliaHomeProps) => JSX.Element;
 
 export interface AsyncStorage {
   set: (key: string, value: string) => Promise<void>;
@@ -78,7 +92,7 @@ export interface PheliaMessageContainer {
   props: { [key: string]: any };
   state: { [key: string]: any };
   ts: string;
-  type: "message" | "modal";
+  type: "message" | "modal" | "home";
   viewID: string;
 }
 

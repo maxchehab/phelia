@@ -367,7 +367,9 @@ class HostConfig
 }
 
 function reconcile(
-  element: React.FunctionComponentElement<any>,
+  element:
+    | React.FunctionComponentElement<any>
+    | React.ComponentElement<any, any>,
   action?: Action,
   getOnSearchOptions?: boolean
 ): [any, Promise<any>[], SearchOptions] {
@@ -386,7 +388,9 @@ function reconcile(
 }
 
 export async function render(
-  element: React.FunctionComponentElement<any>,
+  element:
+    | React.FunctionComponentElement<any>
+    | React.ComponentElement<any, any>,
   action?: Action
 ) {
   const [blocks, promises] = reconcile(element, action);
@@ -397,7 +401,9 @@ export async function render(
 }
 
 export async function getOnSearchOptions(
-  element: React.FunctionComponentElement<any>,
+  element:
+    | React.FunctionComponentElement<any>
+    | React.ComponentElement<any, any>,
   action: Action
 ) {
   const [_, promises, onSearchOptions] = reconcile(element, action, true);

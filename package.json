@@ -6,7 +6,7 @@
   "devDependencies": {
     "@types/express": "^4.17.4",
     "@types/jest": "^25.2.1",
-    "@types/node": "^13.11.0",
+    "@types/node": "12.7.0",
     "@types/react": "^16.9.32",
     "jest": "^25.2.7",
     "ts-jest": "^25.3.1",
