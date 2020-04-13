@@ -3,39 +3,16 @@
 </p>
 
 # ⚡ Phelia
+
 > React for Slack Apps
 
-Build interactive Slack apps without webhooks or JSON headache. If you know React, you know how to make a Slack app. 
+Build interactive Slack apps without webhooks or JSON headache. If you know React, you know how to make a Slack app.
 
 See: [docs](https://github.com/maxchehab/phelia/wiki/Documentation) for more info or just get started:
 
 # Quick start
 
-1. Create an [express](https://expressjs.com) server:
-
-   ```ts
-   import express from "express";
-   import Phelia from "phelia";
-
-   import RandomImage from "./random-image";
-
-   const app = express();
-
-   const client = new Phelia(process.env.SLACK_TOKEN);
-
-   // Set up your interaction webhook hook
-   app.post(
-     "/interactions",
-     client.messageHandler(process.env.SLACK_SIGNING_SECRET, [RandomImage])
-   );
-
-   // Post a message...
-   client.postMessage(RandomImage, "@max");
-
-   app.listen(3000);
-   ```
-
-2. Create your message with React:
+1. Create your message with React:
 
    ```tsx
    import randomImage from "../utils";
@@ -64,6 +41,19 @@ See: [docs](https://github.com/maxchehab/phelia/wiki/Documentation) for more inf
        </Message>
      );
    }
+   ```
+
+2. Register your component
+
+   ```ts
+   const client = new Phelia(process.env.SLACK_TOKEN);
+
+   app.post(
+     "/interactions",
+     client.messageHandler(process.env.SLACK_SIGNING_SECRET, [RandomImage])
+   );
+
+   client.postMessage(RandomImage, "@max");
    ```
 
 3. Interact with your message:
