@@ -1,11 +1,10 @@
 <p align="center">
   <img src="https://raw.githubusercontent.com/maxchehab/phelia/master/screenshots/hero.gif">
-  <strong>Reactive Slack application framework</strong>
 </p>
 
 # ⚡ Phelia
 
-Phelia is a framework that lets you build interactive Slack applications without the webhook and JSON headache. Traditionally, building an interactive Slack application required that you _designed_ an interface with [Slack's Block Kit JSON schema](https://api.slack.com/tools/block-kit-builder). When you received one of the many interaction webhook payloads you would update the message with a new JSON schema. This leads to code fragmentation and slower development.
+Phelia is a framework that lets you build interactive Slack applications without the webhook and JSON headache. Traditionally, building an interactive Slack application required that you _designed_ an interface with [Slack's Block Kit JSON schema](https://api.slack.com/tools/block-kit-builder). When you received one of the many interaction webhook payloads you would update the message with a new JSON schema. This leads to code fragmentation and slow development.
 
 This framework was created to help you intuitively create Slack applications without needing to know how underlying storage, state, webhooks, or message publishing works. All you gotta know is [React](https://reactjs.org/) :).
 
