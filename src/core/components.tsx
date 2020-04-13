@@ -113,7 +113,7 @@ export const Section = (props: SectionProps) => (
       instance.text = text;
       instance.accessory = accessory;
 
-      if (instance.text) {
+      if (instance.text && text.type === "text") {
         instance.text.type = "plain_text";
       }
 

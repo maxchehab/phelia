@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="/screenshots/screenshot1.png">
+  <img src="/screenshots/hero.gif">
 </p>
 
 # Table of Contents
@@ -7,12 +7,12 @@
 - [Table of Contents](#table-of-contents)
 - [Quick start](#quick-start)
 - [How this works](#how-this-works)
-- [Custom Storage](#custom-storage)
 - [Documentation](#documentation)
   - [Surface Components](#surface-components)
     - [Message](#message)
     - [Modal](#modal)
     - [Home](#home)
+  - [Custom Storage](#custom-storage)
   - [Injected Properties](#injected-properties)
     - [`useState` Function](#usestate-function)
     - [`useModal` Function](#usemodal-function)
@@ -115,38 +115,6 @@
 # How this works
 
 Phelia transforms React components into Slack messages by use of a custom [React reconciler](https://github.com/maxchehab/phelia/blob/master/src/core/reconciler.ts). Components, with their internal state and props, are serialized into a [custom storage](#custom-storage). When a user interacts with a posted message Phelia retrieves the component, re-hydrates it's state and props, and performs any actions which may result in a new state.
-
-# Custom Storage
-
-Phelia uses a custom storage object to store posted messages and their properties such as **state**, **props**, and Component type. The persistance method can be customized by use of the `client.setStorage(storage)` method.
-
-A storage object must implement the following methods:
-
-- `set(key: string, value: string): void`
-- `get(key: string): string`
-
-_Storage methods may be asynchronous._
-
-By default the storage object is an in-memory map. Here is an example using Redis for storage:
-
-```ts
-import redis from "redis";
-import { setStorage } from "phelia/core";
-
-const client = redis.createClient();
-
-setStorage({
-  set: (key, value) =>
-    new Promise((resolve, reject) =>
-      client.set(key, value, err => (err ? reject(err) : resolve()))
-    ),
-
-  get: key =>
-    new Promise((resolve, reject) =>
-      client.get(key, (err, reply) => (err ? reject(err) : resolve(reply)))
-    )
-});
-```
 
 # Documentation
 
@@ -367,6 +335,38 @@ export function HomeApp({ useState, useModal, user }: PheliaHomeProps) {
   );
 }
 ````
+
+## Custom Storage
+
+Phelia uses a custom storage object to store posted messages and their properties such as **state**, **props**, and Component type. The persistance method can be customized by use of the `client.setStorage(storage)` method.
+
+A storage object must implement the following methods:
+
+- `set(key: string, value: string): void`
+- `get(key: string): string`
+
+_Storage methods may be asynchronous._
+
+By default the storage object is an in-memory map. Here is an example using Redis for storage:
+
+```ts
+import redis from "redis";
+import { setStorage } from "phelia/core";
+
+const client = redis.createClient();
+
+setStorage({
+  set: (key, value) =>
+    new Promise((resolve, reject) =>
+      client.set(key, value, err => (err ? reject(err) : resolve()))
+    ),
+
+  get: key =>
+    new Promise((resolve, reject) =>
+      client.get(key, (err, reply) => (err ? reject(err) : resolve(reply)))
+    )
+});
+```
 
 ## Injected Properties
 
