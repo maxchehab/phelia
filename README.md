@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="/screenshots/hero.gif">
+  <img src="https://raw.githubusercontent.com/maxchehab/phelia/master/screenshots/hero.gif">
   <strong>Reactive Slack application framework</strong>
 </p>
 
@@ -22,6 +22,10 @@ This framework was created to help you intuitively create Slack applications wit
     - [Modal](#modal)
     - [Home](#home)
   - [Custom Storage](#custom-storage)
+  - [Interactive Webhooks](#interactive-webhooks)
+    - [Registering Components](#registering-components)
+  - [Using the `messageHandler` to handle interactive webhook payloads](#using-the-messagehandler-to-handle-interactive-webhook-payloads)
+  - [Registering a Home Tab component](#registering-a-home-tab-component)
   - [Injected Properties](#injected-properties)
     - [`useState` Function](#usestate-function)
     - [`useModal` Function](#usemodal-function)
@@ -119,7 +123,7 @@ This framework was created to help you intuitively create Slack applications wit
 
 3. Interact with your message:
    <p align="left">
-     <img src="/screenshots/doggies.gif">
+     <img src="https://raw.githubusercontent.com/maxchehab/phelia/master/screenshots/doggies.gif">
    </p>
 
 # How this works
@@ -135,7 +139,7 @@ A surface is anywhere an app can express itself through communication or interac
 ### Message
 
 <p align="center">
-  <img src="/screenshots/message.png">
+  <img src="https://raw.githubusercontent.com/maxchehab/phelia/master/screenshots/message.png">
 </p>
 
 App-published messages are dynamic yet transient spaces. They allow users to complete workflows among their Slack conversations.
@@ -210,7 +214,7 @@ export function RandomImage({ useState }: PheliaMessageProps) {
 ### Modal
 
 <p align="center">
-  <img src="/screenshots/modal.png">
+  <img src="https://raw.githubusercontent.com/maxchehab/phelia/master/screenshots/modal.png">
 </p>
 
 Modals provide focused spaces ideal for requesting and collecting data from users, or temporarily displaying dynamic and interactive information.
@@ -286,7 +290,7 @@ export function MyModal({ useState }: PheliaModalProps) {
 ### Home
 
 <p align="center">
-  <img src="/screenshots/home-app.png">
+  <img src="https://raw.githubusercontent.com/maxchehab/phelia/master/screenshots/home-app.png">
 </p>
 
 The Home tab is a persistent, yet dynamic interface for apps that lives within the App Home.
@@ -377,6 +381,77 @@ setStorage({
     )
 });
 ```
+
+## Interactive Webhooks
+
+In order for Phelia to update your Messages or Modals you must register all of your components and setup up an interactive webhook endpoint.
+
+### Registering Components
+
+Use the `client.registerComponents` method to register your components. You may pass in an array of components:
+
+```ts
+const client = new Phelia(process.env.SLACK_TOKEN);
+client.registerComponents([MyModal, MyMessage]);
+```
+
+Pass a function which returns an array of components:
+
+```ts
+const client = new Phelia(process.env.SLACK_TOKEN);
+client.registerComponents(() => [MyModal, MyMessage]);
+```
+
+Or pass in a directory which contains all of your components:
+
+```ts
+import path from "path";
+
+const client = new Phelia(process.env.SLACK_TOKEN);
+client.registerComponents(path.join(__dirname, "components"));
+```
+
+## Using the `messageHandler` to handle interactive webhook payloads
+
+Set a **Request URL** and **Options Load URL** in the **Interactivity & Shortcuts** page of your Slack application. You may need to use a reverse proxy like [ngrok](https://ngrok.com/) for local development.
+
+<img src="https://raw.githubusercontent.com/maxchehab/phelia/master/screenshots/interactive-webhook-setup.png"/>
+
+Then use `client.messageHandler()` to intercept these webhook payloads.
+
+```ts
+const client = new Phelia(process.env.SLACK_TOKEN);
+
+app.post(
+  "/interactions",
+  client.messageHandler(process.env.SLACK_SIGNING_SECRET)
+);
+```
+
+## Registering a Home Tab component
+
+To use a Home Tab component, register a webhook for **Slacks Events API** and register your Home Tab component with Phelia.
+
+Make sure that you have selected the `app_home_opened` **bot event** in the **Event Subscriptions** of your Slack application.
+
+<img src="https://raw.githubusercontent.com/maxchehab/phelia/master/screenshots/home-app-webhook-setup.png"/>
+
+Then use `client.appHomeHandler()` to intercept this webhook payload.
+
+```ts
+import { createEventAdapter } from "@slack/events-api";
+
+const slackEvents = createEventAdapter(process.env.SLACK_SIGNING_SECRET);
+const client = new Phelia(process.env.SLACK_TOKEN);
+
+slackEvents.on("app_home_opened", client.appHomeHandler(HomeApp));
+
+app.use("/events", slackEvents.requestListener());
+```
+
+_This requires use of Slack's SDK `@slack/events-api`_
+
+With this setup, whenever a user opens the Home tab it will display your Home App accordingly.
 
 ## Injected Properties
 
