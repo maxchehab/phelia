@@ -138,10 +138,7 @@ describe("Section", () => {
     const component = () => (
       <Section
         accessory={
-          <Image
-            image_url="https://google.com/image.png"
-            alt_text={"an image"}
-          />
+          <Image imageUrl="https://google.com/image.png" alt={"an image"} />
         }
         text={<Text>Hello world</Text>}
       />
@@ -373,7 +370,7 @@ describe("Actions", () => {
 describe("Image", () => {
   describe("Default Image", () => {
     const component = () => (
-      <Image image_url="https://google.com/image.png" alt_text="an image" />
+      <Image imageUrl="https://google.com/image.png" alt="an image" />
     );
 
     it("renders Image with image_url and alt_text properties", async () => {
@@ -386,10 +383,7 @@ describe("Image", () => {
 describe("Image Block", () => {
   describe("Default Image Block", () => {
     const component = () => (
-      <ImageBlock
-        image_url="https://google.com/image.png"
-        alt_text="an image"
-      />
+      <ImageBlock imageUrl="https://google.com/image.png" alt="an image" />
     );
 
     it("renders Image Block with image_url and alt_text properties", async () => {
@@ -401,8 +395,8 @@ describe("Image Block", () => {
   describe("Image Block with string title", () => {
     const component = () => (
       <ImageBlock
-        image_url="https://google.com/image.png"
-        alt_text="an image"
+        imageUrl="https://google.com/image.png"
+        alt="an image"
         title="a string"
       />
     );
@@ -416,8 +410,8 @@ describe("Image Block", () => {
   describe("Image Block with emoji property", () => {
     const component = () => (
       <ImageBlock
-        image_url="https://google.com/image.png"
-        alt_text="an image"
+        imageUrl="https://google.com/image.png"
+        alt="an image"
         title="a string"
         emoji
       />
@@ -445,10 +439,7 @@ describe("Context", () => {
   describe("Context with one element", () => {
     const component = () => (
       <Context>
-        <ImageBlock
-          image_url="https://google.com/image.png"
-          alt_text="an image"
-        />
+        <ImageBlock imageUrl="https://google.com/image.png" alt="an image" />
       </Context>
     );
 
@@ -461,10 +452,7 @@ describe("Context", () => {
   describe("Context with Image and Text component", () => {
     const component = () => (
       <Context>
-        <ImageBlock
-          image_url="https://google.com/image.png"
-          alt_text="an image"
-        />
+        <ImageBlock imageUrl="https://google.com/image.png" alt="an image" />
 
         <Text type="mrkdwn">*Hello world*</Text>
       </Context>

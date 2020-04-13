@@ -7,7 +7,8 @@ import {
   Divider,
   ImageBlock,
   PheliaMessageProps,
-  Text
+  Text,
+  Message
 } from "../../core";
 
 const imageUrls = [
@@ -26,12 +27,12 @@ export function RandomImage({ useState }: PheliaMessageProps) {
   const [imageUrl, setImageUrl] = useState("imageUrl", randomImage());
 
   return (
-    <>
+    <Message text="Choose a dog">
       <ImageBlock
         emoji
         title={"an adorable :dog:"}
-        alt_text={"a very adorable doggy dog"}
-        image_url={imageUrl}
+        alt={"a very adorable doggy dog"}
+        imageUrl={imageUrl}
       />
       <Divider />
       <Actions>
@@ -54,6 +55,6 @@ export function RandomImage({ useState }: PheliaMessageProps) {
           New doggy
         </Button>
       </Actions>
-    </>
+    </Message>
   );
 }

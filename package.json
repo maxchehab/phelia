@@ -1,7 +1,7 @@
 {
   "name": "phelia",
-  "version": "0.0.0-alpha.0",
-  "main": "index.js",
+  "version": "0.0.0-alpha.2",
+  "main": "dist/index.js",
   "license": "MIT",
   "devDependencies": {
     "@types/express": "^4.17.4",
@@ -9,6 +9,7 @@
     "@types/node": "12.7.0",
     "@types/react": "^16.9.32",
     "jest": "^25.2.7",
+    "rimraf": "^3.0.2",
     "ts-jest": "^25.3.1",
     "tslint": "^6.1.1",
     "typescript": "^3.8.3"
@@ -29,7 +30,9 @@
   "scripts": {
     "test": "jest",
     "build": "tsc",
+    "clean": "yarn rimraf dist",
     "prestart": "yarn build",
+    "prepublish": "yarn test && yarn clean && yarn build --project prod.tsconfig.json",
     "start": "node dist/example/server.js"
   }
 }

@@ -140,8 +140,8 @@ export const Actions = (props: ActionsProps) => (
 );
 
 interface ImageProps {
-  image_url: string;
-  alt_text: string;
+  imageUrl: string;
+  alt: string;
 }
 
 export const Image = (props: ImageProps) => (
@@ -150,15 +150,15 @@ export const Image = (props: ImageProps) => (
     componentType="image"
     toSlackElement={(props): ImageElement => ({
       type: "image",
-      image_url: props.image_url,
-      alt_text: props.alt_text
+      image_url: props.imageUrl,
+      alt_text: props.alt
     })}
   />
 );
 
 interface ImageBlockProps {
-  image_url: string;
-  alt_text: string;
+  imageUrl: string;
+  alt: string;
   emoji?: boolean;
   title?: string;
 }
@@ -170,8 +170,8 @@ export const ImageBlock = (props: ImageBlockProps) => (
     toSlackElement={(props): SlackImageBlock => {
       const instance: any = {
         type: "image",
-        image_url: props.image_url,
-        alt_text: props.alt_text
+        image_url: props.imageUrl,
+        alt_text: props.alt
       };
 
       if (props.title) {

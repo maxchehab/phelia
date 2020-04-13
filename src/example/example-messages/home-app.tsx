@@ -13,8 +13,8 @@ export function HomeApp({ useState, useModal, user }: PheliaHomeProps) {
   const [counter, setCounter] = useState("counter", 0);
   const [form, setForm] = useState("form");
 
-  const openModal = useModal("modal", MyModal, form =>
-    setForm(JSON.stringify(form, null, 2))
+  const openModal = useModal("modal", MyModal, event =>
+    setForm(JSON.stringify(event.form, null, 2))
   );
 
   return (

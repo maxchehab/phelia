@@ -125,8 +125,6 @@ export class Phelia {
 
       const rawMessageContainer = await Phelia.Storage.get(messageKey);
 
-      console.log({ rawMessageContainer });
-
       if (!rawMessageContainer) {
         const initializedState: { [key: string]: any } = {};
 
@@ -156,11 +154,6 @@ export class Phelia {
         });
 
         const viewID = response.view.id;
-
-        console.log("saving view ID", {
-          viewID,
-          name: this.homeComponent.name
-        });
 
         await Phelia.Storage.set(
           viewID,
@@ -197,8 +190,6 @@ export class Phelia {
           view: home,
           user_id: payload.user
         });
-
-        console.log("published existing", JSON.stringify(response, null, 2));
       }
     };
   }
@@ -319,8 +310,6 @@ export class Phelia {
         });
       }
     }
-
-    console.log(JSON.stringify(container, null, 2));
 
     await Phelia.Storage.set(
       messageKey,
@@ -475,8 +464,6 @@ export class Phelia {
       })
     );
 
-    console.log("-----message", JSON.stringify(message, null, 2));
-
     if (JSON.stringify(message) !== invokerContainer.message) {
       if (invokerContainer.type === "message") {
         await this.client.chat.update({
@@ -490,13 +477,11 @@ export class Phelia {
           view: message
         });
       } else {
-        const response = await this.client.views.publish({
+        await this.client.views.publish({
           view_id: messageKey,
           view: message,
           user_id: payload.user.id
         });
-
-        console.log("response-------", JSON.stringify(response, null, 2));
       }
     }
 

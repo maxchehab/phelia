@@ -12,39 +12,51 @@ import {
   PheliaMessageProps,
   Section,
   Text,
-  TextField
+  TextField,
+  PheliaModalProps
 } from "../../core";
 
-export function MyModal() {
+export function MyModal({ useState }: PheliaModalProps) {
+  const [showForm, setShowForm] = useState("showForm", false);
+
   return (
     <Modal title="A fancy pants modal" submit="submit the form">
-      <Input label="Expiration date">
-        <DatePicker action="date" />
-      </Input>
+      {!showForm && (
+        <Actions>
+          <Button action="showForm" onClick={() => setShowForm(true)}>
+            Show form
+          </Button>
+        </Actions>
+      )}
 
-      <Input label="Little bit">
-        <TextField action="little-bit" placeholder="just a little bit" />
-      </Input>
+      {showForm && (
+        <>
+          <Input label="Expiration date">
+            <DatePicker action="date" />
+          </Input>
+          <Input label="Little bit">
+            <TextField action="little-bit" placeholder="just a little bit" />
+          </Input>
+          <Input label="Some checkboxes">
+            <Checkboxes action="checkboxes">
+              <Option value="option-a">option a</Option>
 
-      <Input label="Some checkboxes">
-        <Checkboxes action="checkboxes">
-          <Option value="option-a">option a</Option>
+              <Option value="option-b" selected>
+                option b
+              </Option>
 
-          <Option value="option-b" selected>
-            option b
-          </Option>
-
-          <Option value="option-c">option c</Option>
-        </Checkboxes>
-      </Input>
-
-      <Input label="Summary">
-        <TextField
-          action="summary"
-          placeholder="type something here"
-          multiline
-        />
-      </Input>
+              <Option value="option-c">option c</Option>
+            </Checkboxes>
+          </Input>
+          <Input label="Summary">
+            <TextField
+              action="summary"
+              placeholder="type something here"
+              multiline
+            />
+          </Input>
+        </>
+      )}
     </Modal>
   );
 }

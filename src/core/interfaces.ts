@@ -34,7 +34,7 @@ export type PheliaMessage<p = any> = (
   props: PheliaMessageProps<p>
 ) => JSX.Element;
 
-export type PheliaModalProps<p> = Omit<PheliaMessageProps<p>, "useModal">;
+export type PheliaModalProps<p = any> = Omit<PheliaMessageProps<p>, "useModal">;
 
 export type PheliaModal<p = any> = (props: PheliaModalProps<p>) => JSX.Element;
 export type PheliaHome = (props: PheliaHomeProps) => JSX.Element;
