@@ -249,7 +249,7 @@ Modals provide focused spaces ideal for requesting and collecting data from user
 
 | Properties | Type                                      |
 | ---------- | ----------------------------------------- |
-| useState   | a [useState functiom](#usestate-function) |
+| useState   | a [useState function](#usestate-function) |
 | props      | a JSON serializable object                |
 
 **Component Properties:**
