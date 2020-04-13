@@ -11,7 +11,7 @@ This framework was created to help you intuitively create Slack applications wit
 
 <details>
 
-  <summary><h1 display="inline-block">Table of Contents</h1></summary>
+  <summary><h1 style="display: inline-block;">Table of Contents</h1></summary>
 
 - [⚡ Phelia](#%e2%9a%a1-phelia)
 - [Quick start](#quick-start)
