@@ -1,6 +1,6 @@
 {
   "name": "phelia",
-  "version": "0.0.0-alpha.3",
+  "version": "0.0.0-appha.4",
   "main": "dist/index.js",
   "license": "MIT",
   "devDependencies": {
