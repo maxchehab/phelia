@@ -8,8 +8,6 @@
 
 Build interactive Slack apps without webhooks or JSON headache. If you know React, you know how to make a Slack app.
 
-See: [docs](https://github.com/maxchehab/phelia/wiki/Documentation) for more info or just get started:
-
 # Quick start
 
 1. Create your message with React:
@@ -60,6 +58,8 @@ See: [docs](https://github.com/maxchehab/phelia/wiki/Documentation) for more inf
    <p align="left">
      <img src="https://raw.githubusercontent.com/maxchehab/phelia/master/screenshots/doggies.gif">
    </p>
+
+See: [docs](https://github.com/maxchehab/phelia/wiki/Documentation) for more info or just get started:
 
 # How this works
 
