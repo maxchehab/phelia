@@ -1,13 +1,9 @@
-# ⚡ Phelia
-
 <p align="center">
   <img src="/screenshots/screenshot1.png">
-  A reactive Slack messaging framework.
 </p>
 
 # Table of Contents
 
-- [⚡ Phelia](#%e2%9a%a1-phelia)
 - [Table of Contents](#table-of-contents)
 - [Quick start](#quick-start)
 - [How this works](#how-this-works)
@@ -62,7 +58,7 @@
    import express from "express";
    import Phelia from "phelia";
 
-   import Counter from "./counter";
+   import RandomImage from "./random-image";
 
    const app = express();
 
@@ -71,11 +67,11 @@
    // Set up your interaction webhook hook
    app.post(
      "/interactions",
-     client.messageHandler(process.env.SLACK_SIGNING_SECRET, [Counter])
+     client.messageHandler(process.env.SLACK_SIGNING_SECRET, [RandomImage])
    );
 
    // Post a message...
-   client.postMessage(Greeter, "@max");
+   client.postMessage(RandomImage, "@max");
 
    app.listen(3000);
    ```
@@ -83,31 +79,27 @@
 2. Create your message with React:
 
    ```tsx
-   // greeter.tsx
-   import React from "react";
+   import randomImage from "../utils";
 
-   import {
-     PheliaMessageProps,
-     Section,
-     Actions,
-     Button,
-     Text
-   } from "phelia/core";
-
-   export default function Greeter({ useState }: PheliaMessageProps) {
-     const [name, setName] = useState("name");
+   export function RandomImage({ useState }: PheliaMessageProps) {
+     const [imageUrl, setImageUrl] = useState("imageUrl", randomImage());
 
      return (
-       <Message>
-         <Section>
-           <Text>{name ? `Hello ${name}` : "Click the button"}</Text>
-         </Section>
+       <Message text="Choose a dog">
+         <ImageBlock
+           title="an adorable :dog:"
+           alt="a very adorable doggy dog"
+           imageUrl={imageUrl}
+           emoji
+         />
+         <Divider />
          <Actions>
            <Button
-             action="greet"
-             onClick={event => setName(event.user.username)}
+             style="primary"
+             action="randomImage"
+             onClick={() => setImageUrl(randomImage())}
            >
-             Click me
+             New doggy
            </Button>
          </Actions>
        </Message>
@@ -117,7 +109,7 @@
 
 3. Interact with your message:
    <p align="left">
-     <img width="250px" src="/screenshots/screencap2.gif">
+     <img src="/screenshots/doggies.gif">
    </p>
 
 # How this works
