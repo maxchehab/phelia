@@ -11,7 +11,7 @@ This framework was created to help you intuitively create Slack applications wit
 
 <details>
 
-  <summary><h1 style="display: inline-block;">Table of Contents</h1></summary>
+  <summary><strong>Table of Contents</strong></summary>
 
 - [⚡ Phelia](#%e2%9a%a1-phelia)
 - [Quick start](#quick-start)
@@ -124,7 +124,7 @@ This framework was created to help you intuitively create Slack applications wit
 
 # How this works
 
-Phelia transforms React components into Slack messages by use of a custom [React reconciler](https://github.com/maxchehab/phelia/blob/master/src/core/reconciler.ts). Components, with their internal state and props, are serialized into a [custom storage](#custom-storage). When a user interacts with a posted message Phelia retrieves the component, re-hydrates it's state and props, and performs any actions which may result in a new state.
+Phelia transforms React components into Slack messages by use of a custom [React reconciler](https://github.com/maxchehab/phelia/blob/master/src/core/reconciler.ts). Components (with their internal state and props) are serialized into a [custom storage](#custom-storage). When a user interacts with a posted message Phelia retrieves the component, re-hydrates it's state and props, and performs any actions which may result in a new state.
 
 # Documentation
 
