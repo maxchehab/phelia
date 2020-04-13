@@ -17,6 +17,18 @@
     - [Message](#message)
     - [Modal](#modal)
     - [Home](#home)
+  - [Injected Properties](#injected-properties)
+    - [`useState` Function](#usestate-function)
+    - [`useModal` Function](#usemodal-function)
+    - [`props` Property](#props-property)
+    - [`user` Property](#user-property)
+  - [Callback Functions](#callback-functions)
+    - [Interaction Callback](#interaction-callback)
+    - [ModalSubmitted Callback](#modalsubmitted-callback)
+    - [SearchOptions Callback](#searchoptions-callback)
+    - [SelectDate Callback](#selectdate-callback)
+    - [SelectOption Callback](#selectoption-callback)
+    - [SelectOptions Callback](#selectoptions-callback)
   - [Block Components](#block-components)
     - [Actions](#actions)
     - [Context](#context)
@@ -148,7 +160,7 @@ setStorage({
 
 ## Surface Components
 
-A surface are anywhere an app can express itself through communication or interaction. Each registered components should return a surface component.
+A surface is anywhere an app can express itself through communication or interaction. Each registered components should return a surface component.
 
 ### Message
 
@@ -160,11 +172,11 @@ App-published messages are dynamic yet transient spaces. They allow users to com
 
 **Provided Properties:**
 
-| Properties | Type                       |
-| ---------- | -------------------------- |
-| useState   | a useState function        |
-| useModal   | a useModal function        |
-| props      | a JSON serializable object |
+| Properties | Type                                      |
+| ---------- | ----------------------------------------- |
+| useState   | a [useState function](#usestate-function) |
+| useModal   | a [useModal function](#usemodal-function) |
+| props      | a JSON serializable object                |
 
 **Component Properties:**
 
@@ -235,10 +247,10 @@ Modals provide focused spaces ideal for requesting and collecting data from user
 
 **Provided Properties:**
 
-| Properties | Type                       |
-| ---------- | -------------------------- |
-| useState   | a useState function        |
-| props      | a JSON serializable object |
+| Properties | Type                                      |
+| ---------- | ----------------------------------------- |
+| useState   | a [useState functiom](#usestate-function) |
+| props      | a JSON serializable object                |
 
 **Component Properties:**
 
@@ -311,11 +323,11 @@ The Home tab is a persistent, yet dynamic interface for apps that lives within t
 
 **Provided Properties:**
 
-| Properties | Type                |
-| ---------- | ------------------- |
-| useState   | a useState function |
-| useModal   | a useModal function |
-| user       | \*a user object     |
+| Properties | Type                                      |
+| ---------- | ----------------------------------------- |
+| useState   | a [useState function](#usestate-function) |
+| useModal   | a [useModal function](#usemodal-function) |
+| user       | \*a user object                           |
 
 _\*if scope `users:read` is not available, the user object will only contain an `id` property._
 
@@ -363,6 +375,244 @@ export function HomeApp({ useState, useModal, user }: PheliaHomeProps) {
   );
 }
 ````
+
+## Injected Properties
+
+Depending on which type of component you are building, Phelia will inject a collection of functions and properties into your components function.
+
+### `useState` Function
+
+The `useState` function is very similar to it's React predecessor. Given a unique key, `useState` will return a pair of values; the current state and a function to modify the state. The `useState` function also takes an optional second parameter to specify an initial value.
+
+**Example:**
+
+```tsx
+function Counter({ useState }) {
+  const [counter, setCounter] = useState("unique-key", 0);
+
+  return (
+    <Message>
+      <Section>
+        <Text type="mrkdwn">*Counter:* {counter}</Text>
+      </Section>
+      <Actions>
+        <Button action="inc" onClick={() => setCounter(counter + 1)}>
+          Increment
+        </Button>
+      </Actions>
+    </Message>
+  );
+}
+```
+
+### `useModal` Function
+
+The `useModal` function returns a function to open a modal. Parameters include:
+
+1. a unique key
+2. the modal component
+3. a [ModalSubmittedCallback](#modalsubmitted-callback) (executed when a modal is submitted)
+4. an [InteractionCallback](#interaction-callback) (executed when a modal is canceled)
+
+The function returned can be used to open a modal from within any Interaction Callback. The returned function takes an `props` parameter. When included, the `props` will be injected into the modal component.
+
+**Example:**
+
+```tsx
+function ModalExample({ useModal }) {
+  const openModal = useModal(
+    "modal",
+    MyModal,
+    event => console.log(event.form),
+    () => console.log("canceled")
+  );
+
+  return (
+    <Message text="A modal example">
+      <Actions>
+        <Button
+          style="primary"
+          action="openModal"
+          onClick={event => openModal({ user: event.user })}
+        >
+          Open the modal
+        </Button>
+      </Actions>
+    </Message>
+  );
+}
+```
+
+### `props` Property
+
+The `props` is a JSON serializable property injected into either [Modal](#modal) or [Message](#message) components. `props` can be optional passed to either component by their respective constructors. As [described above](#usemodal-function), if when opening a modal and an optional property is provided it will be passed along to the Modal component. Alternatively when using the `client.postMessage` function if a property is provided, it too will be passed along to the Message component.
+
+**Example:**
+
+```tsx
+function PropsExample({ props }) {
+  return (
+    <Message text="A prop example">
+      <Section>
+        <Text emoji>Hello {props.name} :greet:</Text>
+      </Section>
+    </Message>
+  );
+}
+
+client.postMessage(PropsExample, "@channel", { name: "Phelia" });
+```
+
+### `user` Property
+
+The `user` Property is injected into [Home](#home) components. It describes the user who is viewing the Home Tab taking the form of:
+
+```ts
+{
+  id: string;
+  username: string;
+  name: string;
+  team_id: string;
+}
+```
+
+If the scope `users:read` is not available, only the `id` property will be injected.
+
+## Callback Functions
+
+There are various different types of callback functions but all help you respond to a User interacting with your component. Each callback responds with an `event` object. All callback functions can be asynchronous or return a Promise.
+
+### Interaction Callback
+
+An interaction callback is the simplest type of callback. It's `event` object takes the form of:
+
+```ts
+user: {
+  id: string;
+  username: string;
+  name: string;
+  team_id: string;
+}
+```
+
+### ModalSubmitted Callback
+
+When a user submits a modal, the ModalSubmittedCallback will be called with the following `event` object:
+
+```ts
+form: {
+  [action: string]: any
+}
+user: {
+  id: string;
+  username: string;
+  name: string;
+  team_id: string;
+}
+```
+
+The `event.form` property is a map representing each Input child's `action` and value. For example the following modal:
+
+```tsx
+function Modal() {
+  return (
+    <Modal title="A fancy pants modal" submit="submit the form">
+      <Input label="Expiration date">
+        <DatePicker action="date" />
+      </Input>
+
+      <Input label="Little bit">
+        <TextField action="little-bit" placeholder="just a little bit" />
+      </Input>
+
+      <Input label="Some checkboxes">
+        <Checkboxes action="checkboxes">
+          <Option value="option-a">option a</Option>
+          <Option value="option-b" selected>
+            option b
+          </Option>
+          <Option value="option-c">option c</Option>
+        </Checkboxes>
+      </Input>
+
+      <Input label="Summary">
+        <TextField
+          action="summary"
+          placeholder="type something here"
+          multiline
+        />
+      </Input>
+    </Modal>
+  );
+}
+```
+
+would create the following `event.form` object:
+
+```ts
+{
+  "date": "2020-4-20",
+  "little-bit": "something the users typed"
+  "checkboxes": ["option-a"],
+  "summary": "another thing the users typed"
+}
+```
+
+### SearchOptions Callback
+
+A SearchOptions Callback is invoked when a User types a query within a [MultiSelectMenu](#multiselectmenu) or [SelectMenu](#selectmenu) component. It must return either an array of [Options](#option) or [OptionGroups](#optiongroup). It's `event` object takes the form of:
+
+```ts
+query: string;
+user: {
+  id: string;
+  username: string;
+  name: string;
+  team_id: string;
+}
+```
+
+### SelectDate Callback
+
+Used when a User selects a [DatePicker](#datepicker). The `event` object takes the form of:
+
+```ts
+date: string;
+user: {
+  id: string;
+  username: string;
+  name: string;
+  team_id: string;
+}
+```
+
+### SelectOption Callback
+
+Used when a User selects a single option. The `event` object takes the form of:
+
+```ts
+selected: string;
+user: {
+  id: string;
+  username: string;
+  name: string;
+  team_id: string;
+}
+```
+
+### SelectOptions Callback
+
+Used when a User selects multiple options. The `event` object takes the form of:
+
+```ts
+selected: string[];
+user: {
+  id: string;
+  username: string;
+  name: string;
+  team_id: string;
+}
+```
 
 ## Block Components
 
@@ -495,14 +745,14 @@ An interactive component that inserts a button. The button can be a trigger for 
 
 **Component Properties:**
 
-| Properties | Type                  | Required                           |
-| ---------- | --------------------- | ---------------------------------- |
-| action     | string                | if an onClick property is provided |
-| children   | string                | yes                                |
-| confirm    | [Confirm](#confirm)   | no                                 |
-| onClick    | InteractionCallback   | no                                 |
-| style      | "danger" or "primary" | no                                 |
-| url        | string                | no                                 |
+| Properties | Type                                         | Required                           |
+| ---------- | -------------------------------------------- | ---------------------------------- |
+| action     | string                                       | if an onClick property is provided |
+| children   | string                                       | yes                                |
+| confirm    | [Confirm](#confirm)                          | no                                 |
+| onClick    | [InteractionCallback](#interaction-callback) | no                                 |
+| style      | "danger" or "primary"                        | no                                 |
+| url        | string                                       | no                                 |
 
 **Example:**
 
@@ -522,12 +772,12 @@ A checkbox group that allows a user to choose multiple items from a list of poss
 
 **Component Properties:**
 
-| Properties | Type                                  | Required |
-| ---------- | ------------------------------------- | -------- |
-| action     | string                                | yes      |
-| children   | array of [Option](#option) components | yes      |
-| confirm    | [Confirm](#confirm)                   | no       |
-| onSelect   | SelectOptionsCallback                 | no       |
+| Properties | Type                                             | Required |
+| ---------- | ------------------------------------------------ | -------- |
+| action     | string                                           | yes      |
+| children   | array of [Option](#option) components            | yes      |
+| confirm    | [Confirm](#confirm)                              | no       |
+| onSelect   | [SelectOptionsCallback](#selectoptions-callback) | no       |
 
 **Example:**
 
@@ -546,13 +796,13 @@ An element which lets users easily select a date from a calendar style UI
 
 **Component Properties:**
 
-| Properties  | Type                    | Required |
-| ----------- | ----------------------- | -------- |
-| action      | string                  | yes      |
-| confirm     | [Confirm](#confirm)     | no       |
-| initialDate | string                  | no       |
-| onSelect    | SelectDateCallback      | no       |
-| placeholder | string or [Text](#text) | no       |
+| Properties  | Type                                       | Required |
+| ----------- | ------------------------------------------ | -------- |
+| action      | string                                     | yes      |
+| confirm     | [Confirm](#confirm)                        | no       |
+| initialDate | string                                     | no       |
+| onSelect    | [SelectDateCallback](#selectdate-callback) | no       |
+| placeholder | string or [Text](#text)                    | no       |
 
 **Example:**
 
@@ -592,14 +842,14 @@ A multi-select menu allows a user to select multiple items from a list of option
 | action               | string                                                               | yes                     |
 | placeholder          | string or [Text](#text)                                              | yes                     |
 | confirm              | [Confirm](#confirm)                                                  | no                      |
-| onSelect             | SelectOptionsCallbacks                                               | no                      |
+| onSelect             | [SelectOptionsCallback](#selectoptions-callback)                     | no                      |
 | maxSelectedItems     | integer                                                              | no                      |
 | type                 | "static" "users" "channels" "external" or "conversations"            | no                      |
 | children             | array of [Option](#option) or [OptionGroup](#optiongroup) components | if "static" type        |
 | initialUsers         | array of User Ids                                                    | if "users" type         |
 | initialChannels      | array of Channel Ids                                                 | if "channels" type      |
 | initialOptions       | array of Option components                                           | if "external" type      |
-| onSearchOptions      | a SearchOptionsCallback                                              | if "external" type      |
+| onSearchOptions      | a [SearchOptionsCallback](#searchoptions-callback)                   | if "external" type      |
 | minQueryLength       | integer                                                              | if "external" type      |
 | initialConversations | array of Conversation Ids                                            | if "conversations" type |
 | filter               | a [ConversationFilter](#conversationfilter) object                   | if "conversations" type |
@@ -644,7 +894,7 @@ Presents a list of options to choose from with no type-ahead field, and the butt
 | action     | string                                                               | yes      |
 | children   | array of [Option](#option) or [OptionGroup](#optiongroup) components | yes      |
 | confirm    | [Confirm](#confirm)                                                  | no       |
-| onSelect   | SelectOptionCallback                                                 | no       |
+| onSelect   | [SelectOptionCallback](#selectoption-callback)                       | no       |
 
 **Example:**
 
@@ -669,7 +919,7 @@ A radio button group that allows a user to choose one item from a list of possib
 | action     | string                                                               | yes      |
 | children   | array of [Option](#option) or [OptionGroup](#optiongroup) components | yes      |
 | confirm    | [Confirm](#confirm)                                                  | no       |
-| onSelect   | SelectOptionCallback                                                 | no       |
+| onSelect   | [SelectOptionCallback](#selectoption-callback)                       | no       |
 
 **Example:**
 
@@ -697,13 +947,13 @@ A select menu creates a drop down menu with a list of options for a user to choo
 | action              | string                                                                  | yes                     |
 | placeholder         | string or [Text](#text)                                                 | yes                     |
 | confirm             | [Confirm](#confirm)                                                     | no                      |
-| onSelect            | SelectOptionCallback                                                    | no                      |
+| onSelect            | [SelectOptionCallback](#selectoption-callback)                          | no                      |
 | type                | "static" "users" "channels" "external" or "conversations"               | no                      |
 | children            | an array of [Option](#option) or [OptionGroup](#optiongroup) components | if "static" type        |
 | initialUsers        | User Ids                                                                | if "users" type         |
 | initialChannel      | Channel Ids                                                             | if "channels" type      |
 | initialOption       | Option                                                                  | if "external" type      |
-| onSearchOptions     | a SearchOptionsCallback                                                 | if "external" type      |
+| onSearchOptions     | a [SearchOptionsCallback](#searchoptions-callback)                      | if "external" type      |
 | minQueryLength      | integer                                                                 | if "external" type      |
 | initialConversation | Conversation Ids                                                        | if "conversations" type |
 | filter              | a [ConversationFilter](#conversationfilter) object                      | if "conversations" type |
@@ -904,14 +1154,3 @@ To request a feature [submit a new issue](https://github.com/maxchehab/phelia/is
 | [Text](https://api.slack.com/reference/block-kit/composition-objects#text) | ✅ | [Counter](https://github.com/maxchehab/phelia/blob/master/src/example/counter.tsx) |
 | [Text](https://api.slack.com/reference/block-kit/composition-objects#text) | ✅ | [Random Image](https://github.com/maxchehab/phelia/blob/master/src/example/random-image.tsx) |
 | [User Select Menus](https://api.slack.com/reference/block-kit/block-elements#users_select) | ✅ | [User Select Menu](https://github.com/maxchehab/phelia/blob/master/src/example/user-select-menu.tsx) |
-
-````
-
-```
-
-```
-
-```
-
-```
-````
