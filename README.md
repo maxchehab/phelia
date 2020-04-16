@@ -63,7 +63,7 @@ See: [docs](https://github.com/maxchehab/phelia/wiki/Documentation) for more inf
 
 # How this works
 
-Phelia transforms React components into Slack messages by use of a custom [React reconciler](https://github.com/maxchehab/phelia/blob/master/src/core/reconciler.ts). Components (with their internal state and props) are serialized into a [custom storage](#custom-storage). When a user interacts with a posted message Phelia retrieves the component, re-hydrates it's state and props, and performs any actions which may result in a new state.
+Phelia transforms React components into Slack messages by use of a custom [React reconciler](https://github.com/maxchehab/phelia/blob/master/src/core/reconciler.ts). Components (with their internal state and props) are serialized into a [custom storage](https://github.com/maxchehab/phelia/wiki/Documentation#custom-storage). When a user interacts with a posted message Phelia retrieves the component, re-hydrates it's state and props, and performs any actions which may result in a new state.
 
 # Feature Support
 
