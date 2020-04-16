@@ -59,7 +59,7 @@ Build interactive Slack apps without webhooks or JSON headache. If you know Reac
      <img src="https://raw.githubusercontent.com/maxchehab/phelia/master/screenshots/doggies.gif">
    </p>
 
-See: [docs](https://github.com/maxchehab/phelia/wiki/Documentation) for more info or just get started:
+See: [docs](https://github.com/maxchehab/phelia/wiki/Documentation) for more info or join our [community Slack](https://join.slack.com/t/phelia/shared_invite/zt-dm4ln2w5-6aOXvv5ewiifDJGsplcVjA).
 
 # How this works
 
