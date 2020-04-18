@@ -65,6 +65,15 @@ See: [docs](https://github.com/maxchehab/phelia/wiki/Documentation) for more inf
 
 Phelia transforms React components into Slack messages by use of a custom [React reconciler](https://github.com/maxchehab/phelia/blob/master/src/core/reconciler.ts). Components (with their internal state and props) are serialized into a [custom storage](https://github.com/maxchehab/phelia/wiki/Documentation#custom-storage). When a user interacts with a posted message Phelia retrieves the component, re-hydrates it's state and props, and performs any actions which may result in a new state.
 
+## Components
+
+Each component is a mapping of a specific object type for a slack block.
+There are 3 categories of components, each with special rules for how that component can be used with other components.
+
+1. Surface Components (Message, Home, Modal) - Root components that contains Block Components
+2. Block Components (Actions, Context, Divider, Image, Input, Section) - Direct descendants of a Surface Component. Contains Block Components
+3. Block Element Components (Text, CheckBoxes, TextField, etc) - Direct descendants of a Block Components.
+
 # Feature Support
 
 To request a feature [submit a new issue](https://github.com/maxchehab/phelia/issues/new).
