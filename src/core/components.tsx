@@ -1346,8 +1346,6 @@ MultiSelectMenu.defaultProps = {
 interface HomeProps {
   /** An array of Actions, Context, Divider, ImageBlock, or Section components	 */
   children: ReactElement | ReactElement[];
-  /** A title for the home page. */
-  title?: ReactElement | string;
 }
 
 /**
@@ -1357,21 +1355,11 @@ export const Home = (props: HomeProps) => (
   <component
     {...props}
     componentType="home"
-    toSlackElement={(props, reconcile, promises) => {
+    toSlackElement={() => {
       const instance: any = {
         type: "home",
         blocks: []
       };
-
-      const [title, titlePromises] = reconcile(props.title);
-
-      instance.title = title;
-
-      if (instance.title) {
-        instance.title.type = "plain_text";
-      }
-
-      promises.push(...titlePromises);
 
       return instance;
     }}
