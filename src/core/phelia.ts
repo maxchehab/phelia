@@ -600,13 +600,13 @@ export class Phelia {
       this.processSubmission(payload);
     });
 
-    adapter.action({ type: "block_suggestion" }, this.processOption);
+    adapter.action({ type: "block_suggestion" }, this.processOption.bind(this));
 
     adapter.action(new RegExp(/.*/), async payload => {
       this.processAction(payload);
     });
 
-    adapter.options(new RegExp(/.*/), this.processOption);
+    adapter.options(new RegExp(/.*/), this.processOption.bind(this));
 
     return adapter.requestListener();
   }
