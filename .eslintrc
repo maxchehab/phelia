@@ -1,0 +1,35 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "jsdoc"],
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "rules": {
+    "jsdoc/check-param-names": 1,
+    "jsdoc/check-tag-names": 1,
+    "jsdoc/newline-after-description": 1,
+    "jsdoc/no-types": 1,
+    "jsdoc/require-param-description": 1,
+    "jsdoc/require-returns-description": 1,
+    "jsdoc/require-hyphen-before-param-description": [1, "always"],
+    "jsdoc/require-jsdoc": [
+      2,
+      {
+        "contexts": ["TSPropertySignature"],
+        "require": {
+          "ArrowFunctionExpression": true,
+          "FunctionDeclaration": true,
+          "ClassDeclaration": true
+        }
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["*.spec.*", "**/@types/**","**/example/**"],
+      "rules": {
+        "jsdoc/require-jsdoc": 0
+      }
+    }
+  ]
+}
