@@ -19,10 +19,12 @@ type ChildSet = any;
 type TimeoutHandle = any;
 type NoTimeout = any;
 
+  /** A function to help debug errors */
 const debug = (...args: any[]) => {
   // console.log(args);
 };
 
+/** Reconciler config */
 class HostConfig
   implements
     ReactReconciler.HostConfig<
@@ -266,7 +268,10 @@ class HostConfig
   }
   scheduleDeferredCallback(
     _callback: () => any,
-    _options?: { timeout: number }
+    _options?: { 
+      /** How long the timeout is */
+      timeout: number 
+    }
   ): any {}
   cancelDeferredCallback(callbackID: any): void {}
   setTimeout(
@@ -366,6 +371,7 @@ class HostConfig
   }
 }
 
+/** Reconcile the reaction components */
 function reconcile(
   element:
     | React.FunctionComponentElement<any>
@@ -387,6 +393,7 @@ function reconcile(
   return [root.node, root.promises, root.onSearchOptions];
 }
 
+/** Render the reaction components */
 export async function render(
   element:
     | React.FunctionComponentElement<any>
@@ -400,6 +407,7 @@ export async function render(
   return blocks;
 }
 
+/** Search filter options */
 export async function getOnSearchOptions(
   element:
     | React.FunctionComponentElement<any>

@@ -11,6 +11,7 @@ import {
   SlackUser
 } from "./interfaces";
 
+/** Convert an action to an event. */
 export function generateEvent(
   action: any,
   user: SlackUser
@@ -70,6 +71,7 @@ export function generateEvent(
   return { user };
 }
 
+/** Get a unique key from a message payload */
 export function parseMessageKey(payload: any) {
   if (payload?.view?.id) {
     return payload.view.id;
@@ -81,12 +83,14 @@ export function parseMessageKey(payload: any) {
   }
 }
 
+/** Transform a message into message metadata */
 export function loadMessagesFromArray(
   messages: PheliaMessage[]
 ): PheliaMessageMetadata[] {
   return messages.map(message => ({ message, name: message.name }));
 }
 
+/** Read messages from a directory */
 export function loadMessagesFromDirectory(
   dir: string
 ): PheliaMessageMetadata[] {

@@ -23,6 +23,7 @@ import {
   SlackUser
 } from "./interfaces";
 
+/** The main phelia client. Handles sending messages with phelia components */
 export class Phelia {
   private client: WebClient;
 
@@ -47,6 +48,7 @@ export class Phelia {
   ) {
     const initializedState: { [key: string]: any } = {};
 
+    /** A hook to create some state for a component */
     function useState<t>(
       key: string,
       initialValue?: t
@@ -55,6 +57,7 @@ export class Phelia {
       return [initialValue, (_: t): void => null];
     }
 
+    /** A hook to create a modal for a component */
     function useModal(): (title: string, props?: any) => Promise<void> {
       return async () => null;
     }
@@ -128,6 +131,7 @@ export class Phelia {
       if (!rawMessageContainer) {
         const initializedState: { [key: string]: any } = {};
 
+        /** A hook to create some state for a component */
         function useState<t>(
           key: string,
           initialValue?: t
@@ -136,6 +140,7 @@ export class Phelia {
           return [initialValue, (_: t): void => null];
         }
 
+        /** A hook to create a modal for a component */
         function useModal(): (title: string, props?: any) => Promise<void> {
           return async () => null;
         }
@@ -170,10 +175,12 @@ export class Phelia {
           rawMessageContainer
         );
 
+        /** A hook to create some state for a component */
         function useState<t>(key: string): [t, (value: t) => void] {
           return [container.state[key], (_: t): void => null];
         }
 
+        /** A hook to create a modal for a component */
         function useModal(): (title: string, props?: any) => Promise<void> {
           return async () => null;
         }
@@ -207,6 +214,7 @@ export class Phelia {
 
     const container: PheliaMessageContainer = JSON.parse(rawMessageContainer);
 
+    /** A hook to create some state for a component */
     function useState<t>(
       key: string,
       initialValue?: t
@@ -222,10 +230,12 @@ export class Phelia {
       ];
     }
 
+    /** A hook to create a modal for a component */
     const useModal = (key: string, modal: PheliaModal) => {
       return async (props?: any) => {
         const initializedState: { [key: string]: any } = {};
 
+        /** A hook to create some state for the modal */
         function useState<t>(
           key: string,
           initialValue?: t
@@ -346,6 +356,7 @@ export class Phelia {
       rawInvokerContainer
     );
 
+    /** A hook to create some state for a component */
     function useState<t>(
       key: string,
       initialValue?: t
@@ -364,6 +375,7 @@ export class Phelia {
     const executedCallbacks = new Map<string, boolean>();
     const executionPromises = new Array<Promise<any>>();
 
+    /** A hook to create a modal for a component */
     function useModal(
       key: string,
       _modal: PheliaMessage,
@@ -507,10 +519,12 @@ export class Phelia {
 
     const container: PheliaMessageContainer = JSON.parse(rawMessageContainer);
 
+    /** A hook to create some state for a component */
     function useState<t>(key: string): [t, (value: t) => void] {
       return [container.state[key], (_: t): void => null];
     }
 
+    /** A hook to create a modal for a component */
     function useModal(): (title: string, props?: any) => Promise<void> {
       return async () => null;
     }
