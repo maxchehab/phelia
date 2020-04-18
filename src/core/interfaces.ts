@@ -1,9 +1,9 @@
-type UseModal = (
+type UseModal = <p = any>(
   key: string,
-  modal: PheliaModal,
+  modal: PheliaModal<p>,
   onSubmit?: (event: SubmitEvent) => void | Promise<void>,
   onCancel?: (event: InteractionEvent) => void | Promise<void>
-) => (props?: any) => Promise<void>;
+) => (props?: p) => Promise<void>;
 
 type UseState = <t = any>(
   key: string,
