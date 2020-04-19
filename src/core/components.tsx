@@ -21,6 +21,8 @@ import {
   SelectOptionEvent
 } from "./interfaces";
 
+type PheliaChildren = ReactElement | ReactElement[] | (ReactElement | ReactElement[])[]
+
 interface TextProps {
   /** The content of the text component */
   children: React.ReactText | React.ReactText[];
@@ -140,7 +142,7 @@ type SectionProps =
       /** The head/title text component */
       text: ReactElement | string;
       /** Up to 10 child components */
-      children?: ReactElement | ReactElement[];
+      children?: PheliaChildren;
     }
   | {
       /** One of the available components. */
@@ -148,7 +150,7 @@ type SectionProps =
       /** The head/title text component */
       text?: ReactElement | string;
       /** Up to 10 child components */
-      children: ReactElement | ReactElement[];
+      children: PheliaChildren;
     };
 
 /**
@@ -189,7 +191,7 @@ interface ActionsProps {
    * overflow menus, or date pickers. There is a maximum of 5 elements 
    * in each action block.
    */
-  children: ReactElement | ReactElement[];
+  children: PheliaChildren;
 }
 
 /** 
@@ -294,7 +296,7 @@ export const Divider = () => (
 
 interface ContextProps {
   /** Child components to display within the Context */
-  children: ReactElement | ReactElement[];
+  children: PheliaChildren;
 }
 
 /** 
@@ -495,7 +497,7 @@ export const DatePicker = (props: DatePickerProps) => (
 
 interface MessageProps {
   /** Array of Actions, Context, Divider, ImageBlock, or Section components.	 */
-  children: ReactElement | ReactElement[];
+  children: PheliaChildren;
   /** The head/title text message. */
   text?: string;
 }
@@ -514,7 +516,7 @@ export const Message = (props: MessageProps) => (
 
 interface ModalProps {
   /** Array of Actions, Context, Divider, ImageBlock, Input, or Section components	 */
-  children: ReactElement | ReactElement[];
+  children: PheliaChildren;
   /** The title of the modal. */
   title: ReactElement | string;
   /**
@@ -714,7 +716,7 @@ interface CheckboxesProps {
    */
   action: string;
   /** An array of Option components */
-  children: ReactElement | ReactElement[];
+  children: PheliaChildren;
   /**
    * A Confirm component that defines an optional confirmation dialog that appears after clicking 
    * one of the checkboxes in this element.
@@ -778,7 +780,7 @@ interface OverflowMenuProps {
    * An array of Option components to display in the menu. Maximum number of options 
    * is 5, minimum is 2.
    */
-  children: ReactElement | ReactElement[];
+  children: PheliaChildren;
   /**
    * A confirm object that defines an optional confirmation dialog that appears after a 
    * menu item is selected.
@@ -831,7 +833,7 @@ interface RadioButtonsProps {
    */
   action: string;
   /** Option component(s) */
-  children: ReactElement | ReactElement[];
+  children: PheliaChildren;
   /**
    * A Confirm component that defines an optional confirmation dialog that appears after clicking 
    * one of the radio buttons in this element.
@@ -892,7 +894,7 @@ interface OptionGroupProps {
   /**
    * An array of Option components that belong to this specific group. Maximum of 100 items.
    */
-  children: ReactElement | ReactElement[];
+  children: PheliaChildren;
 }
 
 /** Provides a way to group options in a select menu or multi-select menu. */
@@ -947,7 +949,7 @@ interface StaticSelectMenu extends SelectMenuBase {
   /** The type of the select */
   type: "static";
   /** An array of Option components. Maximum number of options is 100. */
-  children: ReactElement | ReactElement[];
+  children: PheliaChildren;
 }
 
 interface UserSelectMenu extends SelectMenuBase {
@@ -1171,7 +1173,7 @@ interface MultiStaticSelectMenu extends MultiSelectMenuBase {
   /** The type of the multi select. */
   type: "static";
   /** An array of Option components. Maximum number of options is 100. */
-  children: ReactElement | ReactElement[];
+  children: PheliaChildren;
 }
 
 interface MultiUserSelectMenu extends MultiSelectMenuBase {
@@ -1345,7 +1347,7 @@ MultiSelectMenu.defaultProps = {
 
 interface HomeProps {
   /** An array of Actions, Context, Divider, ImageBlock, or Section components	 */
-  children: ReactElement | ReactElement[];
+  children: PheliaChildren;
 }
 
 /**
