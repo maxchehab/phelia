@@ -1,11 +1,11 @@
-type UseModal = (
+export type UseModal = (
   key: string,
   modal: PheliaModal,
   onSubmit?: (event: SubmitEvent) => void | Promise<void>,
   onCancel?: (event: InteractionEvent) => void | Promise<void>
 ) => (props?: any) => Promise<void>;
 
-type UseState = <t = any>(
+export type UseState = <t = any>(
   key: string,
   initialValue?: t
 ) => [t, (value: t) => void];
