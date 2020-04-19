@@ -4,24 +4,26 @@ import {
   Home,
   PheliaHomeProps,
   Section,
-  Text
+  Text,
 } from "../../core";
 import React from "react";
 import { MyModal } from "./modal-example";
 
 export function HomeApp({ useState, useModal, user }: PheliaHomeProps) {
   const [counter, setCounter] = useState("counter", 0);
+  const [loaded, setLoaded] = useState("loaded", 0);
   const [form, setForm] = useState("form");
 
-  const openModal = useModal("modal", MyModal, event =>
+  const openModal = useModal("modal", MyModal, (event) =>
     setForm(JSON.stringify(event.form, null, 2))
   );
 
   return (
-    <Home>
+    <Home onLoad={() => setLoaded(loaded + 1)}>
       <Section>
         <Text emoji>Hey there {user.username} :wave:</Text>
         <Text type="mrkdwn">*Counter:* {counter}</Text>
+        <Text type="mrkdwn">*Loaded:* {loaded}</Text>
       </Section>
 
       <Actions>
