@@ -10,7 +10,7 @@ import {
   InputBlock,
   Option as SlackOption,
   PlainTextInput,
-  SectionBlock
+  SectionBlock,
 } from "@slack/web-api";
 import { XOR } from "ts-xor";
 import {
@@ -18,10 +18,13 @@ import {
   MultiSelectOptionEvent,
   SearchOptionsEvent,
   SelectDateEvent,
-  SelectOptionEvent
+  SelectOptionEvent,
 } from "./interfaces";
 
-type PheliaChildren = ReactElement | ReactElement[] | (ReactElement | ReactElement[])[]
+type PheliaChildren =
+  | ReactElement
+  | ReactElement[]
+  | (ReactElement | ReactElement[])[];
 
 interface TextProps {
   /** The content of the text component */
@@ -33,7 +36,7 @@ interface TextProps {
   emoji?: boolean;
   /** The formatting to use for this text object.  */
   type: "plain_text" | "mrkdwn";
-  /** 	
+  /**
    * When set to false (as is default) URLs will be auto-converted into links,
    * conversation names will be link-ified, and certain mentions will be automatically
    * parsed. Using a value of true will skip any preprocessing of this nature, although
@@ -66,14 +69,14 @@ export const Text = (props: TextProps) => (
 );
 
 Text.defaultProps = {
-  type: "plain_text"
+  type: "plain_text",
 };
 
 interface ButtonBase {
   /** The text inside the button. */
   children: string;
   /**
-   * A Confirm component that defines an optional confirmation dialog 
+   * A Confirm component that defines an optional confirmation dialog
    * after the button is clicked.
    */
   confirm?: ReactElement;
@@ -84,9 +87,9 @@ interface ButtonBase {
   /** Decorates buttons with alternative visual color schemes. Use this option with restraint. */
   style?: undefined | "danger" | "primary";
   /**
-   * A URL to load in the user's browser when the button is clicked. 
-   * Maximum length for this field is 3000 characters. If you're using 
-   * url, you'll still receive an interaction payload and will need to 
+   * A URL to load in the user's browser when the button is clicked.
+   * Maximum length for this field is 3000 characters. If you're using
+   * url, you'll still receive an interaction payload and will need to
    * send an acknowledgement response.
    */
   url?: string;
@@ -97,7 +100,7 @@ interface ButtonWithOnClick extends ButtonBase {
   onClick: (event: InteractionEvent) => void | Promise<void>;
   /**
    * An identifier for this action. You can use this when you receive an
-   * interaction payload to identify the source of the action. Should be 
+   * interaction payload to identify the source of the action. Should be
    * unique among all other action_ids used elsewhere by your app. Maximum
    * length for this field is 255 characters.
    */
@@ -109,7 +112,7 @@ type ButtonProps = XOR<ButtonWithOnClick, ButtonBase>;
 /**
  * An interactive component that inserts a button. The button can be a trigger for
  * anything from opening a simple link to starting a complex workflow.
- * 
+ *
  * Works with block types: Section, Actions
  */
 export const Button = (props: ButtonProps) => (
@@ -122,7 +125,7 @@ export const Button = (props: ButtonProps) => (
         action_id: props.action,
         style: props.style,
         url: props.url,
-        text: { type: "plain_text", text: "", emoji: props.emoji }
+        text: { type: "plain_text", text: "", emoji: props.emoji },
       };
 
       const [confirm, confirmPromises] = reconcile(props.confirm);
@@ -157,7 +160,7 @@ type SectionProps =
  * A section is one of the most flexible components available - it can be used as a
  * simple text block, in combination with text fields, or side-by-side with any
  * of the available block elements.
- * 
+ *
  * Available in surfaces: Modals, Messages, Home tabs
  */
 export const Section = (props: SectionProps) => (
@@ -166,7 +169,7 @@ export const Section = (props: SectionProps) => (
     componentType="section"
     toSlackElement={(props, reconcile, promises): SectionBlock => {
       const instance: SectionBlock = {
-        type: "section"
+        type: "section",
       };
       const [accessory, accessoryPromises] = reconcile(props.accessory);
       const [text, textPromises] = reconcile(props.text);
@@ -186,17 +189,17 @@ export const Section = (props: SectionProps) => (
 );
 
 interface ActionsProps {
-  /** 
-   * An array of interactive element objects - buttons, select menus, 
-   * overflow menus, or date pickers. There is a maximum of 5 elements 
+  /**
+   * An array of interactive element objects - buttons, select menus,
+   * overflow menus, or date pickers. There is a maximum of 5 elements
    * in each action block.
    */
   children: PheliaChildren;
 }
 
-/** 
- * A block that is used to hold interactive elements. 
- * 
+/**
+ * A block that is used to hold interactive elements.
+ *
  * Available in surfaces: Modals, Messages, Home tabs
  */
 export const Actions = (props: ActionsProps) => (
@@ -205,7 +208,7 @@ export const Actions = (props: ActionsProps) => (
     componentType="actions"
     toSlackElement={(): ActionsBlock => ({
       type: "actions",
-      elements: []
+      elements: [],
     })}
   />
 );
@@ -214,15 +217,15 @@ interface ImageProps {
   /** The URL of the image to be displayed. Maximum length for this field is 3000 characters. */
   imageUrl: string;
   /**
-   * A plain-text summary of the image. This should not contain any markup. Maximum length for 
-   * this field is 2000 characters. 
+   * A plain-text summary of the image. This should not contain any markup. Maximum length for
+   * this field is 2000 characters.
    */
   alt: string;
 }
 
-/** 
- * A simple image block, designed to make those cat photos really pop. 
- * 
+/**
+ * A simple image block, designed to make those cat photos really pop.
+ *
  * Available in surfaces: Modals, Messages, Home tabs
  */
 export const Image = (props: ImageProps) => (
@@ -232,7 +235,7 @@ export const Image = (props: ImageProps) => (
     toSlackElement={(props): ImageElement => ({
       type: "image",
       image_url: props.imageUrl,
-      alt_text: props.alt
+      alt_text: props.alt,
     })}
   />
 );
@@ -241,8 +244,8 @@ interface ImageBlockProps {
   /** The URL of the image to be displayed. Maximum length for this field is 3000 characters. */
   imageUrl: string;
   /**
-   * A plain-text summary of the image. This should not contain any markup. Maximum length for 
-   * this field is 2000 characters. 
+   * A plain-text summary of the image. This should not contain any markup. Maximum length for
+   * this field is 2000 characters.
    */
   alt: string;
   /** Whether to enable the emoji prop on the title Text component */
@@ -254,7 +257,7 @@ interface ImageBlockProps {
 /**
  * An component to insert an image as part of a larger block of content. If you
  * want a block with only an image in it, you're looking for the Image component.
- * 
+ *
  * Works with block types: Section, Context
  */
 export const ImageBlock = (props: ImageBlockProps) => (
@@ -265,14 +268,14 @@ export const ImageBlock = (props: ImageBlockProps) => (
       const instance: any = {
         type: "image",
         image_url: props.imageUrl,
-        alt_text: props.alt
+        alt_text: props.alt,
       };
 
       if (props.title) {
         instance.title = {
           type: "plain_text",
           text: props.title,
-          emoji: props.emoji
+          emoji: props.emoji,
         };
       }
 
@@ -281,10 +284,10 @@ export const ImageBlock = (props: ImageBlockProps) => (
   />
 );
 
-/** 
+/**
  * A content divider, like an <hr>, to split up different blocks inside of a
  * message. The divider block is nice and neat.
- * 
+ *
  * Available in surfaces: Modals, Messages, Home tabs
  */
 export const Divider = () => (
@@ -299,9 +302,9 @@ interface ContextProps {
   children: PheliaChildren;
 }
 
-/** 
+/**
  * Displays message context, which can include both images and text.
- * 
+ *
  * Available in surfaces: Modals, Messages, Home tabs
  */
 export const Context = (props: ContextProps) => (
@@ -316,12 +319,12 @@ interface ConfirmProps {
   /** Components to display within the confirm dialog. */
   children: ReactElement | string;
   /**
-   * A plain_text-only Text component to define the text of the button that confirms the 
+   * A plain_text-only Text component to define the text of the button that confirms the
    * action. Maximum length for the text in this field is 30 characters.
    */
   confirm: ReactElement | string;
   /**
-   * A plain_text-only Text component to define the text of the button that cancels the 
+   * A plain_text-only Text component to define the text of the button that cancels the
    * action. Maximum length for the text in this field is 30 characters.
    */
   deny: ReactElement | string;
@@ -339,8 +342,8 @@ interface ConfirmProps {
 }
 
 /**
- * A component that defines a dialog that provides a confirmation step to any interactive 
- * component. This dialog will ask the user to confirm their action by offering a confirm 
+ * A component that defines a dialog that provides a confirmation step to any interactive
+ * component. This dialog will ask the user to confirm their action by offering a confirm
  * and deny buttons.
  */
 export const Confirm = (props: ConfirmProps) => (
@@ -353,7 +356,7 @@ export const Confirm = (props: ConfirmProps) => (
         // whereas slack forbids a confirm object to have a 'type' property
         isConfirm: () => true,
 
-        style: props.style
+        style: props.style,
       };
 
       const [title, titlePromises] = reconcile(props.title);
@@ -376,27 +379,27 @@ export const Confirm = (props: ConfirmProps) => (
 );
 
 interface OptionProps {
-  /** 
-   * A Text component that defines the text shown in the option on the menu. Overflow, select, 
+  /**
+   * A Text component that defines the text shown in the option on the menu. Overflow, select,
    * and multi-select menus can only use plain_text objects, while radio buttons and checkboxes
    * can use mrkdwn text objects. Maximum length for the text in this field is 75 characters.
    */
   children: ReactElement | string;
   /**
-   * The string value that will be passed to your app when this option is chosen. Maximum 
+   * The string value that will be passed to your app when this option is chosen. Maximum
    * length for this field is 75 characters.
    */
   value: string;
   /**
-   * A plain_text only Text component that defines a line of descriptive text shown below 
-   * the text field beside the radio button. Maximum length for the text object within this 
+   * A plain_text only Text component that defines a line of descriptive text shown below
+   * the text field beside the radio button. Maximum length for the text object within this
    * field is 75 characters.
    */
   description?: ReactElement | string;
   /**
-   * A URL to load in the user's browser when the option is clicked. The url attribute is only 
-   * available in overflow menus. Maximum length for this field is 3000 characters. If you're 
-   * using url, you'll still receive an interaction payload and will need to send an acknowledgement 
+   * A URL to load in the user's browser when the option is clicked. The url attribute is only
+   * available in overflow menus. Maximum length for this field is 3000 characters. If you're
+   * using url, you'll still receive an interaction payload and will need to send an acknowledgement
    * response.
    */
   url?: string;
@@ -417,7 +420,7 @@ export const Option = (props: OptionProps) => (
         isSelected: () => props.selected,
         isOption: () => true,
         value: props.value,
-        url: props.url
+        url: props.url,
       };
 
       const [description, descriptionPromises] = reconcile(props.description);
@@ -437,34 +440,34 @@ export const Option = (props: OptionProps) => (
 
 interface DatePickerProps {
   /**
-   * 	An identifier for the action triggered when a menu option is selected. You can use 
-   * this when you receive an interaction payload to identify the source of the action. 
-   * Should be unique among all other action_ids used elsewhere by your app. Maximum length 
+   * 	An identifier for the action triggered when a menu option is selected. You can use
+   * this when you receive an interaction payload to identify the source of the action.
+   * Should be unique among all other action_ids used elsewhere by your app. Maximum length
    * for this field is 255 characters.
    */
   action: string;
   /**
-   * A Confirm component that defines an optional confirmation dialog that appears after a 
+   * A Confirm component that defines an optional confirmation dialog that appears after a
    * date is selected.
    */
   confirm?: ReactElement;
-  /**	
-   * The initial date that is selected when the element is loaded. This should be in the 
-   * format YYYY-MM-DD. 
+  /**
+   * The initial date that is selected when the element is loaded. This should be in the
+   * format YYYY-MM-DD.
    */
   initialDate?: string;
   /** A callback for when a date is selected */
   onSelect?: (event: SelectDateEvent) => void | Promise<void>;
-  /** 
-   * A plain_text only Text component that defines the placeholder text shown on the datepicker. 
-   * Maximum length for the text in this field is 150 characters. 
+  /**
+   * A plain_text only Text component that defines the placeholder text shown on the datepicker.
+   * Maximum length for the text in this field is 150 characters.
    */
   placeholder?: ReactElement | string;
 }
 
-/** 
- * An element which lets users easily select a date from a calendar style UI. 
- * 
+/**
+ * An element which lets users easily select a date from a calendar style UI.
+ *
  * Works with block types: Section, Actions, Input
  */
 export const DatePicker = (props: DatePickerProps) => (
@@ -475,7 +478,7 @@ export const DatePicker = (props: DatePickerProps) => (
       const instance: Datepicker = {
         type: "datepicker",
         initial_date: props.initialDate,
-        action_id: props.action
+        action_id: props.action,
       };
 
       const [placeholder, placeholderPromises] = reconcile(props.placeholder);
@@ -502,8 +505,8 @@ interface MessageProps {
   text?: string;
 }
 
-/** 
- * App-published messages are dynamic yet transient spaces. They allow users to 
+/**
+ * App-published messages are dynamic yet transient spaces. They allow users to
  * complete workflows among their Slack conversations.
  */
 export const Message = (props: MessageProps) => (
@@ -520,20 +523,20 @@ interface ModalProps {
   /** The title of the modal. */
   title: ReactElement | string;
   /**
-   * An optional plain_text Text component that defines the text displayed in the submit button 
-   * at the bottom-right of the view. submit is required when an input block is within the 
+   * An optional plain_text Text component that defines the text displayed in the submit button
+   * at the bottom-right of the view. submit is required when an input block is within the
    * blocks array. Max length of 24 characters.
    */
   submit?: ReactElement | string;
   /**
-   * An optional plain_text Text component that defines the text displayed in the close button 
+   * An optional plain_text Text component that defines the text displayed in the close button
    * at the bottom-right of the view. Max length of 24 characters.
    */
   close?: ReactElement | string;
 }
 
 /**
- * Modals provide focused spaces ideal for requesting and collecting data from users, 
+ * Modals provide focused spaces ideal for requesting and collecting data from users,
  * or temporarily displaying dynamic and interactive information.
  */
 export const Modal = (props: ModalProps) => (
@@ -543,7 +546,7 @@ export const Modal = (props: ModalProps) => (
     toSlackElement={(props, reconcile, promises) => {
       const instance: any = {
         type: "modal",
-        blocks: []
+        blocks: [],
       };
 
       const [title, titlePromises] = reconcile(props.title);
@@ -575,7 +578,7 @@ export const Modal = (props: ModalProps) => (
 
 interface InputProps {
   /**
-   * A label that appears above an input component in the form of a text component that must 
+   * A label that appears above an input component in the form of a text component that must
    * have type of plain_text. Maximum length for the text in this field is 2000 characters.
    */
   label: string | ReactElement;
@@ -584,24 +587,24 @@ interface InputProps {
    */
   children: ReactElement;
   /**
-   * An optional hint that appears below an input element in a lighter grey. It must be a a text 
+   * An optional hint that appears below an input element in a lighter grey. It must be a a text
    * component with a type of plain_text. Maximum length for the text in this field is 2000 characters.
    */
   hint?: string | ReactElement;
   /**
-   * A boolean that indicates whether the input element may be empty when a user submits the modal. 
-   * 
+   * A boolean that indicates whether the input element may be empty when a user submits the modal.
+   *
    * @default false
    */
   optional?: boolean;
 }
 
 /**
- * A block that collects information from users - it can hold a plain-text input element, a 
+ * A block that collects information from users - it can hold a plain-text input element, a
  * select menu element, a multi-select menu element, or a datepicker.
- * 
+ *
  * Read our guide to using modals to learn how input blocks pass information to your app.
- * 
+ *
  * Available in surfaces: Modals
  */
 export const Input = (props: InputProps) => (
@@ -611,7 +614,7 @@ export const Input = (props: InputProps) => (
     toSlackElement={(props, reconcile, promises): InputBlock => {
       const instance: any = {
         type: "input",
-        optional: props.optional
+        optional: props.optional,
       };
 
       const [hint, hintPromises] = reconcile(props.hint);
@@ -637,45 +640,45 @@ export const Input = (props: InputProps) => (
 
 interface TextFieldProps {
   /**
-   * 	An identifier for the input value when the parent modal is submitted. You can use 
-   * this when you receive a view_submission payload to identify the value of the input 
-   * element. Should be unique among all other action_ids used elsewhere by your app. Maximum 
+   * 	An identifier for the input value when the parent modal is submitted. You can use
+   * this when you receive a view_submission payload to identify the value of the input
+   * element. Should be unique among all other action_ids used elsewhere by your app. Maximum
    * length for this field is 255 characters.
    */
   action: string;
   /**	The initial value in the plain-text input when it is loaded. */
   initialValue?: string;
-  /** 
-   * The maximum length of input that the user can provide. If the user provides more, they 
-   * will receive an error. 
+  /**
+   * The maximum length of input that the user can provide. If the user provides more, they
+   * will receive an error.
    */
   maxLength?: number;
   /**
-   * The minimum length of input that the user must provide. If the user provides less, 
+   * The minimum length of input that the user must provide. If the user provides less,
    * they will receive an error. Maximum value is 3000.
    */
   minLength?: number;
   /**
    * Indicates whether the input will be a single line (false) or a larger textarea (true).
-   * 
+   *
    * @default false
    */
   multiline?: boolean;
   /**
-   * A plain_text only Text component that defines the placeholder text shown in the plain-text 
+   * A plain_text only Text component that defines the placeholder text shown in the plain-text
    * input. Maximum length for the text in this field is 150 characters.
    */
   placeholder?: ReactElement | string;
 }
 
 /**
- * A plain-text input, similar to the HTML <input> tag, creates a field where a user can 
- * enter freeform data. It can appear as a single-line field or a larger textarea using 
+ * A plain-text input, similar to the HTML <input> tag, creates a field where a user can
+ * enter freeform data. It can appear as a single-line field or a larger textarea using
  * the multiline flag.
- * 
- * Plain-text input elements are currently only available in modals. To use them, you will 
+ *
+ * Plain-text input elements are currently only available in modals. To use them, you will
  * need to make some changes to prepare your app. Read about preparing your app for modals.
- * 
+ *
  * Works with block types: Section, Actions, Input
  */
 export const TextField = (props: TextFieldProps) => (
@@ -689,7 +692,7 @@ export const TextField = (props: TextFieldProps) => (
         action_id: props.action,
         max_length: props.maxLength,
         min_length: props.minLength,
-        multiline: props.multiline
+        multiline: props.multiline,
       };
 
       const [placeholder, placeholderPromises] = reconcile(props.placeholder);
@@ -709,16 +712,16 @@ export const TextField = (props: TextFieldProps) => (
 
 interface CheckboxesProps {
   /**
-   * 	An identifier for the action triggered when the checkbox group is changed. You can use 
+   * 	An identifier for the action triggered when the checkbox group is changed. You can use
    * this when you receive an interaction payload to identify the source of the action. Should
-   * be unique among all other action_ids used elsewhere by your app. Maximum length for this 
+   * be unique among all other action_ids used elsewhere by your app. Maximum length for this
    * field is 255 characters.
    */
   action: string;
   /** An array of Option components */
   children: PheliaChildren;
   /**
-   * A Confirm component that defines an optional confirmation dialog that appears after clicking 
+   * A Confirm component that defines an optional confirmation dialog that appears after clicking
    * one of the checkboxes in this element.
    */
   confirm?: ReactElement;
@@ -726,11 +729,11 @@ interface CheckboxesProps {
   onSelect?: (event: MultiSelectOptionEvent) => void | Promise<void>;
 }
 
-/** 
+/**
  * A checkbox group that allows a user to choose multiple items from a list of possible options.
- * 
+ *
  * Checkboxes are only supported in the following app surfaces: Home tabs Modals
- * 
+ *
  * Works with block types: Section, Actions, Input
  */
 export const Checkboxes = (props: CheckboxesProps) => (
@@ -741,7 +744,7 @@ export const Checkboxes = (props: CheckboxesProps) => (
       const instance: any = {
         type: "checkboxes",
         action_id: props.action,
-        options: []
+        options: [],
       };
 
       const [{ fields: options }, optionPromises] = reconcile(
@@ -751,8 +754,8 @@ export const Checkboxes = (props: CheckboxesProps) => (
 
       if (Array.isArray(options)) {
         const selectedOptions = options
-          .filter(option => option.isSelected())
-          .map(option => ({ ...option, url: undefined }));
+          .filter((option) => option.isSelected())
+          .map((option) => ({ ...option, url: undefined }));
 
         instance.initial_options = selectedOptions.length
           ? selectedOptions
@@ -770,19 +773,19 @@ export const Checkboxes = (props: CheckboxesProps) => (
 
 interface OverflowMenuProps {
   /**
-   * 	An identifier for the action triggered when a menu option is selected. You can 
-   * use this when you receive an interaction payload to identify the source of the 
-   * action. Should be unique among all other action_ids used elsewhere by your app. 
+   * 	An identifier for the action triggered when a menu option is selected. You can
+   * use this when you receive an interaction payload to identify the source of the
+   * action. Should be unique among all other action_ids used elsewhere by your app.
    * Maximum length for this field is 255 characters.
    */
   action: string;
   /**
-   * An array of Option components to display in the menu. Maximum number of options 
+   * An array of Option components to display in the menu. Maximum number of options
    * is 5, minimum is 2.
    */
   children: PheliaChildren;
   /**
-   * A confirm object that defines an optional confirmation dialog that appears after a 
+   * A confirm object that defines an optional confirmation dialog that appears after a
    * menu item is selected.
    */
   confirm?: ReactElement;
@@ -791,15 +794,15 @@ interface OverflowMenuProps {
 }
 
 /**
- * This is like a cross between a button and a select menu - when a user clicks on 
- * this overflow button, they will be presented with a list of options to choose from. 
- * Unlike the select menu, there is no typeahead field, and the button always appears 
+ * This is like a cross between a button and a select menu - when a user clicks on
+ * this overflow button, they will be presented with a list of options to choose from.
+ * Unlike the select menu, there is no typeahead field, and the button always appears
  * with an ellipsis ("…") rather than customisable text.
- * 
- * As such, it is usually used if you want a more compact layout than a select menu, 
- * or to supply a list of less visually important actions after a row of buttons. You 
+ *
+ * As such, it is usually used if you want a more compact layout than a select menu,
+ * or to supply a list of less visually important actions after a row of buttons. You
  * can also specify simple URL links as overflow menu options, instead of actions.
- * 
+ *
  * Works with block types: Section, Actions
  */
 export const OverflowMenu = (props: OverflowMenuProps) => (
@@ -810,7 +813,7 @@ export const OverflowMenu = (props: OverflowMenuProps) => (
       const instance: any = {
         type: "overflow",
         action_id: props.action,
-        options: []
+        options: [],
       };
 
       const [confirm, confirmPromises] = reconcile(props.confirm);
@@ -826,16 +829,16 @@ export const OverflowMenu = (props: OverflowMenuProps) => (
 
 interface RadioButtonsProps {
   /**
-   * 	An identifier for the action triggered when the radio button group is changed. You can 
-   * use this when you receive an interaction payload to identify the source of the action. 
-   * Should be unique among all other action_ids used elsewhere by your app. Maximum length 
+   * 	An identifier for the action triggered when the radio button group is changed. You can
+   * use this when you receive an interaction payload to identify the source of the action.
+   * Should be unique among all other action_ids used elsewhere by your app. Maximum length
    * for this field is 255 characters.
    */
   action: string;
   /** Option component(s) */
   children: PheliaChildren;
   /**
-   * A Confirm component that defines an optional confirmation dialog that appears after clicking 
+   * A Confirm component that defines an optional confirmation dialog that appears after clicking
    * one of the radio buttons in this element.
    */
   confirm?: ReactElement;
@@ -845,9 +848,9 @@ interface RadioButtonsProps {
 
 /**
  * Radio buttons are only supported in the following app surfaces: Home tabs Modals
- * 
+ *
  * A radio button group that allows a user to choose one item from a list of possible options.
- * 
+ *
  * Works with block types: Section, Actions, Input
  */
 export const RadioButtons = (props: RadioButtonsProps) => (
@@ -858,7 +861,7 @@ export const RadioButtons = (props: RadioButtonsProps) => (
       const instance: any = {
         type: "radio_buttons",
         action_id: props.action,
-        options: []
+        options: [],
       };
 
       const [{ fields: options }, optionPromises] = reconcile(
@@ -868,11 +871,11 @@ export const RadioButtons = (props: RadioButtonsProps) => (
 
       if (Array.isArray(options)) {
         const selectedOption = options
-          .map(option => ({
+          .map((option) => ({
             ...option,
-            url: undefined
+            url: undefined,
           }))
-          .find(option => option.isSelected());
+          .find((option) => option.isSelected());
 
         instance.initial_option = selectedOption;
       }
@@ -887,7 +890,7 @@ export const RadioButtons = (props: RadioButtonsProps) => (
 
 interface OptionGroupProps {
   /**
-   * A plain_text only Text component that defines the label shown above this 
+   * A plain_text only Text component that defines the label shown above this
    * group of options. Maximum length for the text in this field is 75 characters.
    */
   label: ReactElement | string;
@@ -905,7 +908,7 @@ export const OptionGroup = (props: OptionGroupProps) => (
     toSlackElement={(props, reconcile, promises) => {
       const instance: any = {
         isOptionGroup: () => true,
-        options: []
+        options: [],
       };
 
       const [label, labelPromises] = reconcile(props.label);
@@ -925,19 +928,19 @@ export const OptionGroup = (props: OptionGroupProps) => (
 
 interface SelectMenuBase {
   /**
-   * An identifier for the action triggered when a menu option is selected. You can 
-   * use this when you receive an interaction payload to identify the source of the 
-   * action. Should be unique among all other action_ids used elsewhere by your app. 
+   * An identifier for the action triggered when a menu option is selected. You can
+   * use this when you receive an interaction payload to identify the source of the
+   * action. Should be unique among all other action_ids used elsewhere by your app.
    * Maximum length for this field is 255 characters.
    */
   action: string;
   /**
-   * A plain_text only Text component that defines the placeholder text shown on 
+   * A plain_text only Text component that defines the placeholder text shown on
    * the menu. Maximum length for the text in this field is 150 characters.
    */
   placeholder: ReactElement | string;
   /**
-   * A Confirm component that defines an optional confirmation dialog that 
+   * A Confirm component that defines an optional confirmation dialog that
    * appears after a menu item is selected.
    */
   confirm?: ReactElement;
@@ -974,19 +977,19 @@ interface ExternalSelectMenu extends SelectMenuBase {
   /** The type of the select */
   type: "external";
   /**
-   * A single option that exactly matches one of the options within the options 
-   * or option_groups loaded from the external data source. This option will 
+   * A single option that exactly matches one of the options within the options
+   * or option_groups loaded from the external data source. This option will
    * be selected when the menu initially loads.
    */
   initialOption?: ReactElement;
   /** Called when a user is search the menu options. Should return result options */
   onSearchOptions: SearchOptions;
   /**
-   * 	When the typeahead field is used, a request will be sent on every character 
-   * change. If you prefer fewer requests or more fully ideated queries, use the 
-   * min_query_length attribute to tell Slack the fewest number of typed characters 
+   * 	When the typeahead field is used, a request will be sent on every character
+   * change. If you prefer fewer requests or more fully ideated queries, use the
+   * min_query_length attribute to tell Slack the fewest number of typed characters
    * required before dispatch.
-   * 
+   *
    * @default 3
    */
   minQueryLength?: number;
@@ -994,19 +997,19 @@ interface ExternalSelectMenu extends SelectMenuBase {
 
 interface FilterOptions {
   /**
-   * Indicates which type of conversations should be included in the list. When 
+   * Indicates which type of conversations should be included in the list. When
    * this field is provided, any conversations that do not match will be excluded
    */
   include?: ("im" | "mpim" | "private" | "public")[];
   /**
    * Indicates whether to exclude external shared channels from conversation lists
-   * 
+   *
    * @default false
    */
   excludeExternalSharedChannels?: boolean;
   /**
    * Indicates whether to exclude bot users from conversation lists.
-   * 
+   *
    * @default false
    */
   excludeBotUsers?: boolean;
@@ -1018,7 +1021,7 @@ interface ConversationSelectMenu extends SelectMenuBase {
   /** The ID of any valid conversation to be pre-selected when the menu loads. */
   initialConversation?: string;
   /**
-   * A filter object that reduces the list of available conversations using the 
+   * A filter object that reduces the list of available conversations using the
    * specified criteria.
    */
   filter?: FilterOptions;
@@ -1032,18 +1035,18 @@ type SelectMenuProps =
   | UserSelectMenu;
 
 /**
- * A select menu, just as with a standard HTML <select> tag, creates a drop down menu 
- * with a list of options for a user to choose. The select menu also includes type-ahead 
+ * A select menu, just as with a standard HTML <select> tag, creates a drop down menu
+ * with a list of options for a user to choose. The select menu also includes type-ahead
  * functionality, where a user can type a part or all of an option string to filter the list.
- * 
+ *
  * There are different types of select menu that depend on different data sources for their lists of options:
- * 
+ *
  * - Menu with static options
  * - Menu with external data source
  * - Menu with user list
  * - Menu with conversations list
  * - Menu with channels list
- * 
+ *
  * Works with block types: Section, Actions, Input
  */
 export const SelectMenu = (props: SelectMenuProps) => (
@@ -1054,7 +1057,7 @@ export const SelectMenu = (props: SelectMenuProps) => (
       const instance: any = {
         type: props.type + "_select",
         action_id: props.action,
-        onSearchOptions: props.onSearchOptions
+        onSearchOptions: props.onSearchOptions,
       };
 
       const [confirm, confirmPromises] = reconcile(props.confirm);
@@ -1082,11 +1085,11 @@ export const SelectMenu = (props: SelectMenuProps) => (
         }
 
         const selectedOption = options
-          .map(option => ({
+          .map((option) => ({
             ...option,
-            url: undefined
+            url: undefined,
           }))
-          .find(option => option.isSelected());
+          .find((option) => option.isSelected());
 
         instance.initial_option = selectedOption;
       }
@@ -1139,31 +1142,31 @@ export const SelectMenu = (props: SelectMenuProps) => (
 );
 
 SelectMenu.defaultProps = {
-  type: "static"
+  type: "static",
 } as SelectMenuProps;
 
 interface MultiSelectMenuBase {
   /**
-   * 	An identifier for the action triggered when a menu option is selected. 
-   * You can use this when you receive an interaction payload to identify the 
-   * source of the action. Should be unique among all other action_ids used 
+   * 	An identifier for the action triggered when a menu option is selected.
+   * You can use this when you receive an interaction payload to identify the
+   * source of the action. Should be unique among all other action_ids used
    * elsewhere by your app. Maximum length for this field is 255 characters.
    */
   action: string;
   /**
-   * A plain_text only Text component that defines the placeholder text shown on 
+   * A plain_text only Text component that defines the placeholder text shown on
    * the menu. Maximum length for the text in this field is 150 characters.
    */
   placeholder: ReactElement | string;
   /**
-   * A Confirm component that defines an optional confirmation dialog that appears 
+   * A Confirm component that defines an optional confirmation dialog that appears
    * before the multi-select choices are submitted.
    */
   confirm?: ReactElement;
   /** Callback for when a menu item is selected */
   onSelect?: (event: MultiSelectOptionEvent) => void | Promise<void>;
   /**
-   * Specifies the maximum number of items that can be selected in the menu. 
+   * Specifies the maximum number of items that can be selected in the menu.
    * Minimum number is 1.
    */
   maxSelectedItems?: number;
@@ -1197,18 +1200,18 @@ interface MultiExternalSelectMenu extends MultiSelectMenuBase {
   /** The type of the multi select. */
   type: "external";
   /**
-   * An array of Option component that exactly match one or more of the 
-   * options within options or option_groups. These options will be 
+   * An array of Option component that exactly match one or more of the
+   * options within options or option_groups. These options will be
    * selected when the menu initially loads.
    */
   initialOptions?: ReactElement[];
   /** Called when a user is search the select options. Should return result options */
   onSearchOptions: SearchOptions;
   /**
-   * When the typeahead field is used, a request will be sent on every character change. 
-   * If you prefer fewer requests or more fully ideated queries, use the min_query_length 
+   * When the typeahead field is used, a request will be sent on every character change.
+   * If you prefer fewer requests or more fully ideated queries, use the min_query_length
    * attribute to tell Slack the fewest number of typed characters required before dispatch
-   * 
+   *
    * @default 3
    */
   minQueryLength?: number;
@@ -1217,13 +1220,13 @@ interface MultiExternalSelectMenu extends MultiSelectMenuBase {
 interface MultiConversationSelectMenu extends MultiSelectMenuBase {
   /** The type of the multi select. */
   type: "conversations";
-  /**	
-   * An array of one or more IDs of any valid conversations to be 
+  /**
+   * An array of one or more IDs of any valid conversations to be
    * pre-selected when the menu loads.
    */
   initialConversations?: string[];
   /**
-   * A filter object that reduces the list of available conversations using the 
+   * A filter object that reduces the list of available conversations using the
    * specified criteria.
    */
   filter?: FilterOptions;
@@ -1237,18 +1240,18 @@ type MultiSelectMenuProps =
   | MultiUserSelectMenu;
 
 /**
- * A multi-select menu allows a user to select multiple items from a list of options. 
- * Just like regular select menus, multi-select menus also include type-ahead 
+ * A multi-select menu allows a user to select multiple items from a list of options.
+ * Just like regular select menus, multi-select menus also include type-ahead
  * functionality, where a user can type a part or all of an option string to filter the list.
- * 
+ *
  * There are different types of multi-select menu that depend on different data sources for their lists of options:
- * 
+ *
  * - Menu with static options
  * - Menu with external data source
  * - Menu with user list
  * - Menu with conversations list
  * - Menu with channels list
- * 
+ *
  * Works with block types: Section, Input
  */
 export const MultiSelectMenu = (props: MultiSelectMenuProps) => (
@@ -1260,7 +1263,7 @@ export const MultiSelectMenu = (props: MultiSelectMenuProps) => (
         type: "multi_" + props.type + "_select",
         action_id: props.action,
         max_selected_items: props.maxSelectedItems,
-        onSearchOptions: props.onSearchOptions
+        onSearchOptions: props.onSearchOptions,
       };
 
       const [confirm, confirmPromises] = reconcile(props.confirm);
@@ -1288,11 +1291,11 @@ export const MultiSelectMenu = (props: MultiSelectMenuProps) => (
         }
 
         const selectedOptions = options
-          .map(option => ({
+          .map((option) => ({
             ...option,
-            url: undefined
+            url: undefined,
           }))
-          .filter(option => option.isSelected());
+          .filter((option) => option.isSelected());
 
         instance.initial_options = selectedOptions;
       }
@@ -1342,12 +1345,15 @@ export const MultiSelectMenu = (props: MultiSelectMenuProps) => (
 );
 
 MultiSelectMenu.defaultProps = {
-  type: "static"
+  type: "static",
 } as MultiSelectMenuProps;
 
 interface HomeProps {
   /** An array of Actions, Context, Divider, ImageBlock, or Section components	 */
   children: PheliaChildren;
+
+  /** A callback ran when home app is loaded. */
+  onLoad?: (event: InteractionEvent) => Promise<void> | void;
 }
 
 /**
@@ -1360,7 +1366,7 @@ export const Home = (props: HomeProps) => (
     toSlackElement={() => {
       const instance: any = {
         type: "home",
-        blocks: []
+        blocks: [],
       };
 
       return instance;

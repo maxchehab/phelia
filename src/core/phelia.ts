@@ -8,7 +8,7 @@ import {
   generateEvent,
   loadMessagesFromArray,
   loadMessagesFromDirectory,
-  parseMessageKey
+  parseMessageKey,
 } from "./utils";
 import { SelectMenu } from "./components";
 import {
@@ -20,7 +20,7 @@ import {
   PheliaStorage,
   SubmitEvent,
   PheliaHome,
-  SlackUser
+  SlackUser,
 } from "./interfaces";
 
 /** The main phelia client. Handles sending messages with phelia components */
@@ -68,7 +68,7 @@ export class Phelia {
 
     const { channel: channelID, ts } = await this.client.chat.postMessage({
       ...messageData,
-      channel
+      channel,
     });
 
     const messageKey = `${channelID}:${ts}`;
@@ -82,7 +82,7 @@ export class Phelia {
         state: initializedState,
         props,
         channelID,
-        ts
+        ts,
       })
     );
   }
@@ -114,7 +114,7 @@ export class Phelia {
 
       try {
         const userResponse = (await this.client.users.info({
-          user: payload.user
+          user: payload.user,
         })) as any;
 
         user.username = userResponse.user.profile.display_name;
@@ -136,8 +136,13 @@ export class Phelia {
           key: string,
           initialValue?: t
         ): [t, (value: t) => void] {
-          initializedState[key] = initialValue;
-          return [initialValue, (_: t): void => null];
+          if (!initializedState[key]) {
+            initializedState[key] = initialValue;
+          }
+          return [
+            initializedState[key],
+            (newValue: t) => (initializedState[key] = newValue),
+          ];
         }
 
         /** A hook to create a modal for a component */
@@ -145,17 +150,31 @@ export class Phelia {
           return async () => null;
         }
 
+        /** Run the onload callback */
+        await render(
+          React.createElement(this.homeComponent, {
+            useState,
+            useModal,
+            user,
+          }),
+          {
+            value: undefined,
+            event: { user },
+            type: "onload",
+          }
+        );
+
         const home = await render(
           React.createElement(this.homeComponent, {
             useState,
             useModal,
-            user
+            user,
           })
         );
 
         const response: any = await this.client.views.publish({
           view: home,
-          user_id: payload.user
+          user_id: payload.user,
         });
 
         const viewID = response.view.id;
@@ -167,7 +186,7 @@ export class Phelia {
             name: this.homeComponent.name,
             state: initializedState,
             type: "home",
-            viewID
+            viewID,
           })
         );
       } else {
@@ -177,7 +196,10 @@ export class Phelia {
 
         /** A hook to create some state for a component */
         function useState<t>(key: string): [t, (value: t) => void] {
-          return [container.state[key], (_: t): void => null];
+          return [
+            container.state[key],
+            (newState: t) => (container.state[key] = newState),
+          ];
         }
 
         /** A hook to create a modal for a component */
@@ -185,18 +207,43 @@ export class Phelia {
           return async () => null;
         }
 
+        /** Run the onload callback */
+        await render(
+          React.createElement(this.homeComponent, {
+            useState,
+            useModal,
+            user,
+          }),
+          {
+            value: undefined,
+            event: { user },
+            type: "onload",
+          }
+        );
+
         const home = await render(
           React.createElement(this.homeComponent, {
             useState,
             useModal,
-            user
+            user,
           })
         );
 
-        const response: any = await this.client.views.publish({
+        await this.client.views.publish({
           view: home,
-          user_id: payload.user
+          user_id: payload.user,
         });
+
+        await Phelia.Storage.set(
+          container.viewID,
+          JSON.stringify({
+            message: JSON.stringify(home),
+            name: this.homeComponent.name,
+            state: container.state,
+            type: "home",
+            viewID: container.viewID,
+          })
+        );
       }
     };
   }
@@ -226,7 +273,7 @@ export class Phelia {
         (newValue: t): void => {
           container.state[key] = newValue;
           setState(newValue);
-        }
+        },
       ];
     }
 
@@ -252,8 +299,8 @@ export class Phelia {
           trigger_id: payload.trigger_id,
           view: {
             ...message,
-            notify_on_close: true
-          }
+            notify_on_close: true,
+          },
         });
 
         const viewID = response.view.id;
@@ -268,7 +315,7 @@ export class Phelia {
             props,
             state: initializedState,
             type: "modal",
-            viewID
+            viewID,
           })
         );
       };
@@ -280,11 +327,12 @@ export class Phelia {
           useState,
           props: container.props,
           useModal,
-          user: container.type === "home" ? payload.user : undefined
+          user: container.type === "home" ? payload.user : undefined,
         }),
         {
           value: action.action_id,
-          event: generateEvent(action, payload.user)
+          event: generateEvent(action, payload.user),
+          type: "interaction",
         }
       );
     }
@@ -294,7 +342,7 @@ export class Phelia {
         useState,
         props: container.props,
         useModal,
-        user: container.type === "home" ? payload.user : undefined
+        user: container.type === "home" ? payload.user : undefined,
       })
     );
 
@@ -303,20 +351,20 @@ export class Phelia {
         await this.client.chat.update({
           ...message,
           channel: container.channelID,
-          ts: container.ts
+          ts: container.ts,
         });
       } else if (container.type === "modal") {
         await this.client.views.update({
           view_id: messageKey,
           view: {
             ...message,
-            notify_on_close: true
-          }
+            notify_on_close: true,
+          },
         });
       } else {
         await this.client.views.update({
           view_id: messageKey,
-          view: message
+          view: message,
         });
       }
     }
@@ -325,7 +373,7 @@ export class Phelia {
       messageKey,
       JSON.stringify({
         ...container,
-        message: JSON.stringify(message)
+        message: JSON.stringify(message),
       })
     );
   }
@@ -368,7 +416,7 @@ export class Phelia {
         (newValue: t): void => {
           invokerContainer.state[key] = newValue;
           setState(newValue);
-        }
+        },
       ];
     }
 
@@ -387,7 +435,7 @@ export class Phelia {
 
         if (payload.type === "view_submission") {
           const form = Object.keys(payload.view.state.values)
-            .map(key => [key, Object.keys(payload.view.state.values[key])[0]])
+            .map((key) => [key, Object.keys(payload.view.state.values[key])[0]])
             .map(([key, action]) => {
               const data = payload.view.state.values[key][action];
 
@@ -461,7 +509,7 @@ export class Phelia {
         useState,
         props: invokerContainer.props,
         useModal,
-        user: invokerContainer.type === "home" ? payload.user : undefined
+        user: invokerContainer.type === "home" ? payload.user : undefined,
       })
     );
 
@@ -472,7 +520,7 @@ export class Phelia {
         useState,
         props: invokerContainer.props,
         useModal,
-        user: invokerContainer.type === "home" ? payload.user : undefined
+        user: invokerContainer.type === "home" ? payload.user : undefined,
       })
     );
 
@@ -481,18 +529,18 @@ export class Phelia {
         await this.client.chat.update({
           ...message,
           channel: invokerContainer.channelID,
-          ts: invokerContainer.ts
+          ts: invokerContainer.ts,
         });
       } else if (invokerContainer.type === "modal") {
         await this.client.views.update({
           view_id: messageKey,
-          view: message
+          view: message,
         });
       } else {
         await this.client.views.publish({
           view_id: messageKey,
           view: message,
-          user_id: payload.user.id
+          user_id: payload.user.id,
         });
       }
     }
@@ -501,7 +549,7 @@ export class Phelia {
       viewContainer.invokerKey,
       JSON.stringify({
         ...invokerContainer,
-        message: JSON.stringify(message)
+        message: JSON.stringify(message),
       })
     );
   }
@@ -535,15 +583,19 @@ export class Phelia {
         {
           useState,
           props: container.props,
-          useModal
+          useModal,
         }
       ),
-      { value: payload.action_id, event: { user: payload.user } }
+      {
+        value: payload.action_id,
+        event: { user: payload.user },
+        type: "interaction",
+      }
     );
 
     const optionsComponent = await onSearchOptions({
       user: payload.user,
-      query: payload.value
+      query: payload.value,
     });
 
     const { options, option_groups } = await render(
@@ -551,7 +603,7 @@ export class Phelia {
         placeholder: "",
         action: "",
         type: "static",
-        children: optionsComponent
+        children: optionsComponent,
       })
     );
 
@@ -589,20 +641,20 @@ export class Phelia {
 
     const adapter = createMessageAdapter(signingSecret, {
       ...slackOptions,
-      syncResponseTimeout: 3000
+      syncResponseTimeout: 3000,
     });
 
-    adapter.viewSubmission(new RegExp(/.*/), async payload => {
+    adapter.viewSubmission(new RegExp(/.*/), async (payload) => {
       this.processSubmission(payload);
     });
 
-    adapter.viewClosed(new RegExp(/.*/), async payload => {
+    adapter.viewClosed(new RegExp(/.*/), async (payload) => {
       this.processSubmission(payload);
     });
 
     adapter.action({ type: "block_suggestion" }, this.processOption.bind(this));
 
-    adapter.action(new RegExp(/.*/), async payload => {
+    adapter.action(new RegExp(/.*/), async (payload) => {
       this.processAction(payload);
     });
 

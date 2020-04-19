@@ -19,7 +19,7 @@ type ChildSet = any;
 type TimeoutHandle = any;
 type NoTimeout = any;
 
-  /** A function to help debug errors */
+/** A function to help debug errors */
 const debug = (...args: any[]) => {
   // console.log(args);
 };
@@ -70,7 +70,7 @@ class HostConfig
     if (props.toSlackElement) {
       return props.toSlackElement(
         props,
-        e => {
+        (e) => {
           const [nodes, promises, onSearchOptions] = reconcile(
             e,
             rootContainerInstance.action,
@@ -205,6 +205,14 @@ class HostConfig
     rootContainerInstance: Container,
     _hostContext: HostContext
   ): boolean {
+    if (rootContainerInstance.action?.type === "onload" && props.onLoad) {
+      rootContainerInstance.promises.push(
+        props.onLoad(rootContainerInstance.action.event)
+      );
+
+      return true;
+    }
+
     if (
       rootContainerInstance.action &&
       props.action === rootContainerInstance.action.value
@@ -263,14 +271,14 @@ class HostConfig
     debug("createTextInstance");
     return {
       type: "text",
-      text
+      text,
     };
   }
   scheduleDeferredCallback(
     _callback: () => any,
-    _options?: { 
+    _options?: {
       /** How long the timeout is */
-      timeout: number 
+      timeout: number;
     }
   ): any {}
   cancelDeferredCallback(callbackID: any): void {}
@@ -366,7 +374,7 @@ class HostConfig
   ): void {
     debug("removeChildFromContainer", {
       container,
-      child
+      child,
     });
   }
 }
@@ -384,7 +392,7 @@ function reconcile(
     isRoot: true,
     action,
     promises: new Array<Promise<any>>(),
-    getOnSearchOptions
+    getOnSearchOptions,
   };
   const container = reconcilerInstance.createContainer(root, false, false);
 

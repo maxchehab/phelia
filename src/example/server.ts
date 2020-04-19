@@ -33,7 +33,7 @@ import {
   StaticSelectMenuModal,
   UsersSelectMenuExample,
   UsersSelectMenuModal,
-  HomeApp
+  HomeApp,
 } from "./example-messages";
 
 dotenv.config();
@@ -72,7 +72,7 @@ client.registerComponents([
   MultiChannelsSelectMenuExample,
   MultiChannelsSelectMenuModal,
   MultiConversationsSelectMenuExample,
-  MultiConversationsSelectMenuModal
+  MultiConversationsSelectMenuModal,
 ]);
 
 // Register the interaction webhook
