@@ -68,6 +68,9 @@ export interface Action {
   value: string;
   /** The event for the action */
   event: InteractionEvent;
+
+  /** The type of action */
+  type?: "interaction" | "onload";
 }
 
 export interface PheliaMessageMetadata {
