@@ -21,10 +21,8 @@ import {
   SelectOptionEvent,
 } from "./interfaces";
 
-type PheliaChildren =
-  | ReactElement
-  | ReactElement[]
-  | (ReactElement | ReactElement[])[];
+type PheliaChild = false | null | undefined | ReactElement | ReactElement[];
+type PheliaChildren = PheliaChild | PheliaChild[];
 
 interface TextProps {
   /** The content of the text component */
