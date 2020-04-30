@@ -1,3 +1,5 @@
+# Getting Started
+
 This guide will show you how to configure Phelia to post an interactive Slack message.
 
 # Using the example project
