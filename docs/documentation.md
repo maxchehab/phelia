@@ -1,3 +1,5 @@
+# Documentation
+
 ## Surface Components
 
 A surface is anywhere an app can express itself through communication or interaction. Each registered components should return a surface component.
