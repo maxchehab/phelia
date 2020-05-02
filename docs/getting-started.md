@@ -22,7 +22,7 @@ $ cp .env.example .env
 1. Go to https://api.slack.com/apps and select **Create New App**.
 2. Set a **Request URL** and an **Options Load URL** in the **Interactivity & Shortcuts** page of your Slack application. You will need to use a reverse proxy like [ngrok](https://ngrok.com) for local development.
   ![setting up interactive webhooks](https://raw.githubusercontent.com/maxchehab/phelia/master/screenshots/interactive-webhook-setup.png)
-3. Under **OAuth & Permissions** add a `chat:write` scope. After you install the app into a workspace you can grab the **Bot User OAuth Access Token**. Save this value as the `SLACK_TOKEN` value in your `.env`.
+3. Under **OAuth & Permissions** add a `chat:write` scope under "bot token scopes". After you install the app into a workspace you can grab the **Bot User OAuth Access Token**. Save this value as the `SLACK_TOKEN` value in your `.env`.
 4. Back under **Basic Information** you will need to grab your **Signing Secret**. Save this value as the `SLACK_SIGNING_SECRET` in your `env`.
 
 # Posting the message
