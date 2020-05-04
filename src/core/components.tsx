@@ -1352,6 +1352,9 @@ interface HomeProps {
 
   /** A callback ran when home app is loaded. */
   onLoad?: (event: InteractionEvent) => Promise<void> | void;
+
+  /** A callback ran when home app is updated. */
+  onUpdate?: (event: InteractionEvent) => Promise<void> | void;
 }
 
 /**

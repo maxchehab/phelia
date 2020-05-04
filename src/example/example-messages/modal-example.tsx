@@ -13,7 +13,7 @@ import {
   Section,
   Text,
   TextField,
-  PheliaModalProps
+  PheliaModalProps,
 } from "../../core";
 
 export function MyModal({ useState }: PheliaModalProps) {
@@ -63,14 +63,22 @@ export function MyModal({ useState }: PheliaModalProps) {
 
 type State = "submitted" | "canceled" | "init";
 
-export function ModalExample({ useModal, useState }: PheliaMessageProps) {
+type Props = {
+  name: string;
+};
+
+export function ModalExample({
+  useModal,
+  useState,
+  props,
+}: PheliaMessageProps<Props>) {
   const [state, setState] = useState<State>("state", "init");
   const [form, setForm] = useState("form", "");
 
   const openModal = useModal(
     "modal",
     MyModal,
-    form => {
+    (form) => {
       setState("submitted");
       setForm(JSON.stringify(form, null, 2));
     },
@@ -79,6 +87,10 @@ export function ModalExample({ useModal, useState }: PheliaMessageProps) {
 
   return (
     <Message text="A modal example">
+      <Section>
+        <Text type="mrkdwn">hey {props.name}!</Text>
+      </Section>
+
       {state === "canceled" && (
         <Section>
           <Text emoji>:no_good: why'd you have to do that</Text>
