@@ -45,7 +45,7 @@ export class Phelia {
     message: PheliaMessage<p>,
     channel: string,
     props: p = null
-  ) {
+  ): Promise<string> {
     const initializedState: { [key: string]: any } = {};
 
     /** A hook to create some state for a component */
@@ -66,7 +66,12 @@ export class Phelia {
       React.createElement(message, { useState, props, useModal })
     );
 
-    const { channel: channelID, ts } = await this.client.chat.postMessage({
+    // only can return a user id here, need to enhance it using methods.user
+    const {
+      channel: channelID,
+      ts,
+      message: sentMessageData,
+    } = await this.client.chat.postMessage({
       ...messageData,
       channel,
     });
@@ -80,9 +85,60 @@ export class Phelia {
         type: "message",
         name: message.name,
         state: initializedState,
+        user: { id: (sentMessageData as any).user },
         props,
         channelID,
         ts,
+      })
+    );
+
+    return messageKey;
+  }
+
+  async updateMessage<p>(key: string, props: p) {
+    const rawMessageContainer = await Phelia.Storage.get(key);
+    if (!rawMessageContainer) {
+      throw TypeError(`Could not find a message with key ${key}.`);
+    }
+
+    const container: PheliaMessageContainer = JSON.parse(rawMessageContainer);
+
+    /** A hook to create some state for a component */
+    function useState<t>(key: string): [t, (value: t) => void] {
+      return [
+        container.state[key],
+        (newState: t) => (container.state[key] = newState),
+      ];
+    }
+
+    /** A hook to create a modal for a component */
+    function useModal(): (title: string, props?: any) => Promise<void> {
+      return async () => null;
+    }
+
+    const message = await render(
+      React.createElement(this.messageCache.get(container.name) as any, {
+        useState,
+        useModal,
+        props,
+      })
+    );
+
+    await this.client.chat.update({
+      ...message,
+      channel: container.channelID,
+      ts: container.ts,
+    });
+
+    await Phelia.Storage.set(
+      container.viewID,
+      JSON.stringify({
+        message: JSON.stringify(message),
+        name: this.homeComponent.name,
+        state: container.state,
+        type: "home",
+        viewID: container.viewID,
+        user: container.user,
       })
     );
   }
@@ -187,6 +243,7 @@ export class Phelia {
             state: initializedState,
             type: "home",
             viewID,
+            user,
           })
         );
       } else {
@@ -242,6 +299,7 @@ export class Phelia {
             state: container.state,
             type: "home",
             viewID: container.viewID,
+            user,
           })
         );
       }
@@ -260,6 +318,7 @@ export class Phelia {
     }
 
     const container: PheliaMessageContainer = JSON.parse(rawMessageContainer);
+    const user = payload.user;
 
     /** A hook to create some state for a component */
     function useState<t>(
@@ -316,6 +375,7 @@ export class Phelia {
             state: initializedState,
             type: "modal",
             viewID,
+            user,
           })
         );
       };
@@ -327,11 +387,11 @@ export class Phelia {
           useState,
           props: container.props,
           useModal,
-          user: container.type === "home" ? payload.user : undefined,
+          user: container.type === "home" ? user : undefined,
         }),
         {
           value: action.action_id,
-          event: generateEvent(action, payload.user),
+          event: generateEvent(action, user),
           type: "interaction",
         }
       );
@@ -374,6 +434,7 @@ export class Phelia {
       JSON.stringify({
         ...container,
         message: JSON.stringify(message),
+        user,
       })
     );
   }
@@ -549,6 +610,7 @@ export class Phelia {
       viewContainer.invokerKey,
       JSON.stringify({
         ...invokerContainer,
+        user: payload.user,
         message: JSON.stringify(message),
       })
     );

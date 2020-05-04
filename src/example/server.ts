@@ -88,8 +88,11 @@ slackEvents.on("app_home_opened", client.appHomeHandler(HomeApp));
 
 app.use("/events", slackEvents.requestListener());
 
-// This is how you post a message....
-client.postMessage(ModalExample, "@max", { name: "Max" });
+(async () => {
+  const key = await client.postMessage(ModalExample, "@max", { name: "Max" });
+
+  await client.updateMessage(key, { name: "me but laters" });
+})();
 
 app.listen(port, () =>
   console.log(`Example app listening at http://localhost:${port}`)

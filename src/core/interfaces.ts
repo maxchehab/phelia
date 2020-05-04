@@ -131,6 +131,8 @@ export interface PheliaMessageContainer {
   type: "message" | "modal" | "home";
   /** An id for the surface */
   viewID: string;
+  /** A user who interacts with the message */
+  user: SlackUser;
 }
 
 export type MessageCallback = () => PheliaMessage[];
