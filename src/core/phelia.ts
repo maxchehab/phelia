@@ -157,13 +157,79 @@ export class Phelia {
     this.registerComponents([home]);
   }
 
-  appHomeHandler(home: PheliaHome) {
+  async updateHome(key: string) {
+    const rawMessageContainer = await Phelia.Storage.get(key);
+    if (!rawMessageContainer) {
+      throw TypeError(`Could not find a home app with key ${key}.`);
+    }
+
+    const container: PheliaMessageContainer = JSON.parse(rawMessageContainer);
+
+    /** A hook to create some state for a component */
+    function useState<t>(key: string): [t, (value: t) => void] {
+      return [
+        container.state[key],
+        (newState: t) => (container.state[key] = newState),
+      ];
+    }
+
+    /** A hook to create a modal for a component */
+    function useModal(): (title: string, props?: any) => Promise<void> {
+      return async () => null;
+    }
+
+    /** Run the onload callback */
+    await render(
+      React.createElement(this.homeComponent, {
+        useState,
+        useModal,
+        user: container.user,
+      }),
+      {
+        value: undefined,
+        event: { user: container.user },
+        type: "onupdate",
+      }
+    );
+
+    const home = await render(
+      React.createElement(this.homeComponent, {
+        useState,
+        useModal,
+        user: container.user,
+      })
+    );
+
+    await this.client.views.publish({
+      view: home,
+      user_id: container.user.id,
+    });
+
+    await Phelia.Storage.set(
+      container.viewID,
+      JSON.stringify({
+        message: JSON.stringify(home),
+        name: this.homeComponent.name,
+        state: container.state,
+        type: "home",
+        viewID: container.viewID,
+        user: container.user,
+      })
+    );
+  }
+
+  appHomeHandler(
+    home: PheliaHome,
+    onHomeOpened?: (key: string, user?: SlackUser) => void | Promise<void>
+  ) {
     this.registerHome(home);
 
     return async (payload: any) => {
       if (payload.tab !== "home") {
         return;
       }
+
+      let finalMessageKey: string;
 
       const messageKey = parseMessageKey(payload);
       let user: SlackUser = { id: payload.user } as SlackUser;
@@ -246,6 +312,8 @@ export class Phelia {
             user,
           })
         );
+
+        finalMessageKey = viewID;
       } else {
         const container: PheliaMessageContainer = JSON.parse(
           rawMessageContainer
@@ -302,6 +370,12 @@ export class Phelia {
             user,
           })
         );
+
+        finalMessageKey = container.viewID;
+      }
+
+      if (typeof onHomeOpened === "function") {
+        await onHomeOpened(finalMessageKey, user);
       }
     };
   }
