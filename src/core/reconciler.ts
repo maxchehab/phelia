@@ -213,6 +213,14 @@ class HostConfig
       return true;
     }
 
+    if (rootContainerInstance.action?.type === "onupdate" && props.onUpdate) {
+      rootContainerInstance.promises.push(
+        props.onUpdate(rootContainerInstance.action.event)
+      );
+
+      return true;
+    }
+
     if (
       rootContainerInstance.action &&
       props.action === rootContainerInstance.action.value
