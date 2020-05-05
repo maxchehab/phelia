@@ -186,7 +186,7 @@ export class Phelia {
     );
   }
 
-  registerComponents(components: PheliaMessage[]) {
+  registerComponents(components: (PheliaMessage | PheliaModal)[]) {
     const pheliaComponents = loadMessagesFromArray(components);
 
     this.messageCache = pheliaComponents.reduce(
@@ -812,7 +812,7 @@ export class Phelia {
 
   messageHandler(
     signingSecret: string,
-    messages?: string | PheliaMessage[] | PheliaModal[] | MessageCallback,
+    messages?: string | (PheliaModal | PheliaMessage)[] | MessageCallback,
     home?: PheliaMessage,
     slackOptions?: MessageAdapterOptions
   ) {
