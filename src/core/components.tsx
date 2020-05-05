@@ -19,6 +19,7 @@ import {
   SearchOptionsEvent,
   SelectDateEvent,
   SelectOptionEvent,
+  SubmitEvent,
 } from "./interfaces";
 
 type PheliaChild = false | null | undefined | ReactElement | ReactElement[];
@@ -531,6 +532,15 @@ interface ModalProps {
    * at the bottom-right of the view. Max length of 24 characters.
    */
   close?: ReactElement | string;
+
+  /**
+   * An optional callback that executes when the modal is submitted.
+   */ 
+  onSubmit?: (event: SubmitEvent) => Promise<void>;
+  /**
+   * An optional callback that executes when the modal is canceled.
+   */ 
+  onCancel?: (event: InteractionEvent) => Promise<void>;
 }
 
 /**
