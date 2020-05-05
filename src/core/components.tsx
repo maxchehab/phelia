@@ -752,7 +752,7 @@ export const Checkboxes = (props: CheckboxesProps) => (
 
       if (Array.isArray(options)) {
         const selectedOptions = options
-          .filter((option) => option.isSelected)
+          .filter((option) => option?.isSelected())
           .map((option) => ({ ...option, url: undefined }));
 
         instance.initial_options = selectedOptions.length
@@ -873,7 +873,7 @@ export const RadioButtons = (props: RadioButtonsProps) => (
             ...option,
             url: undefined,
           }))
-          .find((option) => option.isSelected);
+          .find((option) => option?.isSelected());
 
         instance.initial_option = selectedOption;
       }
@@ -1087,7 +1087,7 @@ export const SelectMenu = (props: SelectMenuProps) => (
             ...option,
             url: undefined,
           }))
-          .find((option) => option.isSelected);
+          .find((option) => option?.isSelected());
 
         instance.initial_option = selectedOption;
       }
@@ -1293,7 +1293,7 @@ export const MultiSelectMenu = (props: MultiSelectMenuProps) => (
             ...option,
             url: undefined,
           }))
-          .filter((option) => option.isSelected);
+          .filter((option) => option?.isSelected());
 
         instance.initial_options = selectedOptions;
       }
