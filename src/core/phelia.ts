@@ -48,7 +48,7 @@ export class Phelia {
   ): Promise<void> {
     const initializedState: { [key: string]: any } = {};
 
-    /** foo */
+    /** A hook to create some state for a component */
     function useState<t>(
       key: string,
       initialValue?: t
