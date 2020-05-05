@@ -572,7 +572,7 @@ export class Phelia {
       viewContainer.invokerKey
     );
 
-    if (viewContainer.invokerKey !== null && !rawInvokerContainer) {
+    if (!rawInvokerContainer) {
       throw new Error(
         `Could not find Message Container with key ${viewContainer.invokerKey} in storage.`
       );
