@@ -129,6 +129,8 @@ export interface PheliaMessageContainer {
   ts: string;
   /** The type of phelia component surface */
   type: "message" | "modal" | "home";
+  /** When `type` === message: whether the message is ephemeral or not */
+  isEphemeral?: true;
   /** An id for the surface */
   viewID: string;
   /** A user who interacts with the message */
