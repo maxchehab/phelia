@@ -98,6 +98,7 @@ export class Phelia {
   async postEphemeral<p>(
     message: PheliaMessage<p>,
     channel: string,
+    user: string,
     props: p = null,
   ): Promise<string> {
     const initializedState: { [key: string]: any } = {};
@@ -127,6 +128,7 @@ export class Phelia {
       message: sentMessageData,
     } = await this.client.chat.postEphemeral({
       ...messageData,
+      user,
       channel,
     });
 
