@@ -1295,7 +1295,9 @@ export const MultiSelectMenu = (props: MultiSelectMenuProps) => (
           }))
           .filter((option) => option?.isSelected());
 
-        instance.initial_options = selectedOptions;
+        if (selectedOptions.length) {
+          instance.initial_options = selectedOptions;
+        }
       }
 
       if (props.type === "external") {
