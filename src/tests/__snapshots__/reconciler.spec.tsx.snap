@@ -1038,7 +1038,6 @@ exports[`Multi Static Select Menu Multi Static Select Menu with one option group
 Object {
   "action_id": "select",
   "confirm": undefined,
-  "initial_options": Array [],
   "max_selected_items": undefined,
   "onSearchOptions": undefined,
   "option_groups": Array [
@@ -1075,7 +1074,6 @@ exports[`Multi Static Select Menu Multi Static Select Menu with one option rende
 Object {
   "action_id": "select",
   "confirm": undefined,
-  "initial_options": Array [],
   "max_selected_items": undefined,
   "onSearchOptions": undefined,
   "options": Array [
@@ -1223,7 +1221,6 @@ exports[`Multi Static Select Menu Multi Static Select Menu with two option group
 Object {
   "action_id": "select",
   "confirm": undefined,
-  "initial_options": Array [],
   "max_selected_items": undefined,
   "onSearchOptions": undefined,
   "option_groups": Array [
@@ -1280,7 +1277,6 @@ exports[`Multi Static Select Menu Multi Static Select Menu with two options rend
 Object {
   "action_id": "select",
   "confirm": undefined,
-  "initial_options": Array [],
   "max_selected_items": undefined,
   "onSearchOptions": undefined,
   "options": Array [
