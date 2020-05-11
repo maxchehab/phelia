@@ -138,6 +138,63 @@ export class Phelia {
     return messageKey;
   }
 
+  async postEphemeral<p>(
+    message: PheliaMessage<p>,
+    channel: string,
+    user: string,
+    props: p = null,
+  ): Promise<string> {
+    const initializedState: { [key: string]: any } = {};
+
+    /** A hook to create some state for a component */
+    function useState<t>(
+      key: string,
+      initialValue?: t
+    ): [t, (value: t) => void] {
+      initializedState[key] = initialValue;
+      return [initialValue, (_: t): void => null];
+    }
+
+    /** A hook to create a modal for a component */
+    function useModal(): (title: string, props?: any) => Promise<void> {
+      return async () => null;
+    }
+
+    const messageData = await render(
+      React.createElement(message, { useState, props, useModal })
+    );
+
+    // only can return a user id here, need to enhance it using methods.user
+    const {
+      channel: channelID,
+      ts,
+      message: sentMessageData,
+    } = await this.client.chat.postEphemeral({
+      ...messageData,
+      user,
+      channel,
+    });
+
+    const messageKey = `${channelID}:${ts}`;
+
+    await Phelia.Storage.set(
+      messageKey,
+      JSON.stringify({
+        message: JSON.stringify(messageData),
+        type: "message",
+        isEphemeral: true,
+        name: message.name,
+        state: initializedState,
+        user: { id: (sentMessageData as any).user },
+        props,
+        channelID,
+        ts,
+      })
+    );
+
+    return messageKey;
+  }
+
   async updateMessage<p>(key: string, props: p) {
     const rawMessageContainer = await Phelia.Storage.get(key);
     if (!rawMessageContainer) {
@@ -145,6 +202,10 @@ export class Phelia {
     }
 
     const container: PheliaMessageContainer = JSON.parse(rawMessageContainer);
+
+    if (container.isEphemeral === true) {
+      throw TypeError("Ephemeral messages cannot be updated.");
+    }
 
     /** A hook to create some state for a component */
     function useState<t>(key: string): [t, (value: t) => void] {

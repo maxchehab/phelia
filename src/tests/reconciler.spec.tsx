@@ -21,7 +21,7 @@ import {
   OptionGroup,
   SelectMenu,
   getOnSearchOptions,
-  MultiSelectMenu
+  MultiSelectMenu,
 } from "../core";
 
 describe("Text", () => {
@@ -174,12 +174,12 @@ describe("Section", () => {
           username: "johnsmith",
           name: "john smith",
           id: "u123",
-          team_id: "t123"
+          team_id: "t123",
         };
 
         await render(React.createElement(component), {
           value: "click",
-          event: { user }
+          event: { user },
         });
 
         expect(onClick).toBeCalledWith({ user });
@@ -289,12 +289,12 @@ describe("Button", () => {
           username: "johnsmith",
           name: "john smith",
           id: "u123",
-          team_id: "t123"
+          team_id: "t123",
         };
 
         await render(React.createElement(component), {
           value: "click",
-          event: { user }
+          event: { user },
         });
 
         expect(onClick).toBeCalledWith({ user });
@@ -304,7 +304,7 @@ describe("Button", () => {
   });
 
   describe("Button with async onClick property", () => {
-    const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
+    const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
     const onClick = jest.fn();
 
@@ -325,12 +325,12 @@ describe("Button", () => {
         username: "johnsmith",
         name: "john smith",
         id: "u123",
-        team_id: "t123"
+        team_id: "t123",
       };
 
       await render(React.createElement(component), {
         value: "click",
-        event: { user }
+        event: { user },
       });
 
       expect(onClick).toBeCalledTimes(1);
@@ -588,12 +588,12 @@ describe("DatePicker", () => {
           username: "johnsmith",
           name: "john smith",
           id: "u123",
-          team_id: "t123"
+          team_id: "t123",
         };
 
         await render(React.createElement(component), {
           value: "date",
-          event: { user, date: "2020-04-16" } as InteractionEvent
+          event: { user, date: "2020-04-16" } as InteractionEvent,
         });
 
         expect(onSubmit).toBeCalledWith({ user, date: "2020-04-16" });
@@ -1320,12 +1320,12 @@ describe("External Select Menu", () => {
       <SelectMenu
         type="external"
         minQueryLength={100}
-        onSearchOptions={event => {
+        onSearchOptions={(event) => {
           onSearchOptions(event);
           return [
             <OptionGroup key="1" label={"A group"}>
               <Option value="option-1">This was loaded asynchronously</Option>
-            </OptionGroup>
+            </OptionGroup>,
           ];
         }}
         action="select"
@@ -1344,25 +1344,25 @@ describe("External Select Menu", () => {
           username: "johnsmith",
           name: "john smith",
           id: "u123",
-          team_id: "t123"
+          team_id: "t123",
         };
 
         const onSearchOptionsFn = await getOnSearchOptions(component(), {
           value: "select",
           event: {
-            user
-          }
+            user,
+          },
         });
 
         await onSearchOptionsFn({
           user,
-          query: "a query"
+          query: "a query",
         });
 
         expect(onSearchOptions).toBeCalled();
         expect(onSearchOptions).toBeCalledWith({
           user,
-          query: "a query"
+          query: "a query",
         });
       });
     });
@@ -1471,6 +1471,32 @@ describe("Multi Static Select Menu", () => {
       expect(blocks).toMatchSnapshot();
     });
   });
+
+  describe("Multi Static Select Menu with diverse option group", () => {
+    const component = () => (
+      <MultiSelectMenu
+        maxSelectedItems={10}
+        placeholder="a placeholder"
+        action="select"
+      >
+        <OptionGroup label="an option group">
+          <Option value="option-a" selected>
+            option a
+          </Option>
+          <Option value="option-b" selected>
+            option b
+          </Option>
+          <Option value="option-b">option b</Option>
+          <Option value="option-c">option c</Option>
+        </OptionGroup>
+      </MultiSelectMenu>
+    );
+
+    it("renders a Multi Static Select Menu with diverse option group", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
 });
 
 describe("Multi External Select Menu", () => {
@@ -1480,12 +1506,12 @@ describe("Multi External Select Menu", () => {
       <MultiSelectMenu
         type="external"
         minQueryLength={100}
-        onSearchOptions={event => {
+        onSearchOptions={(event) => {
           onSearchOptions(event);
           return [
             <OptionGroup key="1" label={"A group"}>
               <Option value="option-1">This was loaded asynchronously</Option>
-            </OptionGroup>
+            </OptionGroup>,
           ];
         }}
         action="select"
@@ -1504,25 +1530,25 @@ describe("Multi External Select Menu", () => {
           username: "johnsmith",
           name: "john smith",
           id: "u123",
-          team_id: "t123"
+          team_id: "t123",
         };
 
         const onSearchOptionsFn = await getOnSearchOptions(component(), {
           value: "select",
           event: {
-            user
-          }
+            user,
+          },
         });
 
         await onSearchOptionsFn({
           user,
-          query: "a query"
+          query: "a query",
         });
 
         expect(onSearchOptions).toBeCalled();
         expect(onSearchOptions).toBeCalledWith({
           user,
-          query: "a query"
+          query: "a query",
         });
       });
     });

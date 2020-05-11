@@ -941,11 +941,103 @@ Object {
 }
 `;
 
+exports[`Multi Static Select Menu Multi Static Select Menu with diverse option group renders a Multi Static Select Menu with diverse option group 1`] = `
+Object {
+  "action_id": "select",
+  "confirm": undefined,
+  "initial_options": Array [
+    Object {
+      "description": undefined,
+      "isOption": [Function],
+      "isSelected": [Function],
+      "text": Object {
+        "text": "option a",
+        "type": "plain_text",
+      },
+      "url": undefined,
+      "value": "option-a",
+    },
+    Object {
+      "description": undefined,
+      "isOption": [Function],
+      "isSelected": [Function],
+      "text": Object {
+        "text": "option b",
+        "type": "plain_text",
+      },
+      "url": undefined,
+      "value": "option-b",
+    },
+  ],
+  "max_selected_items": 10,
+  "onSearchOptions": undefined,
+  "option_groups": Array [
+    Object {
+      "isOptionGroup": [Function],
+      "label": Object {
+        "text": "an option group",
+        "type": "plain_text",
+      },
+      "options": Array [
+        Object {
+          "description": undefined,
+          "isOption": [Function],
+          "isSelected": [Function],
+          "text": Object {
+            "text": "option a",
+            "type": "plain_text",
+          },
+          "url": undefined,
+          "value": "option-a",
+        },
+        Object {
+          "description": undefined,
+          "isOption": [Function],
+          "isSelected": [Function],
+          "text": Object {
+            "text": "option b",
+            "type": "plain_text",
+          },
+          "url": undefined,
+          "value": "option-b",
+        },
+        Object {
+          "description": undefined,
+          "isOption": [Function],
+          "isSelected": [Function],
+          "text": Object {
+            "text": "option b",
+            "type": "plain_text",
+          },
+          "url": undefined,
+          "value": "option-b",
+        },
+        Object {
+          "description": undefined,
+          "isOption": [Function],
+          "isSelected": [Function],
+          "text": Object {
+            "text": "option c",
+            "type": "plain_text",
+          },
+          "url": undefined,
+          "value": "option-c",
+        },
+      ],
+    },
+  ],
+  "placeholder": Object {
+    "text": "a placeholder",
+    "type": "plain_text",
+  },
+  "type": "multi_static_select",
+}
+`;
+
 exports[`Multi Static Select Menu Multi Static Select Menu with one option group renders a Multi Static Select Menu with one option group 1`] = `
 Object {
   "action_id": "select",
   "confirm": undefined,
-  "initial_options": Array [],
   "max_selected_items": undefined,
   "onSearchOptions": undefined,
   "option_groups": Array [
@@ -982,7 +1074,6 @@ exports[`Multi Static Select Menu Multi Static Select Menu with one option rende
 Object {
   "action_id": "select",
   "confirm": undefined,
-  "initial_options": Array [],
   "max_selected_items": undefined,
   "onSearchOptions": undefined,
   "options": Array [
@@ -1130,7 +1221,6 @@ exports[`Multi Static Select Menu Multi Static Select Menu with two option group
 Object {
   "action_id": "select",
   "confirm": undefined,
-  "initial_options": Array [],
   "max_selected_items": undefined,
   "onSearchOptions": undefined,
   "option_groups": Array [
@@ -1187,7 +1277,6 @@ exports[`Multi Static Select Menu Multi Static Select Menu with two options rend
 Object {
   "action_id": "select",
   "confirm": undefined,
-  "initial_options": Array [],
   "max_selected_items": undefined,
   "onSearchOptions": undefined,
   "options": Array [
