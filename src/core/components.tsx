@@ -516,7 +516,7 @@ export const Message = (props: MessageProps) => (
   />
 );
 
-interface ModalProps {
+interface BaseModalProps {
   /** Array of Actions, Context, Divider, ImageBlock, Input, or Section components	 */
   children: PheliaChildren;
   /** The title of the modal. */
@@ -542,6 +542,26 @@ interface ModalProps {
    */ 
   onCancel?: (event: InteractionEvent) => Promise<void>;
 }
+
+type RootModalProps = BaseModalProps & {
+  /** A modal subtype indicating this modal was opened by a shortcut or command. */
+  type: "root";
+  /**
+   * An optional callback that executes when the modal is submitted.
+   */
+  onSubmit?: (event: SubmitEvent) => Promise<void>;
+  /**
+   * An optional callback that executes when the modal is canceled.
+   */
+  onCancel?: (event: InteractionEvent) => Promise<void>;
+}
+
+type InlineModalProps = BaseModalProps & {
+  /** A modal subtype indicating this modal was opened by another component. */
+  type?: "inline";
+};
+
+type ModalProps = RootModalProps | InlineModalProps;
 
 /**
  * Modals provide focused spaces ideal for requesting and collecting data from users,

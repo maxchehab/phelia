@@ -131,6 +131,11 @@ export interface PheliaMessageContainer {
   type: "message" | "modal" | "home";
   /** When `type` === message: whether the message is ephemeral or not */
   isEphemeral?: true;
+  /**
+   * When `type` === modal, whether the modal was initiated inside another
+   * component (by use of `useModal`) or by a command or shortcut.
+   */
+  modalType: "inline" | "root";
   /** An id for the surface */
   viewID: string;
   /** A user who interacts with the message */

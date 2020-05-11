@@ -79,6 +79,7 @@ export class Phelia {
         props,
         state: initializedState,
         type: "modal",
+        modalType: "root",
         viewID,
       })
     );
@@ -552,6 +553,7 @@ export class Phelia {
             props,
             state: initializedState,
             type: "modal",
+            modalType: "inline",
             viewID,
             user,
           })
@@ -753,13 +755,14 @@ export class Phelia {
       return async () => null;
     }
 
+    const isRootModal = invokerContainer.modalType === "root";
     await render(
       React.createElement(this.messageCache.get(invokerContainer.name) as any, {
         useState,
         props: invokerContainer.props,
         useModal,
         user: invokerContainer.type === "home" ? payload.user : undefined,
-      }), {
+      }), !isRootModal ? undefined : {
         value: undefined,
         event: {
           form,
