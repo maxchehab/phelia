@@ -109,4 +109,4 @@ To request a feature [submit a new issue](https://github.com/maxchehab/phelia/is
 | [Static Select Menus](https://api.slack.com/reference/block-kit/block-elements#static_select) | ✅ | [Static Select Menu](https://github.com/maxchehab/phelia/blob/master/src/example/example-messages/static-select-menu.tsx) |
 | [Text](https://api.slack.com/reference/block-kit/composition-objects#text) | ✅ | [Counter](https://github.com/maxchehab/phelia/blob/master/src/example/example-messages/counter.tsx) |
 | [Text](https://api.slack.com/reference/block-kit/composition-objects#text) | ✅ | [Random Image](https://github.com/maxchehab/phelia/blob/master/src/example/example-messages/random-image.tsx) |
-| [User Select Menus](https://api.slack.com/reference/block-kit/block-elements#users_select) | ✅ | [User Select Menu](https://github.com/maxchehab/phelia/blob/master/src/example/example-messages/user-select-menu.tsx) |
+| [User Select Menus](https://api.slack.com/reference/block-kit/block-elements#users_select) | ✅ | [User Select Menu](https://github.com/maxchehab/phelia/blob/master/src/example/example-messages/users-select-menu.tsx) |
