@@ -1089,7 +1089,13 @@ export const SelectMenu = (props: SelectMenuProps) => (
           }))
           .find((option) => option?.isSelected());
 
-        instance.initial_option = selectedOption;
+        if (selectedOption) {
+          instance.initial_option = selectedOption;
+        } else if (initialOption) {
+          instance.initial_option = { ...initialOption, url: undefined };
+        } else {
+          instance.initial_option = undefined;
+        }
       }
 
       if (props.type === "external") {

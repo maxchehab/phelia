@@ -1133,6 +1133,24 @@ describe("Static Select Menu", () => {
     });
   });
 
+  describe("Static Select Menu with two options and one initial option", () => {
+    const component = () => (
+      <SelectMenu
+        placeholder="a placeholder"
+        action="select"
+        initialOption={<Option value="2">Option 2</Option>}
+      >
+        <Option value="1">Option 1</Option>
+        <Option value="2">Option 2</Option>
+      </SelectMenu>
+    );
+
+    it("renders a Static Select Menu with two options", async () => {
+      const blocks = await render(React.createElement(component));
+      expect(blocks).toMatchSnapshot();
+    });
+  });
+
   describe("Static Select Menu with selected option", () => {
     const component = () => (
       <SelectMenu placeholder="a placeholder" action="select">
