@@ -221,6 +221,22 @@ class HostConfig
       return true;
     }
 
+    if (rootContainerInstance.action?.type === "onsubmit" && props.onSubmit) {
+      rootContainerInstance.promises.push(
+        props.onSubmit(rootContainerInstance.action.event)
+      );
+
+      return true;
+    }
+
+    if (rootContainerInstance.action?.type === "oncancel" && props.onCancel) {
+      rootContainerInstance.promises.push(
+        props.onCancel(rootContainerInstance.action.event)
+      );
+
+      return true;
+    }
+
     if (
       rootContainerInstance.action &&
       props.action === rootContainerInstance.action.value

@@ -41,6 +41,50 @@ export class Phelia {
     this.client = new WebClient(token, slackOptions);
   }
 
+  async openModal<p>(
+    modal: PheliaModal<p>,
+    triggerID: string,
+    props: p = null,
+  ): Promise<void> {
+    const initializedState: { [key: string]: any } = {};
+
+    /** A hook to create some state for a component */
+    function useState<t>(
+      key: string,
+      initialValue?: t
+    ): [t, (value: t) => void] {
+      initializedState[key] = initialValue;
+      return [initialValue, (_: t): void => null];
+    }
+
+    const message = await render(
+      React.createElement(modal, { props, useState })
+    );
+
+    const response: any = await this.client.views.open({
+      trigger_id: triggerID,
+      view: {
+        ...message,
+        notify_on_close: true,
+      }
+    });
+
+    const viewID = response.view.id;
+    await Phelia.Storage.set(
+      viewID,
+      JSON.stringify({
+        message: JSON.stringify(message),
+        invokerKey: viewID,
+        name: modal.name,
+        props,
+        state: initializedState,
+        type: "modal",
+        modalType: "root",
+        viewID,
+      })
+    );
+  }
+
   async postMessage<p>(
     message: PheliaMessage<p>,
     channel: string,
@@ -204,7 +248,7 @@ export class Phelia {
     );
   }
 
-  registerComponents(components: PheliaMessage[]) {
+  registerComponents(components: (PheliaMessage | PheliaModal)[]) {
     const pheliaComponents = loadMessagesFromArray(components);
 
     this.messageCache = pheliaComponents.reduce(
@@ -509,6 +553,7 @@ export class Phelia {
             props,
             state: initializedState,
             type: "modal",
+            modalType: "inline",
             viewID,
             user,
           })
@@ -619,6 +664,76 @@ export class Phelia {
     const executedCallbacks = new Map<string, boolean>();
     const executionPromises = new Array<Promise<any>>();
 
+    /** Extracts content from modal form submission */
+    const formFromPayload = (payload: any) => {
+      if (payload.type === "view_submission") {
+        const form = Object.keys(payload.view.state.values)
+          .map((key) => [key, Object.keys(payload.view.state.values[key])[0]])
+          .map(([key, action]) => {
+            const data = payload.view.state.values[key][action];
+            
+            if (data.type === "datepicker") {
+              return [action, data.selected_date];
+            }
+
+            if (
+              data.type === "checkboxes" ||
+              data.type === "multi_static_select" ||
+              data.type === "multi_external_select"
+            ) {
+              const selected = data.selected_options.map(
+                (option: any) => option.value
+              );
+
+              return [action, selected];
+            }
+
+            if (data.type === "multi_users_select") {
+              return [action, data.selected_users];
+            }
+
+            if (data.type === "multi_channels_select") {
+              return [action, data.selected_channels];
+            }
+
+            if (data.type === "multi_conversations_select") {
+              return [action, data.selected_conversations];
+            }
+
+            if (
+              data.type === "radio_buttons" ||
+              data.type === "static_select" ||
+              data.type === "external_select"
+            ) {
+              return [action, data.selected_option.value];
+            }
+
+            if (data.type === "users_select") {
+              return [action, data.selected_user];
+            }
+
+            if (data.type === "conversations_select") {
+              return [action, data.selected_conversation];
+            }
+
+            if (data.type === "channels_select") {
+              return [action, data.selected_channel];
+            }
+
+            return [action, data.value];
+          })
+          .reduce((form, [action, value]) => {
+            form[action] = value;
+            return form;
+          }, {} as any);
+        return form;
+      }
+
+      return undefined;
+    };
+
+    const form = formFromPayload(payload);
+
     /** A hook to create a modal for a component */
     function useModal(
       key: string,
@@ -629,67 +744,7 @@ export class Phelia {
       if (key === viewContainer.modalKey && !executedCallbacks.get(key)) {
         executedCallbacks.set(key, true);
 
-        if (payload.type === "view_submission") {
-          const form = Object.keys(payload.view.state.values)
-            .map((key) => [key, Object.keys(payload.view.state.values[key])[0]])
-            .map(([key, action]) => {
-              const data = payload.view.state.values[key][action];
-
-              if (data.type === "datepicker") {
-                return [action, data.selected_date];
-              }
-
-              if (
-                data.type === "checkboxes" ||
-                data.type === "multi_static_select" ||
-                data.type === "multi_external_select"
-              ) {
-                const selected = data.selected_options.map(
-                  (option: any) => option.value
-                );
-
-                return [action, selected];
-              }
-
-              if (data.type === "multi_users_select") {
-                return [action, data.selected_users];
-              }
-
-              if (data.type === "multi_channels_select") {
-                return [action, data.selected_channels];
-              }
-
-              if (data.type === "multi_conversations_select") {
-                return [action, data.selected_conversations];
-              }
-
-              if (
-                data.type === "radio_buttons" ||
-                data.type === "static_select" ||
-                data.type === "external_select"
-              ) {
-                return [action, data.selected_option.value];
-              }
-
-              if (data.type === "users_select") {
-                return [action, data.selected_user];
-              }
-
-              if (data.type === "conversations_select") {
-                return [action, data.selected_conversation];
-              }
-
-              if (data.type === "channels_select") {
-                return [action, data.selected_channel];
-              }
-
-              return [action, data.value];
-            })
-            .reduce((form, [action, value]) => {
-              form[action] = value;
-              return form;
-            }, {} as any);
-
+        if (form !== undefined) {
           onSubmit &&
             executionPromises.push(onSubmit({ form, user: payload.user }));
         } else {
@@ -700,13 +755,21 @@ export class Phelia {
       return async () => null;
     }
 
+    const isRootModal = invokerContainer.modalType === "root";
     await render(
       React.createElement(this.messageCache.get(invokerContainer.name) as any, {
         useState,
         props: invokerContainer.props,
         useModal,
         user: invokerContainer.type === "home" ? payload.user : undefined,
-      })
+      }), !isRootModal ? undefined : {
+        value: undefined,
+        event: {
+          form,
+          user: payload.user,
+        } as InteractionEvent,
+        type: form === undefined ? "oncancel" : "onsubmit",
+      }
     );
 
     await Promise.all(executionPromises);
@@ -813,7 +876,7 @@ export class Phelia {
 
   messageHandler(
     signingSecret: string,
-    messages?: string | PheliaMessage[] | MessageCallback,
+    messages?: string | (PheliaModal | PheliaMessage)[] | MessageCallback,
     home?: PheliaMessage,
     slackOptions?: MessageAdapterOptions
   ) {
