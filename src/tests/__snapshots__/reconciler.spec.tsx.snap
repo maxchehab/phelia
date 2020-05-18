@@ -2089,6 +2089,54 @@ Object {
 }
 `;
 
+exports[`Static Select Menu Static Select Menu with two options and one initial option renders a Static Select Menu with two options 1`] = `
+Object {
+  "action_id": "select",
+  "confirm": undefined,
+  "initial_option": Object {
+    "description": undefined,
+    "isOption": [Function],
+    "isSelected": [Function],
+    "text": Object {
+      "text": "Option 2",
+      "type": "plain_text",
+    },
+    "url": undefined,
+    "value": "2",
+  },
+  "onSearchOptions": undefined,
+  "options": Array [
+    Object {
+      "description": undefined,
+      "isOption": [Function],
+      "isSelected": [Function],
+      "text": Object {
+        "text": "Option 1",
+        "type": "plain_text",
+      },
+      "url": undefined,
+      "value": "1",
+    },
+    Object {
+      "description": undefined,
+      "isOption": [Function],
+      "isSelected": [Function],
+      "text": Object {
+        "text": "Option 2",
+        "type": "plain_text",
+      },
+      "url": undefined,
+      "value": "2",
+    },
+  ],
+  "placeholder": Object {
+    "text": "a placeholder",
+    "type": "plain_text",
+  },
+  "type": "static_select",
+}
+`;
+
 exports[`Static Select Menu Static Select Menu with two options renders a Static Select Menu with two options 1`] = `
 Object {
   "action_id": "select",
