@@ -328,6 +328,28 @@ _This requires use of Slack's SDK `@slack/events-api`_
 
 With this setup, whenever a user opens the Home tab it will display your Home App accordingly.
 
+## Opening Modals
+
+Modals can be opened in two ways:
+
+1. By use of the `useModal` hook in a component.
+2. In response to a user command or action within Slack.
+
+When responding to user action outside a phelia component, one can record the `trigger_id` sent by slack in response to a command and use it to open a modal:
+
+```ts
+
+// In response to some slash command from the user.
+const triggerID = slackCommandPayload.trigger_id;
+const client = new Phelia(process.env.SLACK_TOKEN);
+
+await client.openModal(
+  MyModal,
+  triggerID,
+  { // props },
+);
+```
+
 ## Injected Properties
 
 Depending on which type of component you are building, Phelia will inject a collection of functions and properties into your components function.
