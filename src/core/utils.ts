@@ -71,10 +71,48 @@ export function generateEvent(
   return { user };
 }
 
+const PACKED_ACTION_DELIM = "###";
+/** Packs an actionID into a prefix. */
+export function packActionID(actionID: string, prefix: string | undefined): string {
+  return prefix ? `${prefix}${PACKED_ACTION_DELIM}${actionID}`: actionID;
+}
+
+type UnpackedActionID = {
+  /** Prefix, like a responseURL, for an actionID.*/
+  prefix?: string | undefined;
+  /** The original actionID specified in a component */
+  actionID: string;
+};
+/** Unpacks an actionID from a packed actionID */
+export function unpackActionID(serialized: string): UnpackedActionID {
+  const [head, tail] = serialized.split(PACKED_ACTION_DELIM);
+  if (tail == null) {
+    return {
+      actionID: head,
+    };
+  }
+
+  return {
+    prefix: head,
+    actionID: tail,
+  };
+}
+
 /** Get a unique key from a message payload */
 export function parseMessageKey(payload: any) {
   if (payload?.view?.id) {
     return payload.view.id;
+  }
+
+  const {actions} = payload;
+  const unwrappedAction = (Array.isArray(actions) ? actions : [])
+    .map((v) => {
+        return v.action_id ? unpackActionID(v.action_id) : null
+    })
+    .find((v) => v.prefix !== null);
+
+  if (unwrappedAction) {
+    return unwrappedAction.prefix;
   }
 
   if (payload.container) {

@@ -27,12 +27,14 @@ declare namespace JSX {
     reconcile: (
       element: React.FunctionComponentElement<any>
     ) => [any, Promise<any>[]],
-    promises: Promise<any>[]
+    promises: Promise<any>[],
+    action?: Record<string, unknown>,
   ) => any | ((props: any) => any);
 
   interface ComponentProps {
     componentType: ComponentType;
     toSlackElement: ToSlackElement;
+    [key: string]: unknown;
   }
 
   interface IntrinsicElements {

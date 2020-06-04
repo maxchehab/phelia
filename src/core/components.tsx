@@ -21,6 +21,7 @@ import {
   SelectOptionEvent,
   SubmitEvent,
 } from "./interfaces";
+import { packActionID, unpackActionID } from "./utils";
 
 type PheliaChild = false | null | undefined | ReactElement | ReactElement[];
 type PheliaChildren = PheliaChild | PheliaChild[];
@@ -117,11 +118,15 @@ type ButtonProps = XOR<ButtonWithOnClick, ButtonBase>;
 export const Button = (props: ButtonProps) => (
   <component
     {...props}
+    action={props.action ? unpackActionID(props.action).actionID : undefined}
     componentType={"button"}
-    toSlackElement={(props, reconcile, promises): SlackButton => {
+    toSlackElement={(props, reconcile, promises, action): SlackButton => {
+      const actionIDPrefix = action?.type !== "onresponse"
+        ? undefined
+        : action.value as string;
       const instance: SlackButton = {
         type: "button",
-        action_id: props.action,
+        action_id: props.action ? packActionID(props.action, actionIDPrefix) : undefined,
         style: props.style,
         url: props.url,
         text: { type: "plain_text", text: "", emoji: props.emoji },
@@ -473,11 +478,14 @@ export const DatePicker = (props: DatePickerProps) => (
   <component
     {...props}
     componentType="confirm"
-    toSlackElement={(props, reconcile, promises): Datepicker => {
+    toSlackElement={(props, reconcile, promises, action): Datepicker => {
+      const actionIDPrefix = action?.type !== "onresponse"
+        ? undefined
+        : action.value as string;
       const instance: Datepicker = {
         type: "datepicker",
         initial_date: props.initialDate,
-        action_id: props.action,
+        action_id: props.action ? packActionID(props.action, actionIDPrefix) : undefined,
       };
 
       const [placeholder, placeholderPromises] = reconcile(props.placeholder);
@@ -1081,10 +1089,14 @@ export const SelectMenu = (props: SelectMenuProps) => (
   <component
     {...props}
     componentType="select-menu"
-    toSlackElement={(props, reconcile, promises) => {
+    toSlackElement={(props, reconcile, promises, actions) => {
+      const actionIDPrefix = action?.type !== "onresponse"
+        ? undefined
+        : action.value as string;
+
       const instance: any = {
         type: props.type + "_select",
-        action_id: props.action,
+        action_id: props.action ? packActionID(props.action, actionIDPrefix) : undefined,
         onSearchOptions: props.onSearchOptions,
       };
 
@@ -1292,10 +1304,14 @@ export const MultiSelectMenu = (props: MultiSelectMenuProps) => (
   <component
     {...props}
     componentType="multi-select-menu"
-    toSlackElement={(props, reconcile, promises) => {
+    toSlackElement={(props, reconcile, promises, action) => {
+      const actionIDPrefix = action?.type !== "onresponse"
+        ? undefined
+        : action.value as string;
+
       const instance: any = {
         type: "multi_" + props.type + "_select",
-        action_id: props.action,
+        action_id: props.action ? packActionID(props.action, actionIDPrefix) : undefined,
         max_selected_items: props.maxSelectedItems,
         onSearchOptions: props.onSearchOptions,
       };

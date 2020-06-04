@@ -70,7 +70,7 @@ export interface Action {
   event: InteractionEvent;
 
   /** The type of action */
-  type?: "interaction" | "onload" | "onupdate" | "oncancel" | "onsubmit";
+  type?: "interaction" | "onload" | "onupdate" | "oncancel" | "onsubmit" | "onresponse";
 }
 
 export interface PheliaMessageMetadata {
