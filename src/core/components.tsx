@@ -1089,7 +1089,7 @@ export const SelectMenu = (props: SelectMenuProps) => (
   <component
     {...props}
     componentType="select-menu"
-    toSlackElement={(props, reconcile, promises, actions) => {
+    toSlackElement={(props, reconcile, promises, action) => {
       const actionIDPrefix = action?.type !== "onresponse"
         ? undefined
         : action.value as string;
