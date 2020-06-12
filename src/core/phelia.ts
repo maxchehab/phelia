@@ -1,6 +1,11 @@
 import { createMessageAdapter } from "@slack/interactive-messages";
 import { MessageAdapterOptions } from "@slack/interactive-messages/dist/adapter";
-import { WebClient, WebClientOptions } from "@slack/web-api";
+import {
+  WebClient,
+  WebClientOptions,
+  ChatPostMessageArguments,
+  ChatPostEphemeralArguments,
+} from "@slack/web-api";
 import React, { useState as reactUseState } from "react";
 
 import { render, getOnSearchOptions } from "./reconciler";
@@ -44,7 +49,7 @@ export class Phelia {
   async openModal<p>(
     modal: PheliaModal<p>,
     triggerID: string,
-    props: p = null,
+    props: p = null
   ): Promise<void> {
     const initializedState: { [key: string]: any } = {};
 
@@ -66,7 +71,7 @@ export class Phelia {
       view: {
         ...message,
         notify_on_close: true,
-      }
+      },
     });
 
     const viewID = response.view.id;
@@ -88,7 +93,8 @@ export class Phelia {
   async postMessage<p>(
     message: PheliaMessage<p>,
     channel: string,
-    props: p = null
+    props: p = null,
+    slackOptions?: ChatPostMessageArguments
   ): Promise<string> {
     const initializedState: { [key: string]: any } = {};
 
@@ -117,6 +123,7 @@ export class Phelia {
       message: sentMessageData,
     } = await this.client.chat.postMessage({
       ...messageData,
+      ...slackOptions,
       channel,
     });
 
@@ -144,6 +151,7 @@ export class Phelia {
     channel: string,
     user: string,
     props: p = null,
+    slackOptions?: ChatPostEphemeralArguments
   ): Promise<string> {
     const initializedState: { [key: string]: any } = {};
 
@@ -174,6 +182,7 @@ export class Phelia {
       ...messageData,
       user,
       channel,
+      ...slackOptions,
     });
 
     const messageKey = `${channelID}:${ts}`;
@@ -671,7 +680,7 @@ export class Phelia {
           .map((key) => [key, Object.keys(payload.view.state.values[key])[0]])
           .map(([key, action]) => {
             const data = payload.view.state.values[key][action];
-            
+
             if (data.type === "datepicker") {
               return [action, data.selected_date];
             }
@@ -762,14 +771,17 @@ export class Phelia {
         props: invokerContainer.props,
         useModal,
         user: invokerContainer.type === "home" ? payload.user : undefined,
-      }), !isRootModal ? undefined : {
-        value: undefined,
-        event: {
-          form,
-          user: payload.user,
-        } as InteractionEvent,
-        type: form === undefined ? "oncancel" : "onsubmit",
-      }
+      }),
+      !isRootModal
+        ? undefined
+        : {
+            value: undefined,
+            event: {
+              form,
+              user: payload.user,
+            } as InteractionEvent,
+            type: form === undefined ? "oncancel" : "onsubmit",
+          }
     );
 
     await Promise.all(executionPromises);
