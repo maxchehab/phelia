@@ -93,7 +93,7 @@ To request a feature [submit a new issue](https://github.com/maxchehab/phelia/is
 | [Image Block](https://api.slack.com/reference/block-kit/blocks#image) | ✅ | [Random Image](https://github.com/maxchehab/phelia/blob/master/src/example/example-messages/random-image.tsx) |
 | [Image](https://api.slack.com/reference/block-kit/block-elements#image) | ✅ | [Random Image](https://github.com/maxchehab/phelia/blob/master/src/example/example-messages/random-image.tsx) |
 | [Input](https://api.slack.com/reference/block-kit/blocks#input) | ✅ | [Modal Example](https://github.com/maxchehab/phelia/blob/master/src/example/example-messages/modal-example.tsx) |
-| [Messages](https://api.slack.com/surfaces/messages) | ✅ | [Server](https://github.com/maxchehab/phelia/blob/master/src/example/example-messages/server.ts) |
+| [Messages](https://api.slack.com/surfaces/messages) | ✅ | [Server](https://github.com/maxchehab/phelia/blob/master/src/example/server.ts) |
 | [Modals](https://api.slack.com/surfaces/modals) | ✅ | [Modal Example](https://github.com/maxchehab/phelia/blob/master/src/example/example-messages/modal-example.tsx) |
 | [Multi channels select Menu](https://api.slack.com/reference/block-kit/block-elements#multi_channels_select) | ✅ | [Multi Channels Select Menu](https://github.com/maxchehab/phelia/blob/master/src/example/example-messages/multi-channels-select-menu.tsx) |
 | [Multi conversations select Menu](https://api.slack.com/reference/block-kit/block-elements#multi_conversations_select) | ✅ | [Multi Conversations Select Menu](https://github.com/maxchehab/phelia/blob/master/src/example/example-messages/multi-conversations-select-menu.tsx) |
