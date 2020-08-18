@@ -1,6 +1,6 @@
 {
   "name": "phelia",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "main": "dist/index.js",
   "license": "MIT",
   "repository": "https://github.com/maxchehab/phelia",
