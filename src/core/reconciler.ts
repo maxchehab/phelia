@@ -89,7 +89,8 @@ class HostConfig
 
           return [nodes, promises];
         },
-        rootContainerInstance.promises
+        rootContainerInstance.promises,
+        rootContainerInstance.action
       );
     }
 
@@ -430,7 +431,7 @@ export async function render(
   element:
     | React.FunctionComponentElement<any>
     | React.ComponentElement<any, any>,
-  action?: Action
+  action?: Action,
 ) {
   const [blocks, promises] = reconcile(element, action);
 

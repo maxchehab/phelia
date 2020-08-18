@@ -14,6 +14,7 @@ import {
   loadMessagesFromArray,
   loadMessagesFromDirectory,
   parseMessageKey,
+  unpackActionID,
 } from "./utils";
 import { SelectMenu } from "./components";
 import {
@@ -27,6 +28,7 @@ import {
   PheliaHome,
   SlackUser,
 } from "./interfaces";
+import fetch from "node-fetch";
 
 /** The main phelia client. Handles sending messages with phelia components */
 export class Phelia {
@@ -201,6 +203,62 @@ export class Phelia {
     );
 
     return messageKey;
+  }
+
+  async postEphemeralResponse<p>(
+    message: PheliaMessage<p>,
+    responseURL: string,
+    props: p = null,
+  ): Promise<void> {
+    const initializedState: { [key: string]: any } = {};
+
+    /** A hook to create some state for a component */
+    function useState<t>(
+      key: string,
+      initialValue?: t
+    ): [t, (value: t) => void] {
+      initializedState[key] = initialValue;
+      return [initialValue, (_: t): void => null];
+    }
+
+    /** A hook to create a modal for a component */
+    function useModal(): (title: string, props?: any) => Promise<void> {
+      return async () => null;
+    }
+
+    const messageData = await render(
+      React.createElement(message, { useState, props, useModal }),
+      {
+        type: "onresponse",
+        event: undefined,
+        value: responseURL,
+      },
+    );
+
+    const response = await fetch(responseURL, {
+      method: "POST",
+      body: JSON.stringify({
+        ...messageData,
+        response_type: "ephemeral",
+      }),
+    });
+
+    const result = await response.text();
+    if (result !== "ok") {
+      throw TypeError("API returned non ok response.");
+    }
+
+    await Phelia.Storage.set(
+      responseURL,
+      JSON.stringify({
+        message: JSON.stringify(message),
+        name: message.name,
+        state: initializedState,
+        isEphemeral: true,
+        props,
+        type: "message",
+      })
+    );
   }
 
   async updateMessage<p>(key: string, props: p) {
@@ -583,11 +641,15 @@ export class Phelia {
           user: container.type === "home" ? user : undefined,
         }),
         {
-          value: action.action_id,
+          value: unpackActionID(action.action_id).actionID,
           event: generateEvent(action, user),
           type: "interaction",
         }
       );
+    }
+
+    if (container.isEphemeral) {
+      return;
     }
 
     const message = await render(
