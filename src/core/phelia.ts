@@ -331,8 +331,7 @@ export class Phelia {
   }
 
   async enrichUser(id: string): Promise<SlackUser> {
-    let user: SlackUser;
-    user.id = id;
+    let user = { id } as SlackUser;
 
     try {
       const userResponse = (await this.client.users.info({
