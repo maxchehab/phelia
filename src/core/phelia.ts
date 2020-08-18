@@ -116,7 +116,6 @@ export class Phelia {
       React.createElement(message, { useState, props, useModal })
     );
 
-    // only can return a user id here, need to enhance it using methods.user
     const {
       channel: channelID,
       ts,
@@ -127,6 +126,8 @@ export class Phelia {
       channel,
     });
 
+    const user = await this.enrichUser((sentMessageData as any).user);
+
     const messageKey = `${channelID}:${ts}`;
 
     await Phelia.Storage.set(
@@ -136,7 +137,7 @@ export class Phelia {
         type: "message",
         name: message.name,
         state: initializedState,
-        user: { id: (sentMessageData as any).user },
+        user,
         props,
         channelID,
         ts,
@@ -149,7 +150,7 @@ export class Phelia {
   async postEphemeral<p>(
     message: PheliaMessage<p>,
     channel: string,
-    user: string,
+    userId: string,
     props: p = null,
     slackOptions?: ChatPostEphemeralArguments
   ): Promise<string> {
@@ -173,17 +174,14 @@ export class Phelia {
       React.createElement(message, { useState, props, useModal })
     );
 
-    // only can return a user id here, need to enhance it using methods.user
-    const {
-      channel: channelID,
-      ts,
-      message: sentMessageData,
-    } = await this.client.chat.postEphemeral({
+    const { channel: channelID, ts } = await this.client.chat.postEphemeral({
       ...messageData,
-      user,
+      userId,
       channel,
       ...slackOptions,
     });
+
+    const user = await this.enrichUser(userId);
 
     const messageKey = `${channelID}:${ts}`;
 
@@ -195,7 +193,7 @@ export class Phelia {
         isEphemeral: true,
         name: message.name,
         state: initializedState,
-        user: { id: (sentMessageData as any).user },
+        user,
         props,
         channelID,
         ts,
@@ -332,6 +330,27 @@ export class Phelia {
     );
   }
 
+  async enrichUser(id: string): Promise<SlackUser> {
+    let user: SlackUser;
+    user.id = id;
+
+    try {
+      const userResponse = (await this.client.users.info({
+        user: id,
+      })) as any;
+
+      user.username = userResponse.user.profile.display_name;
+      user.name = userResponse.user.name;
+      user.team_id = userResponse.user.team_id;
+    } catch (error) {
+      console.warn(
+        "Could not retrieve User's information, only 'user.id' is available for Home App. Oauth scope 'users:read' is required."
+      );
+    }
+
+    return user;
+  }
+
   appHomeHandler(
     home: PheliaHome,
     onHomeOpened?: (key: string, user?: SlackUser) => void | Promise<void>
@@ -346,21 +365,7 @@ export class Phelia {
       let finalMessageKey: string;
 
       const messageKey = parseMessageKey(payload);
-      let user: SlackUser = { id: payload.user } as SlackUser;
-
-      try {
-        const userResponse = (await this.client.users.info({
-          user: payload.user,
-        })) as any;
-
-        user.username = userResponse.user.profile.display_name;
-        user.name = userResponse.user.name;
-        user.team_id = userResponse.user.team_id;
-      } catch (error) {
-        console.warn(
-          "Could not retrieve User's information, only 'user.id' is available for Home App. Oauth scope 'users:read' is required."
-        );
-      }
+      const user = await this.enrichUser(payload.user);
 
       const rawMessageContainer = await Phelia.Storage.get(messageKey);
 
