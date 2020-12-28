@@ -535,11 +535,11 @@ interface BaseModalProps {
 
   /**
    * An optional callback that executes when the modal is submitted.
-   */ 
+   */
   onSubmit?: (event: SubmitEvent) => Promise<void>;
   /**
    * An optional callback that executes when the modal is canceled.
-   */ 
+   */
   onCancel?: (event: InteractionEvent) => Promise<void>;
 }
 
@@ -554,7 +554,7 @@ type RootModalProps = BaseModalProps & {
    * An optional callback that executes when the modal is canceled.
    */
   onCancel?: (event: InteractionEvent) => Promise<void>;
-}
+};
 
 type InlineModalProps = BaseModalProps & {
   /** A modal subtype indicating this modal was opened by another component. */
@@ -1223,8 +1223,8 @@ interface MultiUserSelectMenu extends MultiSelectMenuBase {
 interface MultiChannelSelectMenu extends MultiSelectMenuBase {
   /** The type of the multi select. */
   type: "channels";
-  /** 
-   * An array of one or more IDs of any valid public channel to be pre-selected 
+  /**
+   * An array of one or more IDs of any valid public channel to be pre-selected
    * when the menu loads.
    v*/
   initialChannels?: string[];
@@ -1305,8 +1305,11 @@ export const MultiSelectMenu = (props: MultiSelectMenuProps) => (
       const [{ fields: optionsOrGroups }, optionPromises] = reconcile(
         React.createElement(Section, { children: props.children })
       );
-      const [{ fields: initialOptions }, initialOptionsPromises] = reconcile(
+      const [, initialOptionsPromises] = reconcile(
         React.createElement(Section, { children: props.children })
+      );
+      const initialOptions = props.initialOptions?.map(
+        (option: any) => reconcile(option)[0]
       );
 
       if (
