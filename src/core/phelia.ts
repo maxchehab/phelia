@@ -361,7 +361,7 @@ export class Phelia {
   ) {
     this.registerHome(home);
 
-    return async (payload: any, asd: any, asd2) => {
+    return async (payload: any) => {
       if (payload.tab !== "home") {
         return;
       }
