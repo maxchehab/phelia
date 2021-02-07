@@ -1,6 +1,6 @@
 {
   "name": "@spotim/phelia",
-  "version": "0.1.12-fix-initial-options",
+  "version": "1.0.0",
   "main": "dist/index.js",
   "license": "MIT",
   "repository": "https://github.com/maxchehab/phelia",
