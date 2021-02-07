@@ -8,7 +8,8 @@
     "moduleResolution": "node",
     "outDir": "dist",
     "declaration": true,
-    "baseUrl": "."
+    "baseUrl": ".",
+    "skipLibCheck": true
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules/**/*", "src/example/**/*", "src/tests/**/*"]
