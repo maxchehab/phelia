@@ -38,11 +38,16 @@ export class Phelia {
 
   private homeComponent: PheliaHome = undefined;
 
+  private token: string;
+  private tokens: any = {};
+
   setStorage(storage: PheliaStorage) {
     Phelia.Storage = storage;
   }
 
-  constructor(token: string, slackOptions?: WebClientOptions) {
+  constructor(token: string, slackOptions?: WebClientOptions, tokens?: any) {
+    this.token = token;
+    this.tokens = tokens;
     this.client = new WebClient(token, slackOptions);
   }
 
@@ -356,7 +361,7 @@ export class Phelia {
   ) {
     this.registerHome(home);
 
-    return async (payload: any) => {
+    return async (payload: any, asd: any, asd2) => {
       if (payload.tab !== "home") {
         return;
       }
@@ -475,6 +480,7 @@ export class Phelia {
         await this.client.views.publish({
           view: home,
           user_id: payload.user,
+          token: this.tokens[payload.view.team_id],
         });
 
         await Phelia.Storage.set(
@@ -552,6 +558,7 @@ export class Phelia {
             ...message,
             notify_on_close: true,
           },
+          token: this.tokens[payload.view.team_id],
         });
 
         const viewID = response.view.id;
@@ -600,11 +607,14 @@ export class Phelia {
     );
 
     if (JSON.stringify(message) !== container.message) {
+      const token = this.tokens[payload.team.id];
+
       if (container.type === "message") {
         await this.client.chat.update({
           ...message,
           channel: container.channelID,
           ts: container.ts,
+          token: token,
         });
       } else if (container.type === "modal") {
         await this.client.views.update({
@@ -613,11 +623,13 @@ export class Phelia {
             ...message,
             notify_on_close: true,
           },
+          token: token,
         });
       } else {
         await this.client.views.update({
           view_id: messageKey,
           view: message,
+          token: this.token,
         });
       }
     }
