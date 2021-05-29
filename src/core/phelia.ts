@@ -150,7 +150,7 @@ export class Phelia {
   async postEphemeral<p>(
     message: PheliaMessage<p>,
     channel: string,
-    userId: string,
+    user: string,
     props: p = null,
     slackOptions?: ChatPostEphemeralArguments
   ): Promise<string> {
@@ -176,12 +176,12 @@ export class Phelia {
 
     const { channel: channelID, ts } = await this.client.chat.postEphemeral({
       ...messageData,
-      userId,
+      user,
       channel,
       ...slackOptions,
     });
 
-    const user = await this.enrichUser(userId);
+    const user = await this.enrichUser(user);
 
     const messageKey = `${channelID}:${ts}`;
 
